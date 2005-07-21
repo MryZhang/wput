@@ -1,0 +1,17 @@
+ o Look out for TODO-Directives in the sources (grep TODO src/*)
+ o testing, testing, bug-reporting and fixing :)
+ o i18n / l10n
+ o password database (in .netrc format)
+ o better ascii mode transfer (resume etc)
+ o configure.in -> look what the system provides -> use it in the source
+ o scripting support
+ o ipv6 compatibility
+ o HTTP/1.1 PUT / WebDAV
+ o support for files >2gb
+(o)I forgot what it is(???)
+
+# print a list of all failed fsession when exiting?
+# add an option for keep-permissions. so restore the file-permissions
+  using the SITE chmod command
+# some error-messages are given twice or even more times in different
+  code-levels. check them and remove unneccessary ones.
