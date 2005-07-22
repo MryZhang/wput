@@ -164,7 +164,7 @@ int do_cwd(_fsession * fsession){
 /* handle the resume_table-> urgs ugly. TODO NRV better idea?
  * TODO NRV recheck this. make it smaller, easier */
 void set_resuming(_fsession * fsession) {
-	if(fsession->local_fsize > fsession->target_fsize && opt.resume_table.large_small == RESUME_TABLE_UPLOAD) {
+	if(fsession->local_fsize < fsession->target_fsize && opt.resume_table.small_large == RESUME_TABLE_UPLOAD) {
 		fsession->target_fsize = 0;
 		printout(vMORE, _("Remote file size is bigger than local size. Restarting at 0\n"));
 	}
@@ -172,7 +172,7 @@ void set_resuming(_fsession * fsession) {
 		fsession->target_fsize = 0;
 		printout(vMORE, _("Remote file size is equal to local size. Restarting at 0\n"));
 	}
-	else if(fsession->local_fsize < fsession->target_fsize && opt.resume_table.small_large == RESUME_TABLE_UPLOAD) {
+	else if(fsession->local_fsize > fsession->target_fsize && opt.resume_table.large_small == RESUME_TABLE_UPLOAD) {
 		fsession->target_fsize = 0;
 		printout(vMORE, _("Remote file size is smaller than local size. Restarting at 0.\n"));
 	}

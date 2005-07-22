@@ -576,7 +576,7 @@ wput_socket * proxy_connect(proxy_settings * ps, unsigned int ip, unsigned short
         request = malloc(8 /* 'CONNECT ' */
             + (hostname ? strlen(hostname) : 15 /* '255.255.255.255' */)
             + (userencoded ? strlen(userencoded) + 29 : 0) /* '\r\nProxy-Authorization: Basic ' */
-            + 10 + 5); /* ':' + ' HTTP/1.0' + '\r\n\r\n' + '\0' */
+            + 10 + 5 + 5); /* ':' + (port (max '65535')) + ' HTTP/1.0' + '\r\n\r\n' + '\0' */
         strcpy(request, "CONNECT ");
 		if(ip == 0)
             strcat(request, hostname);
@@ -640,6 +640,7 @@ char * base64(char * p, size_t len) {
                 else
                         ret[i] = '/';
         }
+	ret[i] = 0;
         return ret;
 }
 #ifdef WIN32
