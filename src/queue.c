@@ -96,7 +96,6 @@ void queue_add_entry(char * file, char * url) {
 /* we only process complete entries here. lonely urls are process after everything
  * has been read except when force is set to 1 */
 void queue_process(int force) {
-	_queue * K = queue_entry_point;
 	_queue * P;
 	int res;
 	
@@ -104,9 +103,9 @@ void queue_process(int force) {
 	if(opt.verbose >= vDEBUG)
 		printqueue(queue_entry_point);
 	
-	if(K == NULL) return;
-	while(K != NULL && K->url != NULL && (K->file != NULL || force)) {
-		_fsession * F = build_fsession(K->file, K->url);
+	if(queue_entry_point == NULL) return;
+	while(queue_entry_point != NULL && queue_entry_point->url != NULL && (queue_entry_point->file != NULL || force)) {
+		_fsession * F = build_fsession(queue_entry_point->file, queue_entry_point->url);
 		if(F && F != (void *) -2) {
 			if(!opt.sorturls) {
 				res = fsession_transmit_file(F, opt.curftp);
@@ -119,14 +118,13 @@ void queue_process(int force) {
 				fsession_queue_entry_point = fsession_insert(F, fsession_queue_entry_point);
 		} else
 			printout(vDEBUG, "ignoring unbuild fsession\n");
-		P = K;
-		K = K->next;
+		P = queue_entry_point;
+		queue_entry_point = queue_entry_point->next;
 	
 		/* the file is free()d by build_fsession, the url is our task */
 		free(P->url);
 		free(P); 
 	}
-	queue_entry_point = K;
 }
 /* we just make all remaining filenames have the last known url */
 void process_missing(void) {
