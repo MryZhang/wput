@@ -216,7 +216,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 		return ERR_FAILED;
 	}
 	
-	printout(vNORMAL, "!\n");
+	printout(vNORMAL, "! ");
 	
 	/* We always need to log in and CWD on a new connection */
 	self->loggedin     = 0;
@@ -237,6 +237,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 		return ERR_FAILED;
 	}
 #endif
+	printout(vNORMAL, "\n");
 	return 0;
 }
 
@@ -297,13 +298,13 @@ int ftp_login(ftp_con * self, char * user, char * pass){
 /* error-levels: ERR_FAILED, get_msg() */
 int ftp_auth_tls(ftp_con * self) {
 	int res;
-	printout(vMORE, "==> AUTH TLS ... ");
+	printout(vMORE, "\n==> AUTH TLS ... ");
 	ftp_issue_cmd(self, "AUTH TLS", 0);
 	res = ftp_get_msg(self);
 	if(self->r.code == 234)
 		res = socket_transform_to_ssl(self->sock);
 	if(res < 0) printout(vMORE, _("failed (%s).\n"), self->r.message);
-	else        printout(vNORMAL, _("encrypted!\n"));
+	else        printout(vNORMAL, _("encrypted!"));
 	return res;
 }
 /* set some options that are required for tls-encrypted data-connections */
