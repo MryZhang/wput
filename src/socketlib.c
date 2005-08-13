@@ -243,7 +243,10 @@ char * socket_read_line(wput_socket * sock) {
 int socket_read(wput_socket * sock, void *buf, size_t len) {
 
   int res;
-  
+  /* TODO NRV looks like a possible bug to me. when there is no data pending,
+   * TODO NRV but already data received (but not the complete ssl-block),
+   * TODO NRV the next receive might fail, but we are in blocking read and
+   * TODO NRV won't detect the connection-break-down. */
   if( 
 #ifdef HAVE_SSL
 	(sock->ssl && SSL_pending(sock->ssl) > 0) ||  
@@ -269,11 +272,14 @@ int socket_read(wput_socket * sock, void *buf, size_t len) {
 /* simple function to send through the socket
  * if ssl is available send through the ssl-module */
 int socket_write(wput_socket * sock, void * buf, size_t len) {
+  if(socket_is_data_writeable(sock->fd, default_timeout)) {
 #ifdef HAVE_SSL
-	if(sock->ssl) return SSL_write(sock->ssl, buf, len);
-	else
+    if(sock->ssl) return SSL_write(sock->ssl, buf, len);
+    else	
 #endif
-	return send(sock->fd, buf, len, 0);
+    return send(sock->fd, buf, len, 0);
+  } else
+    return ERR_FAILED;
 }
 /* =================================== *
  * ============= utils =============== *
