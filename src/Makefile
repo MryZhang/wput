@@ -1,17 +1,17 @@
 #wput.mk
 #mm make file for wput
 SHELL=/bin/sh
-prefix=/usr/local
+prefix=/usr
 bindir=${exec_prefix}/bin
-localedir=/usr/share/locale
+localedir=$(prefix)/share/locale
 CC=gcc
-CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\"
-LIBS= -lssl -ldl 
+CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" -INONE/include
+LIBS=   -lgnutls-openssl
 EXE=../wput
 GETOPT=
 MEMDBG=
-OBJ=wput.o ftp.o ftplib.o utils.o progress.o socketlib.o queue.o ftp-ls.o $(GETOPT) $(MEMDBG)
-HEAD=wput.h ftp.h ftplib.h utils.h progress.h socketlib.h _queue.h windows.h config.h constants.h
+OBJ=wput.o netrc.o ftp.o ftplib.o utils.o progress.o socketlib.o queue.o ftp-ls.o $(GETOPT) $(MEMDBG)
+HEAD=wput.h netrc.h ftp.h ftplib.h utils.h progress.h socketlib.h _queue.h windows.h config.h constants.h
 
 all: wput
 

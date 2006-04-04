@@ -51,6 +51,9 @@
 ### FTP-Options
 
 # Password-File
+# Warning:
+#   Since wput 0.6 the password-file is deprecated. Please use the .netrc-file
+#   instead.
 # If you don't want to type the password on the commandline or if you are just
 # lazy, you can use a password-file from which wput will read usernames and/or
 # passwords for a specified host. If the env-variable PASSWORDFILE is set, wput

@@ -20,7 +20,7 @@ if test "$enable_memdbg" = "yes"; then
 fi
 
 AC_ARG_WITH(ssl,
-[[  --with-ssl[=SSL-ROOT]   link with SSL support [default=auto]
+[[  --with-ssl              link with SSL support [default=auto]
   --without-ssl           disable SSL autodetection]])
 
 AC_ARG_ENABLE(g_switch,
@@ -62,161 +62,82 @@ if test x"$with_ssl" = x; then
   dnl change this to "ignore SSL by default", change "auto" to "no".
   with_ssl=auto
 fi
+dnl #
+dnl # Check for GNUTLS if it's specified.
+dnl #
+if test "x$with_ssl" != "xno"; then
+	with_ssl="no"
+	prefix=`eval echo $prefix`
 
-dnl Detection of OpenSSL is much hairier than the detection of other
-dnl libraries because OpenSSL can be compiled as a third-party
-dnl library, which means it will not be found without additional
-dnl linker magic.  It would be really nice to rework this check into
-dnl an AC_DEFUN so that we can reuse it for other third-party
-dnl libraries.
+	AC_ARG_WITH(gnutls-includes,
+		[  --with-gnutls-includes=PREFIX   Location of GNUTLS includes.],
+		[ with_gnutls_includes="$withval" ],
+		[ with_gnutls_includes="$prefix/include" ])
 
-if test x"$with_ssl" != x"no"; then
+	have_gnutls_includes="no"
 
-  wget_force_ssl=no
-  if test x"$with_ssl" = x"yes"; then
-    wget_force_ssl=yes
-  fi
+	if test "x$with_gnutls_includes" != "xno"; then
+		CPPFLAGS_save="$CPPFLAGS"
 
-  if test x"$with_ssl" = x"yes" || test x"$with_ssl" = x"auto"; then
-    dnl OpenSSL's root was not specified, so we have to guess.  First
-    dnl try the system default location, then "/usr/local/ssl" (where
-    dnl OpenSSL installs by default), then "/usr/local" (traditional
-    dnl choice for installation root), then "/opt".
-    ssl_all_roots="system-default /usr/local/ssl /usr/local /opt"
-  else
-    dnl Root has been specified by the user.
-    ssl_all_roots=$with_ssl
-    wget_force_ssl=yes
-  fi
+		AC_MSG_CHECKING(for GNUTLS includes)
+		AC_MSG_RESULT("")
 
-  wget_save_CC=$CC
-  wget_save_LIBS=$LIBS
-  wget_save_LDFLAGS=$LDFLAGS
-  wget_save_CPPFLAGS=$CPPFLAGS
+		CPPFLAGS="$CPPFLAGS -I$with_gnutls_includes"
+		AC_CHECK_HEADERS([gnutls/gnutls.h, gnutls/openssl.h], [ gnutls_includes="yes" ])
+		CPPFLAGS="$CPPFLAGS_save"
 
-  dnl Use libtool for OpenSSL tests so we can specify "-R<rpath>"
-  dnl without having to know how the linker handles it.
-#  CC="$SHELL ./libtool $CC"
+		if test "x$gnutls_includes" != "xno" -a \
+		        "x$gnutls_includes" != "x"; then
+			have_gnutls_includes="yes"
 
-  dnl Unfortunately, as of this writing (OpenSSL 0.9.6), the libcrypto
-  dnl shared library doesn't record its dependency on libdl, so we
-  dnl need to check for it ourselves so we won't fail to link due to a
-  dnl lack of -ldl.  Most OSes use dlopen(), but HP-UX uses
-  dnl shl_load().
-  AC_CHECK_LIB(dl,dlopen)
-  AC_CHECK_LIB(dl,shl_load)
+			GNUTLS_CFLAGS="-I$with_gnutls_includes"
+		else
+			GNUTLS_CFLAGS=""
+		fi
+	else
+		AC_MSG_CHECKING(for GNUTLS includes)
+		AC_MSG_RESULT(no)
+	fi
 
-  ssl_success=no
+	AC_ARG_WITH(gnutls-libs,
+		[  --with-gnutls-libs=PREFIX       Location of GNUTLS libraries.],
+		[ with_gnutls_libs="$withval" ])
 
-  dnl Now try to find SSL libraries in each of the likely SSL roots.
-  for ssl_root in $ssl_all_roots
-  do
-    if test x"$ssl_root" = x"system-default"; then
-      dnl Try the default include and library locations.
-      SSL_INCLUDES=
-    else
-      dnl Try this specific root.
-      SSL_INCLUDES=-I$ssl_root/include
-      dnl It's OK to use -R directly because libtool will
-      dnl interpret it for us.
-      LDFLAGS="-L$ssl_root/lib -R$ssl_root/lib $wget_save_LDFLAGS"
-    fi
+	if test "x$with_gnutls_libs"     != "xno" -a \
+	        "x$have_gnutls_includes" != "xno"; then
 
-    AC_MSG_RESULT([Looking for SSL libraries in $ssl_root])
+		LDFLAGS_save="$LDFLAGS"
 
-    dnl Check whether the compiler can find the include files.  On
-    dnl some systems Gcc finds libraries in /usr/local/lib, but fails
-    dnl to find the includes in /usr/local/include.
+		case $with_gnutls_libs in
+			""|-L*) ;;
+			*) with_gnutls_libs="-L$with_gnutls_libs" ;;
+		esac
 
-    ssl_found_includes=no
-    CPPFLAGS="$SSL_INCLUDES $wget_save_CPPFLAGS"
+		AC_CACHE_CHECK([for GNUTLS libraries], gnutls_libs,
+		[
+			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgcrypt -lgnutls-openssl"
+			AC_TRY_LINK_FUNC(gnutls_init, gnutls_libs="yes", gnutls_libs="no")
+			LDFLAGS="$LDFLAGS_save"
+		])
 
-    AC_MSG_CHECKING([for includes])
+		if test "x$gnutls_libs" != "xno"; then
+			AC_DEFINE(HAVE_GNUTLS, 1, [Define if you have GNUTLS])
+			AC_DEFINE(HAVE_SSL)
+			msg_gnutls="GNUTLS"
+			GNUTLS_LIBS="$with_gnutls_libs -lgnutls-openssl"
 
-    AC_TRY_CPP([#include <openssl/ssl.h>
-],
-      AC_MSG_RESULT(found); ssl_found_includes=yes,
-      AC_MSG_RESULT([not found])
-    )
-
-    if test x"$ssl_found_includes" = xno; then
-      continue
-    fi
-
-    ssl_link_failure=no
-
-    dnl Make sure that the checks don't run afoul of the cache.  It
-    dnl would be nicer to temporarily turn off the cache, but
-    dnl apparently Autoconf doesn't allow that.
-
-    unset ac_cv_lib_ssl_SSL_new
-
-    dnl These checks need to be in this order, or you'll get a link
-    dnl failure if you use a static libcrypto.a and libssl.a rather
-    dnl than shared libraries.
-
-    AC_CHECK_LIB(ssl, SSL_library_init, , ssl_link_failure=yes)
-
-    if test x"$ssl_link_failure" = xyes; then
-      dnl One or both libs failed to link.
-      continue
-    fi
-
-    dnl The libraries link.  But we still need to check if the program
-    dnl linked with those libraries under these settings with run.  On
-    dnl some systems (Solaris), Gcc adds -L/usr/local/lib to the
-    dnl linking line, but fails to add -R/usr/local/lib, thus creating
-    dnl executables that link, but fail to run.
-
-    dnl If we are cross-compiling, just assume that working linkage
-    dnl implies working executable.
-
-    ssl_run_failure=no
-
-    AC_MSG_CHECKING([whether SSL libs are resolved at runtime])
-    AC_TRY_RUN([
-int SSL_library_init();
-main(){return 0;}
-],
-      AC_MSG_RESULT(yes),
-      AC_MSG_RESULT(no); ssl_run_failure=yes,
-      AC_MSG_RESULT(cross)
-    )
-
-    if test x"$ssl_run_failure" = xno; then
-      ssl_success=yes
-      break
-    fi
-  done
-
-  if test x"$ssl_success" = xyes; then
-    dnl AC_MSG_RESULT doesn't look right here, but I'm not sure what
-    dnl to use instead.
-    AC_MSG_RESULT([Compiling in support for SSL in $ssl_root])
-    AC_DEFINE(HAVE_SSL)
-    AC_SUBST(SSL_INCLUDES)
-    SSL_OBJ='gen_sslfunc$o'
-    AC_SUBST(SSL_OBJ)
-  else
-    LDFLAGS=$wget_save_LDFLAGS
-    LIBS=$wget_save_LIBS
-
-    dnl If linking with SSL was forced rather than auto-detected, then
-    dnl bail out if SSL failed.
-    if test x"$wget_force_ssl" = x"yes"; then
-      exec >&2
-      echo "ERROR: Failed to find OpenSSL libraries."
-      exit 2
-    fi
-  fi
-
-  dnl Restore the compiler setting.
-  CC=$wget_save_CC
-
-  dnl Restore the CPPFLAGS.  Do this regardless of whether linking
-  dnl with SSL succeeded -- SSL includes will be handled using
-  dnl @SSL_INCLUDES@.
-  CPPFLAGS=$wget_save_CPPFLAGS
+			with_ssl="yes"
+		else
+			GNUTLS_CFLAGS=""
+			GNUTLS_LIBS=""
+		fi
+	else
+		AC_MSG_CHECKING(for GNUTLS libraries)
+		AC_MSG_RESULT(no)
+	fi
+else
+	GNUTLS_CFLAGS=""
+	GNUTLS_LIBS=""
 fi
 
 AC_CHECK_TYPES([long long, unsigned long long], AC_DEFINE(HAVE_LONG_LONG))
@@ -251,5 +172,8 @@ esac
 AC_CONFIG_HEADER(src/config.h)
 AC_SUBST(GETOPT)
 AC_SUBST(MEMDBG)
+AC_SUBST(GNUTLS_CFLAGS)
+AC_SUBST(GNUTLS_LIBS)
 AC_CONFIG_FILES([Makefile src/Makefile po/Makefile.in])
+
 AC_OUTPUT

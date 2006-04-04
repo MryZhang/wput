@@ -128,7 +128,7 @@ wput_socket * socket_listen(unsigned bindaddr, unsigned short * s_port) {
 		/* #### addrlen should be a 32-bit type, which int is not
 			guaranteed to be.  Oh, and don't try to make it a size_t,
 			because that can be 64-bit.  */
-		int addrlen = sizeof (struct sockaddr_in);
+		socklen_t addrlen = sizeof (struct sockaddr_in);
 		if (getsockname (sock->fd, (struct sockaddr *)&serv_addr, &addrlen) < 0)
 			{
 			if(sock->fd != -1) {
@@ -151,7 +151,7 @@ wput_socket * socket_listen(unsigned bindaddr, unsigned short * s_port) {
 /* s_sock is the listening server socket and we accept one incoming
  * connection */
 wput_socket * socket_accept(wput_socket * sock){
-  int clilen;
+  socklen_t clilen;
   struct sockaddr_in client_addr;
   wput_socket * child = socket_new();
 
@@ -166,7 +166,7 @@ wput_socket * socket_accept(wput_socket * sock){
 }
 #ifdef HAVE_SSL
 int socket_transform_to_ssl(wput_socket * sock) {
-	sock->ctx = SSL_CTX_new(SSLv23_method());
+	sock->ctx = SSL_CTX_new(SSLv23_client_method());
 	SSL_CTX_set_verify(sock->ctx, SSL_VERIFY_NONE, NULL);
 	sock->ssl = SSL_new(sock->ctx);
 	SSL_set_fd(sock->ssl, sock->fd);
@@ -285,7 +285,7 @@ int socket_write(wput_socket * sock, void * buf, size_t len) {
  * ============= utils =============== *
  * =================================== */
 
-int get_ip_addr(char* hostname, int * ip){ 
+int get_ip_addr(char* hostname, unsigned int * ip){ 
 	struct hostent *ht;
 #ifdef WIN32
 	*ip = inet_addr(hostname);
@@ -298,7 +298,7 @@ int get_ip_addr(char* hostname, int * ip){
 	  ht = gethostbyname(hostname);
 	
 	if(ht != 0x0){
-		printout(vDEBUG, "IP of `%s' is `%s'\n", hostname, printip(ht->h_addr_list[0]));
+		printout(vDEBUG, "IP of `%s' is `%s'\n", hostname, printip((unsigned char *) ht->h_addr_list[0]));
 		memcpy(ip, ht->h_addr_list[0], 4);
 		return 0;
 	}
@@ -330,9 +330,9 @@ unsigned long get_ifaddr(char *ifname)
 int get_local_ip(int sockfd, char * local_ip){
   struct sockaddr_in mysrv;
   struct sockaddr *myaddr;
-  int addrlen = sizeof (mysrv); 
+  socklen_t addrlen = sizeof (mysrv); 
   myaddr = (struct sockaddr *) (&mysrv);
-  if (getsockname (sockfd, myaddr, (int *)&addrlen) < 0)
+  if (getsockname (sockfd, myaddr, &addrlen) < 0)
     return ERR_FAILED;
   memcpy (local_ip, &mysrv.sin_addr, 4);
   return 0;
@@ -490,7 +490,7 @@ wput_socket * proxy_listen(proxy_settings * ps, unsigned int * ip, unsigned shor
 	}
 	*ip   = *(unsigned int *) (t+4);
 	*port = *(unsigned short int *) (t+8);
-	printout(vMORE, _("Proxy is listening on %s:%d for incoming connections\n"),  printip((char *) ip), *port);
+	printout(vMORE, _("Proxy is listening on %s:%d for incoming connections\n"),  printip((unsigned char *) ip), *port);
 
 	return sock;
 }
@@ -509,7 +509,7 @@ wput_socket * proxy_accept(wput_socket * server) {
 	/* this is all information we need. a \0 in t[1] is success,
 	 * create a copy of the socket, so that the server-socket can be
 	 * freed without trouble */
-	printout(vDEBUG, "Proxy received an incoming connection on %s:%d.\n", printip(t+4), *(unsigned short int *) (t+8));
+	printout(vDEBUG, "Proxy received an incoming connection on %s:%d.\n", printip((unsigned char *)t+4), *(unsigned short int *) (t+8));
 	return server;	
 }
 /* quick and ugly implementation of v5/http proxy */
@@ -521,7 +521,7 @@ wput_socket * proxy_connect(proxy_settings * ps, unsigned int ip, unsigned short
 		wput_socket * sock = proxy_init(ps);
 		char * t;
 		if(!sock) return NULL;
-		printout(vMORE, _("Using SOCKS5-Proxy %s:%d... "), printip((char *) &ps->ip), ps->port);
+		printout(vMORE, _("Using SOCKS5-Proxy %s:%d... "), printip((unsigned char *) &ps->ip), ps->port);
         
 		/* if we could not resolve the hostname, let the proxy do it */
 		if(ip == 0) {
@@ -587,7 +587,7 @@ wput_socket * proxy_connect(proxy_settings * ps, unsigned int ip, unsigned short
 		if(ip == 0)
             strcat(request, hostname);
 		else
-            strcat(request, printip((char *) &ip));
+            strcat(request, printip((unsigned char *) &ip));
         strcat(request, ":");
         {
             char str_port[6];
@@ -664,7 +664,7 @@ void SSL_library_init(void)
 		SSL_free = (win_ssl_pvoid_void) GetProcAddress(hLibSSL, "SSL_free");
 		SSL_CTX_new = (win_ssl_pvoid_pvoid) GetProcAddress(hLibSSL, "SSL_CTX_new");
 		WSSL_library_init = (win_ssl_void_void) GetProcAddress(hLibSSL, "SSL_library_init");
-		SSLv23_method = (win_ssl_void_pvoid) GetProcAddress(hLibSSL, "SSLv23_method");
+		SSLv23_client_method = (win_ssl_void_pvoid) GetProcAddress(hLibSSL, "SSLv23_method");
 		SSL_new = (win_ssl_pvoid_pvoid) GetProcAddress(hLibSSL, "SSL_new");
 		SSL_CTX_set_verify = (win_ssl_set_verify) GetProcAddress(hLibSSL, "SSL_CTX_set_verify");
 		SSL_set_fd = (win_ssl_set_fd) GetProcAddress(hLibSSL, "SSL_set_fd");
@@ -689,7 +689,7 @@ void SSL_library_init(void)
 	printf("SSL_write: %x\n", SSL_write);
 	*/
 	if(hLibSSL && SSL_CTX_free && SSL_free && SSL_CTX_new && 
-		WSSL_library_init && SSLv23_method && SSL_new && 
+		WSSL_library_init && SSLv23_client_method && SSL_new && 
 		SSL_CTX_set_verify && SSL_set_fd && SSL_connect &&
 		SSL_pending && SSL_read && SSL_write) {
 		WSSL_library_init();

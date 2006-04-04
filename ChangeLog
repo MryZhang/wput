@@ -1,17 +1,29 @@
-Thu May 26 09:30:54 CET 2004
+Tue Apr 04 18:46:34 CET 2006 wput-0.6
+	* using gnutls now. adjusting includes. no need for win32
+	* setting target_fsize to -1 to indicate unexisting files,
+	  so that wput will upload even files with 0 filesize
+	* fixing double free() of hostname if the host could not be
+	  resolved
+	* fixing reported bug in Makefile
+	* adding support for .netrc-files as suggested by a patch
+	  of Alexander Pohoyda
+	* when sending or parsing PORT/PASV commands, now using
+	  htons to convert to network byte order
+
+Thu May 26 09:30:54 CET 2005
 	* buffer-allocation in http-proxy-module forgot to count five
 	  additional bytes for the port-value which led to segfaults
 
-Sun May  1 10:00:16 CET 2004
+Sun May  1 10:00:16 CET 2005
 	* fixed a calculation for calculate_transfer_rate that caused an
 	  data-overflow for rates beyond 210 KiB/s
 	* another fix for set_resuming because the last fix made things even
 	  worse. works fine now ;)
 
-Fri Apr 29 16:53:14 CET 2004
+Fri Apr 29 16:53:14 CET 2005
 	* minor fix in set_resuming which mixed up some cases
 
-Wed Mar 23 10:32:41 CET 2004
+Wed Mar 23 10:32:41 CET 2005
 	* fix for base64-routine which forgot to set the last character to \0
 
 Sat Feb  5 20:37:09 CET 2005 wput-pre0.6

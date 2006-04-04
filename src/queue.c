@@ -1,7 +1,7 @@
 /* input-queue and fsession functions */
 
-/* Author: Hagen Fritsch <hagen _at_ itooktheredpill.dyndns.org>
-   (C) 2002-2004 by Hagen Fritsch
+/* Author: Hagen Fritsch <fritsch+wput-src@in.tum.de>
+   (C) 2002-2006 by Hagen Fritsch
     
    This file is part of wput.
 
@@ -552,7 +552,7 @@ skipd_list * skiplist_add_entry(skipd_list * K, int ip, char * host, unsigned sh
 		N->next = NULL;
 
         printout(vDEBUG, "Added skip_entry ftp://%s:%s@%s:%d/%s\n", 
-            user, pass, ip ? printip((char *) &ip) : host, port, dir);
+            user, pass, ip ? printip((unsigned char *) &ip) : host, port, dir);
 
 		return N;
 	}
@@ -563,11 +563,11 @@ skipd_list * skiplist_add_entry(skipd_list * K, int ip, char * host, unsigned sh
 int skiplist_find_entry(int ip, char * host, unsigned short int port, char * user, char * pass, char * dir) {
 	skipd_list * K = opt.skipdlist;
 	printout(vDEBUG, "Searching for skip_entry ftp://%s:%s@%s:%d/%s\n",
-        user, pass, ip ? printip((char *) &ip) : host, port, dir);
+        user, pass, ip ? printip((unsigned char *) &ip) : host, port, dir);
 	while( K != NULL )
 	{
 		printout(vDEBUG, "Checking skip_entry ftp://%s:%s@%s:%d/%s\n", 
-            K->user, K->pass, ip ? printip((char *) &K->ip) : host, K->port, K->dir);
+            K->user, K->pass, ip ? printip((unsigned char *) &K->ip) : host, K->port, K->dir);
 		
 		if(((K->ip	== ip && ip != 0) || 
 			 (K->host && host && !strcmp(K->host, host))) &&

@@ -67,7 +67,7 @@ win_ssl_pvoid_void  SSL_CTX_free;
 win_ssl_pvoid_void  SSL_free;
 win_ssl_pvoid_pvoid SSL_CTX_new;
 win_ssl_void_void   WSSL_library_init;
-win_ssl_void_pvoid  SSLv23_method;
+win_ssl_void_pvoid  SSLv23_client_method;
 win_ssl_pvoid_pvoid SSL_new;
 win_ssl_set_verify  SSL_CTX_set_verify;
 win_ssl_pvoid_int   SSL_connect;

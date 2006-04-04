@@ -42,7 +42,7 @@
 
 #ifdef HAVE_SSL
 # ifndef WIN32
-#  include <openssl/ssl.h>
+#  include <gnutls/openssl.h>
 # endif
 #endif
 
@@ -78,7 +78,7 @@ typedef struct _password_list {
 struct global_options {
   char * sbuf;
   int sbuflen;
-  int bindaddr;
+  unsigned int bindaddr;
   
   proxy_settings ps;
   ftp_con * curftp;

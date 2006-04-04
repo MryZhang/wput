@@ -20,6 +20,9 @@
    in this case these are esp. string-functions */
 #include "utils.h"
 #include "windows.h"
+#ifndef WIN32
+#include <arpa/inet.h>
+#endif
 
 unsigned char get_filemode(char * filename){
 /* TODO USS do it like diff and check whether the file contains binary data */
@@ -70,8 +73,9 @@ char * int64toa(off_t num, char * buf, int con_unit){
 char * get_port_fmt(int ip, unsigned int port) {
     unsigned char b[6];
     static char buf[6 * 4];
+    /* TODO USS have we got an endian problem here for the ip-address */
     *         (int *) b    = ip;
-    *(unsigned int *)(b+4) = port;
+    *(unsigned int *)(b+4) = htons(port);
     sprintf(buf, "%d,%d,%d,%d,%d,%d", b[0], b[1], b[2], b[3], b[4], b[5]);
     return buf;        
 }
@@ -214,7 +218,7 @@ char * read_line (FILE *fp)
 }
 #ifndef WIN32
 #ifndef isspace
-int isspace(char c) {
+int isspace(int c) {
   switch(c) {
   case ' ':
   case '\t':

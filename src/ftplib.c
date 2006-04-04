@@ -188,7 +188,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 	/* if we have a previous connection, close it before
 	* creating a new one */
 	printout(vNORMAL, _("Connecting to %s:%d... "), 
-		self->host->ip ? printip((char *) &self->host->ip) : self->host->hostname,
+		self->host->ip ? printip((unsigned char *) &self->host->ip) : self->host->hostname,
 		self->host->port);
 	
 	if(ps->type != PROXY_OFF)
@@ -440,9 +440,10 @@ int ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestam
 			ts.tm_wday  = 0;
 			ts.tm_yday  = 0;
 			ts.tm_isdst = -1;
+			ts.tm_mon  -= 1; /* decrement month, to have it zerobased */
 			/* TODO USS l10n */
 			printout(vMORE, _("done (modified on %d.%d.%d at %d:%d:%d)\n"), ts.tm_mday, 
-				ts.tm_mon, ts.tm_year+1900, ts.tm_hour, ts.tm_min, ts.tm_sec);
+				ts.tm_mon+1, ts.tm_year+1900, ts.tm_hour, ts.tm_min, ts.tm_sec);
 			*timestamp = mktime(&ts);
 			return 0;
 		}
@@ -827,7 +828,7 @@ int ftp_do_passive(ftp_con * self) {
 	
 	/* parse the line and extract ip and port from it */
 	parse_passive_string(self->r.message, &sip, &sport);
-	printout(vDEBUG, "Remote server data port: %s:%d\n", printip((char *) &sip), sport);
+	printout(vDEBUG, "Remote server data port: %s:%d\n", printip((unsigned char *) &sip), sport);
 	
 	if(self->ps->type == PROXY_OFF)
 		self->datasock = socket_connect(sip, sport);
@@ -882,7 +883,7 @@ int ftp_do_port(ftp_con * self){
 		res = get_local_ip(self->sock->fd, (char *) &sip);
 		/* TODO NRV is this so serious that it allows us to cancel the whole process? */
 		if(res == ERR_FAILED) Abort(_("Cannot determine local IP address"));
-		printout(vDEBUG, "Local IP: %s\n", printip((char *) &sip));
+		printout(vDEBUG, "Local IP: %s\n", printip((unsigned char *) &sip));
 	}
 	
 	ftp_issue_cmd(self, "PORT", get_port_fmt(sip, sport));
@@ -1004,6 +1005,7 @@ void parse_passive_string(char * msg, unsigned int * ip, unsigned short int * po
 		temp[i++] = atoi(curtok);
 	while( (curtok = strtok(NULL, ",") ));
 
+	/* TODO USS do we have an endian problem here for the ip-adress */
 	*ip   = *(unsigned int   *) temp;
-	*port = htons(*(unsigned short *) (temp+4));
+	*port = ntohs(*(unsigned short *) (temp+4));
 }

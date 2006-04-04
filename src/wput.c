@@ -1,5 +1,5 @@
-/* Author: Hagen Fritsch <hagen _at_ itooktheredpill.dyndns.org>
-   (C) 2002-2004 by Hagen Fritsch
+/* Author: Hagen Fritsch <fritsch+wput-src@in.tum.de>
+   (C) 2002-2006 by Hagen Fritsch
     
    This file is part of wput.
 
@@ -26,6 +26,7 @@
 #endif
 
 #include "wput.h"
+#include "netrc.h"
 
 #ifdef WIN32
 #  include "getopt/getopt.h"
@@ -55,9 +56,9 @@
 extern char *optarg;
 
 #ifdef WIN32
-const static char * version = "pre0.6-w32";
+const static char * version = "0.6-w32";
 #else
-const static char * version = "pre0.6";
+const static char * version = "0.6";
 #endif
 
 _fsession * fsession_queue_entry_point = NULL;
@@ -66,6 +67,7 @@ void commandlineoptions(int argc, char * argv[]);
 int  start_fsession();
 int  start_ftp();
 int  start_recur_ftp();
+void read_netrc_file(void);
 
 int main(int argc, char *argv[]){
 #ifdef WIN32
@@ -134,7 +136,8 @@ int main(int argc, char *argv[]){
 	readwputrc(getenv("WPUTRC"));
 	
 	parse_proxy(getenv("ftp_proxy"));
-	
+
+	read_netrc_file();
 	read_password_file(getenv("PASSWORDFILE"));
 	
 	wtimer_reset(opt.session_start);
@@ -236,7 +239,6 @@ int main(int argc, char *argv[]){
 	
 	if(opt.pl)         password_list_free(opt.pl);
 	skiplist_free(opt.skipdlist);
-	
 	
 #ifdef MEMDBG
 	print_unfree();
@@ -410,8 +412,51 @@ int set_option(char * com, char * val) {
   }
   return -1;  
 }
+
+#define NETRC_FILE_NAME ".netrc"
+
+/* read the netrc file and store its contents in a linked list */
+void read_netrc_file(void) {
+    /* Find ~/.netrc.  */
+    char *path, *home;
+    acc_t *netrc_list, *l;
+
+    home = home_dir ();
+    if (!home)
+	return;
+
+    path = (char *) malloc(strlen (home) + 1 +
+			   strlen (NETRC_FILE_NAME) + 1);
+    if (!path)
+	return;
+
+    sprintf (path, "%s/%s", home, NETRC_FILE_NAME);
+    free (home);
+
+    if (!file_exists(path)) {
+	printout(vMORE, _("netrc file '%s' cannot be read. skipping\n"), path);
+	return;
+    }
+
+    printout(vDEBUG, "Reading netrc file '%s'", path);
+    netrc_list = parse_netrc (path);
+    free(path);
+
+    /* If nothing to do...  */
+    if (!netrc_list)
+	return;
+
+    for (l = netrc_list; l; l = l->next) {
+	if (!l->host)
+	    continue;
+	opt.pl = password_list_add(opt.pl, cpy(l->host), cpy(l->acc), cpy(l->passwd));
+	printout(vDEBUG, "added %s:%s@%s to the password-list (%x)\n", l->acc, l->passwd, l->host, opt.pl);
+    }
+
+    free_netrc(netrc_list);
+}
+
 /* read the password file and store its contents in a linked list */
-/* TODO USS take the .netrc-file ... (there are implementations of wget and fetchmail. they should do the trick...) */
 void read_password_file(char * f) {
 	FILE * fp;
 	char * line;
@@ -422,6 +467,8 @@ void read_password_file(char * f) {
 		printout(vMORE, _("password_file '%s' cannot be read. skipping\n"), f);
 		return;
 	}
+	printout(vNORMAL, _("Warning: You are using a wput password file. This is deprecated!\n"
+			    "         Please consider switch to the widely used netrc-files.\n"));
 	printout(vDEBUG, "Reading password-file '%s'", f);
 	fp = fopen(f, "r");
 	while( (tmp = line = read_line(fp)) ) {
@@ -731,9 +778,9 @@ void commandlineoptions(int argc, char * argv[]){
 /*"  -S,  --script=FILE      TODO USS load a wput-script\n\n"*/
 			fprintf(stderr, _(
 "\n"
-"See the wput(1) for more detailed descriptions of the options.\n"
-"Mail bug reports and suggestions to <itooktheredpill@gmx.de>\n"));			
-			
+"See wput(1) for more detailed descriptions of the options.\n"
+"Report bugs and suggestions via SourceForge at\n"
+"http://sourceforge.net/tracker/?group_id=141519\n"));
             exit(0);
         }
     }

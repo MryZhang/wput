@@ -52,6 +52,7 @@ $(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
 POTFILES = \
      ../src/wput.c \
+     ../src/netrc.c \
      ../src/ftp.c \
      ../src/socketlib.c \
      ../src/ftplib.c \
@@ -99,7 +100,7 @@ COPYRIGHT_HOLDER = Hagen Fritsch
 # It can be your email address, or a mailing list address where translators
 # can write to without being subscribed, or the URL of a web page through
 # which the translators can contact you.
-MSGID_BUGS_ADDRESS = http://itooktheredpill.dyndns.org/wput/
+MSGID_BUGS_ADDRESS = http://sourceforge.net/tracker/?group_id=141519
 
 # This is the list of locale categories, beyond LC_MESSAGES, for which the
 # message catalogs shall be used.  It is usually empty.

@@ -165,15 +165,15 @@ int do_cwd(_fsession * fsession){
  * TODO NRV recheck this. make it smaller, easier */
 void set_resuming(_fsession * fsession) {
 	if(fsession->local_fsize < fsession->target_fsize && opt.resume_table.small_large == RESUME_TABLE_UPLOAD) {
-		fsession->target_fsize = 0;
+		fsession->target_fsize = -1;
 		printout(vMORE, _("Remote file size is bigger than local size. Restarting at 0\n"));
 	}
 	else if(fsession->local_fsize == fsession->target_fsize && fsession->local_fname && opt.resume_table.large_large == RESUME_TABLE_UPLOAD) {
-		fsession->target_fsize = 0;
+		fsession->target_fsize = -1;
 		printout(vMORE, _("Remote file size is equal to local size. Restarting at 0\n"));
 	}
 	else if(fsession->local_fsize > fsession->target_fsize && opt.resume_table.large_small == RESUME_TABLE_UPLOAD) {
-		fsession->target_fsize = 0;
+		fsession->target_fsize = -1;
 		printout(vMORE, _("Remote file size is smaller than local size. Restarting at 0.\n"));
 	}
 }
@@ -229,7 +229,7 @@ int open_input_file(_fsession * fsession) {
 			+ 18);
 		sprintf(cmd, "%s ftp \"%s\" \"%s\" %d \"%s\" \"%s\"",
 			opt.input_pipe, fsession->user,
-			(fsession->host->ip ? printip((char *) &fsession->host->ip) : fsession->host->hostname),
+			(fsession->host->ip ? printip((unsigned char *) &fsession->host->ip) : fsession->host->hostname),
 			fsession->host->port, fsession->target_dname ? fsession->target_dname : "", fsession->target_fname);
 	
 		pipe = popen(cmd, "r");
@@ -246,7 +246,7 @@ int open_input_file(_fsession * fsession) {
 		* assume that this will work for now, especially since these >2GB files don't
 		* work anyway. use the old-fashioned progress-output which is at least more
 		* remote-size independent than the new one. */
-		fsession->local_fsize = 1024 * 1024 * 1024;
+		fsession->local_fsize = 2047 * 1024 * 1024;
 		opt.barstyle = 0;
 	}
 	return fd;
@@ -280,25 +280,25 @@ int do_send(_fsession * fsession){
 	/* TODO USS make resuming work for ascii-files too */
 	if(fsession->binary == TYPE_A) {
 		printout(vMORE, _("Disabling resuming due to ascii-mode transfer\n"));
-		fsession->target_fsize = 0;
+		fsession->target_fsize = -1;
 	}
 	
 	if(fsession->target_fsize > 0) {
 		res = ftp_do_rest(fsession->ftp, fsession->target_fsize);
 		if(SOCKET_ERROR(res)) return res;
 		if(res == ERR_FAILED)
-			fsession->target_fsize = 0;
+			fsession->target_fsize = -1;
 	}
 	
 	while(1) {
 		res = ftp_do_stor(fsession->ftp, fsession->target_fname);
 		if(res == 1 ) { /* disable resuming */
-			if(fsession->target_fsize == 0) {
+			if(fsession->target_fsize == -1) {
 				res = ERR_FAILED;
 				break;
 			} else {
 				/* just to be sure that it gets resetted... */
-				res = ftp_do_rest(fsession->ftp, fsession->target_fsize = 0);
+				res = ftp_do_rest(fsession->ftp, fsession->target_fsize = -1);
 				if(SOCKET_ERROR(res)) return res;
 			}
 		} else if(res == ERR_RETRY && (fsession->retry > 0 || fsession->retry == -1))
@@ -311,7 +311,10 @@ int do_send(_fsession * fsession){
 	
 	/* we now have to accept the socket (if listening) and close the listening server */
 	if( ftp_complete_data_connection(fsession->ftp) == ERR_FAILED) return ERR_FAILED;
-	
+	/* -1 indicates that the file does not exist remotely, but now,
+	 * after we set resuming, we can again start assuming that remote
+	 * file is 0 bytes long (needed for some calculations) */	
+	if(fsession->target_fsize == -1) fsession->target_fsize = 0;
 	/* initiate progress-output */
 	bar_create(fsession);
 	
@@ -352,7 +355,7 @@ int do_send(_fsession * fsession){
 		 * works for now noone complained ;-) */
 		if(opt.speed_limit > 0 ) {
 			double elapsed_time = wtimer_elapsed(timers[0]);
-			while(elapsed_time > 0 && 1000 * WINCONV(transfered_size - fsession->target_fsize) / elapsed_time > opt.speed_limit) {
+			while(elapsed_time > 0 && WINCONV(transfered_size - fsession->target_fsize) / (elapsed_time / 1000) > opt.speed_limit) {
 				usleep(1000 * 200); /* sleep 0.2 seconds */
 				elapsed_time = wtimer_elapsed(timers[0]);
 			}
@@ -494,7 +497,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 			time_str(),
 			fsession->local_fname,
 			fsession->user,
-			fsession->host->ip ? printip((char *) &fsession->host->ip) : fsession->host->hostname,
+			fsession->host->ip ? printip((unsigned char *) &fsession->host->ip) : fsession->host->hostname,
 			fsession->host->port,
 			fsession->target_dname,
 			fsession->target_dname ? "/" : "", 
@@ -587,11 +590,11 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 	if(fsession->resume_table->small_large == RESUME_TABLE_UPLOAD &&
 	   fsession->resume_table->large_large == RESUME_TABLE_UPLOAD &&
 	   fsession->resume_table->large_small == RESUME_TABLE_UPLOAD)
-		fsession->target_fsize = 0;
+		fsession->target_fsize = -1;
 	else
     	if(fsession->local_fname) {
 			res = ftp_get_filesize(fsession->ftp, fsession->target_fname, &fsession->target_fsize);
-    		if(res == ERR_FAILED) fsession->target_fsize = 0;
+    		if(res == ERR_FAILED) fsession->target_fsize = -1;
 			SOCKET_RETRY;
 		}
 	
@@ -602,7 +605,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		fsession->resume_table->large_large, fsession->resume_table->large_small);
 	/* check whether this file is to be skipped */
 	if( fsession->local_fname && ( /* if we have an input-pipe, both sizes are 0. ignore it */
-	   (fsession->local_fsize <  fsession->target_fsize && fsession->resume_table->small_large == RESUME_TABLE_SKIP) ||
+	   (fsession->local_fsize < fsession->target_fsize && fsession->resume_table->small_large == RESUME_TABLE_SKIP) ||
 	   (fsession->local_fsize == fsession->target_fsize && fsession->resume_table->large_large == RESUME_TABLE_SKIP) ||
 	   (fsession->local_fsize  > fsession->target_fsize && fsession->resume_table->large_small == RESUME_TABLE_SKIP)))
 	{
@@ -612,7 +615,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		printout(vLESS, _("-- Skipping file: %s\n"), fsession->local_fname);
 		break;
 	}
-	/* figure out the resume/upload/skip rules and probably set the remote filesize to 0 */
+	/* figure out the resume/upload/skip rules and probably set the remote filesize to -1 */
 	set_resuming(fsession);
 	
 	/* check timestamp and skip the file if whished */
@@ -729,7 +732,6 @@ int parse_url(_fsession * fsession, char *url) {
 			printout(vMORE, _("Error: "));
 			printout(vMORE, _("`%s' could not be resolved. "), host);
 			printout(vLESS, _("Skipping this URL.\n"));
-			ftp_free_host(fsession->host);
 			free(url);
 			return ERR_FAILED;
 		}

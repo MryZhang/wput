@@ -10,7 +10,7 @@
  #include <sys/time.h>
  #define TIMER_GETTIMEOFDAY defined (__stub_gettimeofday) || defined (__stub___gettimeofday)
  #ifndef isspace
- int isspace(char c);
+ int isspace(int c);
  #endif
 #else
  char * win32_replace_dirsep(char * p);

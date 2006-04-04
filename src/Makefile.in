@@ -5,13 +5,13 @@ prefix=@prefix@
 bindir=@bindir@
 localedir=$(prefix)/share/locale
 CC=@CC@
-CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\"
-LIBS=@LIBINTL@ @LIBS@
+CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" @GNUTLS_CFLAGS@
+LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
 EXE=../wput
 GETOPT=@GETOPT@
 MEMDBG=@MEMDBG@
-OBJ=wput.o ftp.o ftplib.o utils.o progress.o socketlib.o queue.o ftp-ls.o $(GETOPT) $(MEMDBG)
-HEAD=wput.h ftp.h ftplib.h utils.h progress.h socketlib.h _queue.h windows.h config.h constants.h
+OBJ=wput.o netrc.o ftp.o ftplib.o utils.o progress.o socketlib.o queue.o ftp-ls.o $(GETOPT) $(MEMDBG)
+HEAD=wput.h netrc.h ftp.h ftplib.h utils.h progress.h socketlib.h _queue.h windows.h config.h constants.h
 
 all: wput
 

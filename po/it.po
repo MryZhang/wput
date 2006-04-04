@@ -3,39 +3,39 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR Hagen Fritsch.
 # Alberto Maria Scattolo <thedarkfreesoul@poetidistrada.com>, 2005.
-# Hagen Fritsch <hagen@itooktheredpill.dyndns.org>, 2005.
+# Hagen Fritsch <fritsch+wput-it@in.tum.de>, 2005.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: it\n"
-"Report-Msgid-Bugs-To: http://itooktheredpill.dyndns.org/wput/\n"
-"POT-Creation-Date: 2005-07-22 18:52+0200\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
+"POT-Creation-Date: 2006-04-04 23:45+0200\n"
 "PO-Revision-Date: 2005-05-26 12:06+0200\n"
-"Last-Translator: Hagen Fritsch <hagen@itooktheredpill.dyndns.org>\n"
+"Last-Translator: Hagen Fritsch <fritsch+wput-it@in.tum.de>\n"
 "Language-Team:  <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 
-#: src/wput.c:148
+#: src/wput.c:151
 msgid "Resuming in background. Logging output to 'wput-log'.\n"
 msgstr ""
 "Riprendo il processo in background. Salvo il risultato in 'wput-log'.\n"
 
-#: src/wput.c:150 src/wput.c:617
+#: src/wput.c:153 src/wput.c:664
 msgid "Unable to open logfile"
 msgstr "Impossibile aprire il file delle registrazioni"
 
-#: src/wput.c:158 src/wput.c:168 src/wput.c:178 src/wput.c:339 src/wput.c:661
-#: src/ftp.c:725 src/ftp.c:766 src/ftplib.c:268 src/ftplib.c:859
-#: src/ftplib.c:870 src/utils.c:278 src/utils.c:305 src/queue.c:254
+#: src/wput.c:161 src/wput.c:171 src/wput.c:181 src/wput.c:341 src/wput.c:708
+#: src/ftp.c:728 src/ftp.c:768 src/ftplib.c:269 src/ftplib.c:861
+#: src/ftplib.c:872 src/utils.c:282 src/utils.c:309 src/queue.c:254
 #: src/queue.c:261 src/queue.c:302 src/queue.c:378 src/queue.c:414
 #: src/queue.c:448
 msgid "Warning: "
 msgstr "Attenzione: "
 
-#: src/wput.c:159
+#: src/wput.c:162
 msgid ""
 "background-mode might not work correctly, if the input-pipe needs to read "
 "from stdin (like cat -).\n"
@@ -43,106 +43,117 @@ msgstr ""
 "In background potrebbe non funzionare correttamente, se il input necessita "
 "di leggere dallo stdin (come cat -).\n"
 
-#: src/wput.c:169
+#: src/wput.c:172
 msgid ""
 "reading urls from stdin, while running in background-mode is not reliable.\n"
 msgstr ""
 "leggo le url dallo stdin, lavorando in background-mode non è garantito.\n"
 
-#: src/wput.c:179
+#: src/wput.c:182
 msgid ""
 "Ignoring request to turn proxy-usage on, since no proxy is configured.\n"
 msgstr ""
 "Ignoro la richiesta di passare all'utilizzo di proxy, poichè non c'è nessun "
 "proxy configurato.\n"
 
-#: src/wput.c:208
+#: src/wput.c:211
 msgid "Nothing done. Try `wput --help'.\n"
 msgstr "Niente è stato fatto. Prova `wput --help'.\n"
 
-#: src/wput.c:210
+#: src/wput.c:213
 #, c-format
 msgid "FINISHED --%s--\n"
 msgstr "FINITO --%s--\n"
 
-#: src/wput.c:214
+#: src/wput.c:217
 #, c-format
 msgid "Transfered %s bytes in %d file at %s\n"
 msgstr "Trasferiti %s bytes in %d file a %s\n"
 
-#: src/wput.c:215
+#: src/wput.c:218
 #, c-format
 msgid "Transfered %s bytes in %d files at %s\n"
 msgstr "Trasferiti %s bytes in %d files a %s\n"
 
-#: src/wput.c:224
+#: src/wput.c:227
 #, c-format
 msgid "Skipped %d file.\n"
 msgstr "Salto %d file.\n"
 
-#: src/wput.c:224
+#: src/wput.c:227
 #, c-format
 msgid "Skipped %d files.\n"
 msgstr "Salto %d files.\n"
 
-#: src/wput.c:226
+#: src/wput.c:229
 #, c-format
 msgid "Transmission of %d file failed.\n"
 msgstr "Trasmissione di %d file fallita.\n"
 
-#: src/wput.c:226
+#: src/wput.c:229
 #, c-format
 msgid "Transmission of %d files failed.\n"
 msgstr "Trasmissione di %d files fallita.\n"
 
-#: src/wput.c:299 src/ftp.c:217 src/ftp.c:238 src/ftp.c:343 src/ftp.c:381
-#: src/ftp.c:402 src/ftp.c:729 src/socketlib.c:122 src/socketlib.c:253
-#: src/socketlib.c:415 src/socketlib.c:435 src/socketlib.c:460
-#: src/socketlib.c:479 src/socketlib.c:499 src/socketlib.c:552
-#: src/socketlib.c:607 src/ftplib.c:277 src/ftplib.c:283 src/ftplib.c:598
-#: src/ftplib.c:643 src/queue.c:358 src/queue.c:458
+#: src/wput.c:301 src/ftp.c:217 src/ftp.c:238 src/ftp.c:346 src/ftp.c:384
+#: src/ftp.c:405 src/ftp.c:732 src/socketlib.c:122 src/socketlib.c:256
+#: src/socketlib.c:421 src/socketlib.c:441 src/socketlib.c:466
+#: src/socketlib.c:485 src/socketlib.c:505 src/socketlib.c:558
+#: src/socketlib.c:613 src/ftplib.c:278 src/ftplib.c:284 src/ftplib.c:600
+#: src/ftplib.c:645 src/queue.c:358 src/queue.c:458
 msgid "Error: "
 msgstr "Errore: "
 
-#: src/wput.c:300 src/wput.c:340 src/ftp.c:726 src/ftp.c:730
+#: src/wput.c:302 src/wput.c:342 src/ftp.c:729 src/ftp.c:733
 #, c-format
 msgid "`%s' could not be resolved. "
 msgstr "`%s' non è stato risolto. "
 
-#: src/wput.c:301
+#: src/wput.c:303
 msgid "Exiting.\n"
 msgstr "Uscita.\n"
 
-#: src/wput.c:341
+#: src/wput.c:343
 msgid "Disabling proxy support.\n"
 msgstr "Disattivo il supporto per i proxy.\n"
 
-#: src/wput.c:422
+#: src/wput.c:437
+#, fuzzy, c-format
+msgid "netrc file '%s' cannot be read. skipping\n"
+msgstr "Impossibile leggere il netrc-file '%s'. Salto.\n"
+
+#: src/wput.c:467
 #, c-format
 msgid "password_file '%s' cannot be read. skipping\n"
 msgstr "Impossibile leggere il password_file '%s'. Salto.\n"
 
-#: src/wput.c:467
+#: src/wput.c:470
+msgid ""
+"Warning: You are using a wput password file. This is deprecated!\n"
+"         Please consider switch to the widely used netrc-files.\n"
+msgstr ""
+
+#: src/wput.c:514
 #, c-format
 msgid "Fatal error while opening '%s': %s\n"
 msgstr "Errore fatale aprendo '%s': %s\n"
 
-#: src/wput.c:500
+#: src/wput.c:547
 #, c-format
 msgid "%s#%d: Option '%s' not recognized\n"
 msgstr "%s#%d: l'opzione '%s' non è riconosciuta\n"
 
-#: src/wput.c:501
+#: src/wput.c:548
 #, c-format
 msgid "%s#%d: Unknow value '%s' for '%s'\n"
 msgstr "%s#%d: Valore sconosciuto '%s' per '%s'\n"
 
-#: src/wput.c:612
+#: src/wput.c:659
 #, c-format
 msgid "Option %s should not appear here :|\n"
 msgstr "L'opzione %s dovrebbe comparire qui :|\n"
 
-#: src/wput.c:662
+#: src/wput.c:709
 msgid ""
 "You supplied an input-pipe. This is only to be used as fallback, if no "
 "filename can be found from the URL. This might not be the desired behavour. "
@@ -151,12 +162,12 @@ msgstr ""
 "Hai fornito un input-pipe. Se il nome del file non può essere trovato "
 "dall'url. Questo potrebbe essere un comportamento indesiderato. TODO\n"
 
-#: src/wput.c:670
+#: src/wput.c:717
 #, c-format
 msgid "wput version: %s\n"
 msgstr "wput versione: %s\n"
 
-#: src/wput.c:674
+#: src/wput.c:721
 #, c-format
 msgid ""
 "Usage: wput [options] [file]... [url]...\n"
@@ -173,12 +184,12 @@ msgstr ""
 "  -V, --version         Stampa la versione di wput ed esce.\n"
 "  -h, --help            Stampa questa pagina di aiuto.\n"
 
-#: src/wput.c:681
+#: src/wput.c:728
 #, c-format
 msgid "  -b, --background      go to background after startup\n"
 msgstr "  -b, --background      Va in background dopo esser partito.\n"
 
-#: src/wput.c:686
+#: src/wput.c:733
 #, c-format
 msgid ""
 "Logging and input file:\n"
@@ -214,7 +225,7 @@ msgstr ""
 "successo\n"
 "\n"
 
-#: src/wput.c:702
+#: src/wput.c:749
 #, c-format
 msgid ""
 "Upload:\n"
@@ -265,7 +276,7 @@ msgstr ""
 "       --proxy-pass=PASS       imposta il proxy-password a PASS\n"
 "\n"
 
-#: src/wput.c:721
+#: src/wput.c:768
 #, c-format
 msgid ""
 "FTP-Options:\n"
@@ -280,21 +291,23 @@ msgstr ""
 "  -A,  --ascii                 forza ASCII  mode-transfer\n"
 "  -B,  --binary                forza BINARY mode-transfer\n"
 
-#: src/wput.c:728
+#: src/wput.c:775
 #, c-format
 msgid "       --force-tls             force the useage of TLS\n"
 msgstr "       --force-tls             forza l'utilizzo di TLS\n"
 
-#: src/wput.c:733
-#, c-format
+#: src/wput.c:780
+#, fuzzy, c-format
 msgid ""
 "\n"
-"See the wput(1) for more detailed descriptions of the options.\n"
-"Mail bug reports and suggestions to <itooktheredpill@gmx.de>\n"
+"See wput(1) for more detailed descriptions of the options.\n"
+"Report bugs and suggestions via SourceForge at\n"
+"http://sourceforge.net/tracker/?group_id=141519\n"
 msgstr ""
 "\n"
 "Guarda wput(1) per descrizioni più dettagliate delle opzioni.\n"
-"Riporta bug e suggerimenti via mail a <itooktheredpill@gmx.de>\n"
+"Riporta bug e suggerimenti via SourceForge a\n"
+"http://sourceforge.net/tracker/?group_id=141519\n"
 
 #: src/ftp.c:169
 msgid "Remote file size is bigger than local size. Restarting at 0\n"
@@ -328,65 +341,65 @@ msgid "Disabling resuming due to ascii-mode transfer\n"
 msgstr ""
 "Disattivo il resume perchè si è scelto il trasferimento in ascii-mode\n"
 
-#: src/ftp.c:344
+#: src/ftp.c:347
 #, c-format
 msgid "local file could not be read: %s\n"
 msgstr "Impossibile leggere il file locale: %s\n"
 
-#: src/ftp.c:382 src/ftp.c:403
+#: src/ftp.c:385 src/ftp.c:406
 msgid "Error encountered during uploading data\n"
 msgstr "Si è verificato un errore durante l'upload dei dati\n"
 
-#: src/ftp.c:459
+#: src/ftp.c:462
 #, c-format
 msgid "Removing source file `%s'\n"
 msgstr "Rimozione del file sorgente `%s'\n"
 
-#: src/ftp.c:487
+#: src/ftp.c:490
 #, c-format
 msgid "-- Skipping file: `%s'\n"
 msgstr "-- salto il file: `%s'\n"
 
-#: src/ftp.c:537
+#: src/ftp.c:540
 msgid "Skipping all files from this account...\n"
 msgstr "Salto tutti i file da questo account...\n"
 
-#: src/ftp.c:570
+#: src/ftp.c:573
 msgid "Failed to change to target directory. Skipping this file/dir.\n"
 msgstr ""
 "Impossibile cambiare la directory di destinazione. Salto questo file file/"
 "dir.\n"
 
-#: src/ftp.c:611
+#: src/ftp.c:614
 msgid "Skipping this file due to resume/upload/skip rules.\n"
 msgstr "Ssalto questo file per via delle regole di resume/upload/skip.\n"
 
-#: src/ftp.c:612
+#: src/ftp.c:615
 #, c-format
 msgid "-- Skipping file: %s\n"
 msgstr "-- Salto questo file: %s\n"
 
-#: src/ftp.c:634
+#: src/ftp.c:637
 msgid "Unable to set transfer mode. Assuming binary\n"
 msgstr "Impossibile settare il tipo di trasferimento. Assumo il modo binario\n"
 
-#: src/ftp.c:647
+#: src/ftp.c:650
 msgid "Send Failed. "
 msgstr "Spedizione fallita. "
 
-#: src/ftp.c:649
+#: src/ftp.c:652
 msgid "Skipping this file\n"
 msgstr "Ssalto questo file\n"
 
-#: src/ftp.c:727
+#: src/ftp.c:730
 msgid "Assuming the proxy to do the task.\n"
 msgstr "Presumo che il proxy faccia il lavoro.\n"
 
-#: src/ftp.c:731
+#: src/ftp.c:734
 msgid "Skipping this URL.\n"
 msgstr "Salto questa URL.\n"
 
-#: src/ftp.c:767
+#: src/ftp.c:769
 msgid ""
 "URL: # or ? functions unimplemented. Assuming they are part of the "
 "filename.\n"
@@ -427,74 +440,74 @@ msgid "Receive-Error: read() failed. Read '%s' so far. (errno: %s (%d))\n"
 msgstr ""
 "Errore: read() fallito. Fino ad ora è stato letto: '%s'. (errno: %s (%d))\n"
 
-#: src/socketlib.c:254
+#: src/socketlib.c:257
 msgid "recv() timed out. No data received\n"
 msgstr "recv() time out. Nessun dato ricevuto\n"
 
-#: src/socketlib.c:414 src/socketlib.c:434 src/socketlib.c:459
-#: src/ftplib.c:347 src/ftplib.c:378 src/ftplib.c:448 src/ftplib.c:481
-#: src/ftplib.c:514 src/ftplib.c:569 src/ftplib.c:729 src/ftplib.c:822
-#: src/ftplib.c:892
+#: src/socketlib.c:420 src/socketlib.c:440 src/socketlib.c:465
+#: src/ftplib.c:348 src/ftplib.c:379 src/ftplib.c:450 src/ftplib.c:483
+#: src/ftplib.c:516 src/ftplib.c:571 src/ftplib.c:731 src/ftplib.c:824
+#: src/ftplib.c:894
 msgid "failed.\n"
 msgstr "fallito.\n"
 
-#: src/socketlib.c:416
+#: src/socketlib.c:422
 msgid "Connection to proxy cannot be established.\n"
 msgstr "Impossibile stabilire la connessione con il proxy.\n"
 
-#: src/socketlib.c:429
+#: src/socketlib.c:435
 #, c-format
 msgid "read() failed: %d (%d: %s)\n"
 msgstr "read() fallito: %d (%d: %s)\n"
 
-#: src/socketlib.c:436
+#: src/socketlib.c:442
 #, c-format
 msgid "Proxy version mismatch (%d)\n"
 msgstr "Versione del proxy errata (%d)\n"
 
-#: src/socketlib.c:454
+#: src/socketlib.c:460
 msgid "Proxy authentication failure\n"
 msgstr "Fallita l'autenticazione sul proxy\n"
 
-#: src/socketlib.c:461
+#: src/socketlib.c:467
 #, c-format
 msgid "Proxy method mismatch (%d)\n"
 msgstr "Il metodo proxy è stato sbagliato: (%d)\n"
 
-#: src/socketlib.c:480
+#: src/socketlib.c:486
 #, c-format
 msgid "Proxy discarded listen-request. Error-Code: %d\n"
 msgstr "Il proxy ha rifiutato la richiesta di ascolto. Codice di errore: %d\n"
 
-#: src/socketlib.c:481
+#: src/socketlib.c:487
 msgid "Disabling listen-tries for proxy\n"
 msgstr "Diattivo il listen-tries per il proxy\n"
 
-#: src/socketlib.c:487
+#: src/socketlib.c:493
 #, c-format
 msgid "Proxy is listening on %s:%d for incoming connections\n"
 msgstr "Proxy in ascolto a %s:%d connessioni in arrivo\n"
 
-#: src/socketlib.c:500
+#: src/socketlib.c:506
 #, c-format
 msgid "Proxy encountered an error while accepting. Error-Code: %d\n"
 msgstr "Il proxy ha avuto un errore nell'accettare. Codice di errore: %d\n"
 
-#: src/socketlib.c:518
+#: src/socketlib.c:524
 #, c-format
 msgid "Using SOCKS5-Proxy %s:%d... "
 msgstr "Utilizzo SOCKS5-Proxy %s:%d... "
 
-#: src/socketlib.c:550
+#: src/socketlib.c:556
 msgid "Proxy connection established.\n"
 msgstr "Connessione al proxy stabilita.\n"
 
-#: src/socketlib.c:553
+#: src/socketlib.c:559
 #, c-format
 msgid "Connection through proxy failed. Error-code: %d\n"
 msgstr "Connessione mediante proxy fallita. Codice di errore: %d\n"
 
-#: src/socketlib.c:608
+#: src/socketlib.c:614
 #, c-format
 msgid ""
 "Connection could not be established.\n"
@@ -539,86 +552,85 @@ msgid "TLS encryption is explicitly required, but could not be established.\n"
 msgstr ""
 "Criptazione TLS è esplicitamente richiesta, ma non può essere stabilita.\n"
 
-#: src/ftplib.c:252
+#: src/ftplib.c:253
 #, c-format
 msgid "Logging in as %s ... "
 msgstr "Accesso in corso come %s ... "
 
-#: src/ftplib.c:269
+#: src/ftplib.c:270
 msgid "remote server requires a password, but none set. Using an empty one.\n"
 msgstr ""
 "Il server remoto richiede una password ma non ne è stata impostata alcuna. "
 "Ne uso una vuota.\n"
 
-#: src/ftplib.c:278
+#: src/ftplib.c:279
 msgid "Server requires account login, which is not supported.\n"
 msgstr "Il server richiede il login, che non è supportato.\n"
 
-#: src/ftplib.c:284
+#: src/ftplib.c:285
 #, c-format
 msgid "Login-Sequence failed (%s)\n"
 msgstr "Sequenza di login fallita (%s)\n"
 
-#: src/ftplib.c:288
+#: src/ftplib.c:289
 msgid "Logged in!\n"
 msgstr "Accesso effettuato!\n"
 
-#: src/ftplib.c:305
+#: src/ftplib.c:306
 #, c-format
 msgid "failed (%s).\n"
 msgstr "fallito (%s).\n"
 
-#: src/ftplib.c:306
-#, fuzzy
-msgid "encrypted!\n"
-msgstr "criptata!\n"
+#: src/ftplib.c:307
+msgid "encrypted!"
+msgstr "criptata!"
 
-#: src/ftplib.c:313
+#: src/ftplib.c:314
 msgid "Setting data protection level to private ... "
 msgstr "Imposto il livello di protezione dei dati a privato ... "
 
-#: src/ftplib.c:329 src/ftplib.c:381 src/ftplib.c:510 src/ftplib.c:572
-#: src/ftplib.c:676 src/ftplib.c:721 src/ftplib.c:825 src/ftplib.c:867
-#: src/ftplib.c:895
+#: src/ftplib.c:330 src/ftplib.c:382 src/ftplib.c:512 src/ftplib.c:574
+#: src/ftplib.c:678 src/ftplib.c:723 src/ftplib.c:827 src/ftplib.c:869
+#: src/ftplib.c:897
 msgid "done.\n"
 msgstr "fatto.\n"
 
-#: src/ftplib.c:364
+#: src/ftplib.c:365
 #, c-format
 msgid "done (%s).\n"
 msgstr "fatto (%s).\n"
 
-#: src/ftplib.c:383
+#: src/ftplib.c:384
 #, c-format
 msgid "Connection cancelled (%s)\n"
 msgstr "Connessione annullata (%s)\n"
 
-#: src/ftplib.c:443
+#: src/ftplib.c:445
 #, c-format
 msgid "done (modified on %d.%d.%d at %d:%d:%d)\n"
 msgstr "fatto (modificato %d.%d.%d at %d:%d:%d)\n"
 
-#: src/ftplib.c:477
+#: src/ftplib.c:479
 #, c-format
 msgid "done (%s bytes)\n"
 msgstr "fatto (%s bytes)\n"
 
-#: src/ftplib.c:528 src/ftplib.c:544
+#: src/ftplib.c:530 src/ftplib.c:546
 #, c-format
 msgid " failed (%s).\n"
 msgstr " fallito (%s).\n"
 
-#: src/ftplib.c:599
+#: src/ftplib.c:601
 #, c-format
 msgid "Cannot initiate data-connection (%s)\n"
 msgstr "Impossibile inizializzare la connessione dei dati (%s)\n"
 
-#: src/ftplib.c:644
+#: src/ftplib.c:646
 #, c-format
 msgid "listing directory failed (%s)\n"
 msgstr "Impossibile listare il contenuto della directory (%s)\n"
 
-#: src/ftplib.c:673
+#: src/ftplib.c:675
 msgid ""
 "failed.\n"
 "Server seems not to support resuming. Restarting at 0\n"
@@ -626,37 +638,37 @@ msgstr ""
 "fallito.\n"
 "Il server non sembra supportare il resume. Riparto da 0\n"
 
-#: src/ftplib.c:693
+#: src/ftplib.c:695
 msgid "[not done, but should be allright]\n"
 msgstr "[non eseguito, ma non dovrebbero verificarsi problemi]\n"
 
-#: src/ftplib.c:725
+#: src/ftplib.c:727
 #, c-format
 msgid "failed (%s). (disabling resuming)\n"
 msgstr "fallito (%s). (disattivo il resume)\n"
 
-#: src/ftplib.c:732
+#: src/ftplib.c:734
 msgid "Trying to switch PORT/PASV mode\n"
 msgstr "Provo a cambiare alla modalità PORT/PASV\n"
 
-#: src/ftplib.c:736
+#: src/ftplib.c:738
 #, c-format
 msgid "failed (%d %s). (skipping)\n"
 msgstr "fallito (%d %s). (salto)\n"
 
-#: src/ftplib.c:837
+#: src/ftplib.c:839
 msgid "connection failed.\n"
 msgstr "connessione fallita.\n"
 
-#: src/ftplib.c:855
+#: src/ftplib.c:857
 msgid "Trying to listen on proxy server... "
 msgstr "Provo ad ascoltare sul server proxy... "
 
-#: src/ftplib.c:858
+#: src/ftplib.c:860
 msgid "failed. Falling back to listen locally\n"
 msgstr "fallito. Torno ad ascoltare localmente\n"
 
-#: src/ftplib.c:861
+#: src/ftplib.c:863
 msgid ""
 "Unless FXP is enabled remotely, your control-connection should be from the "
 "same IP-address, as your PORT bind-request. So you should consider PASV-mode "
@@ -666,32 +678,32 @@ msgstr ""
 "dallo stesso indirizzo IP, come richiesto da PORT bind-request. Si prega di "
 "consierare il PASV-mode o di riconnettersi senza utilizzare un proxy.\n"
 
-#: src/ftplib.c:871
+#: src/ftplib.c:873
 msgid "Using port-mode. Unable to use the http-proxy for this connection\n"
 msgstr ""
 "Uso port-mode. Impossibile usare il proxy http per questa connessione\n"
 
-#: src/ftplib.c:883
+#: src/ftplib.c:885
 msgid "Cannot determine local IP address"
 msgstr "Impossibile determinare l'indirizzo IP locale"
 
-#: src/utils.c:241
+#: src/utils.c:245
 #, c-format
 msgid "parse-error in escaped character: %c is not a hexadecimal character\n"
 msgstr ""
 "parse-error nel carattere risultante: %c non è un carattere esadecimale\n"
 
-#: src/utils.c:265
+#: src/utils.c:269
 #, c-format
 msgid "Waiting %d seconds... "
 msgstr "Aspetto %d secondi... "
 
-#: src/utils.c:279
+#: src/utils.c:283
 #, c-format
 msgid "No http-header found. Assuming socks-proxy $host:$port for `%s'\n"
 msgstr "Nessun http-header trovato. Assumo socks-proxy $host:$port per `%s'\n"
 
-#: src/utils.c:306
+#: src/utils.c:310
 #, c-format
 msgid "No port specified. Assuming default port %d.\n"
 msgstr "Nessuna porta specificata. Assumo la porta di default %d.\n"

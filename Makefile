@@ -15,9 +15,7 @@ win-clean:
 
 install: all
 	cd po && $(MAKE) $(MAKEDEFS) $@
-	install -d $(bindir) wput
 	install -m0755 wput $(bindir)
-	install -d $(mandir) doc/wput.1.gz
 	install -m0644 doc/wput.1.gz $(mandir)
 	@echo "----------------"
 	@echo "Wput installed. See 'wput -h' or 'man wput' for usage information."

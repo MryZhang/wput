@@ -4,6 +4,10 @@ Linux-like machines (using unaligned data structures)
     1) ./configure; make
     2) make install
    *3) make uninstall
+ 
+  TLS support is optional and by default enabled, if gnutls-openssl
+  is found. To disable TLS, run:
+    ./configure --without-ssl
 
   If you want to compile Wput with memory-debugging-support, run
     ./configure --enable-memdbg
@@ -21,13 +25,6 @@ Fedora Core
   Someone told me, it is necessary to edit the Makefile and change
   the first line to
     prefix	= /usr/share
-
-Debian
-======
-  To build a binary debian-package use:
-    fakeroot debian/rules binary
-  and install it afterwards using:
-    dpkg -i ../wput_0.6*
 
 Windows
 =======

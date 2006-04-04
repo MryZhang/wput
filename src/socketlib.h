@@ -5,7 +5,7 @@
 
 #ifdef HAVE_SSL
 # ifndef WIN32
-#  include <openssl/ssl.h>
+#  include <gnutls/openssl.h>
 # endif
 #endif
 
@@ -53,7 +53,7 @@ char * socket_read_line(wput_socket * sock);
 int    socket_read (wput_socket * sock, void *buf, size_t len);
 int    socket_write(wput_socket * sock, void *buf, size_t len);
 
-int get_ip_addr(char* hostname, int * ip);
+int get_ip_addr(char* hostname, unsigned int * ip);
 int get_local_ip(int sockfd, char * local_ip);
 
 int socket_set_blocking(int sock, unsigned char block);
