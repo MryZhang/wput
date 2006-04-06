@@ -127,6 +127,10 @@ SOURCE=..\memdbg.c
 # End Source File
 # Begin Source File
 
+SOURCE=..\netrc.c
+# End Source File
+# Begin Source File
+
 SOURCE=..\progress.c
 # End Source File
 # Begin Source File
@@ -176,6 +180,10 @@ SOURCE=..\ftp.h
 # Begin Source File
 
 SOURCE=..\ftplib.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\netrc.h
 # End Source File
 # Begin Source File
 

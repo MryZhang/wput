@@ -5,6 +5,15 @@
 #define __WIN_H
 #ifdef WIN32
 
+/* undefine the default config.h to make compilation easier */
+#undef HAVE_GETOPT_H
+#undef HAVE_IOCTL
+#undef HAVE_LOCALE_H
+#undef ENABLE_NLS
+#undef HAVE_STRINGS_H
+#undef HAVE_STRING_H
+#undef HAVE_UNISTD_H
+
 #include <io.h>
 #include <winsock2.h>
 #include <winsock.h>
@@ -24,7 +33,8 @@
 #define sleep(X)      Sleep((X) * 1000)
 
 //#define off_t __int64
-#define size_t long
+#define size_t unsigned long
+#define socklen_t unsigned long
 
 /* we need to clean up the sockets and well just
    hope the compiler doesn't mind ;D */

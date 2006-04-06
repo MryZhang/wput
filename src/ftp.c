@@ -98,7 +98,7 @@ int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
 	 * prior directories... */
 	if(!mkd) {
 		res = ftp_do_cwd(ftp, path);
-		if(SOCKET_ERROR(res))
+		if(SOCK_ERROR(res))
 			return ERR_RECONNECT;
 	}
 	if(res < 0 && opt.no_directories)
@@ -108,7 +108,7 @@ int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
 		/* go to the root directory if we are to start there */
 		if(path[0] == '/') {
 			res = ftp_do_cwd(ftp, "/");
-			if(SOCKET_ERROR(res))
+			if(SOCK_ERROR(res))
 				return ERR_RECONNECT;
 		
 			if(res < 0)
@@ -119,14 +119,14 @@ int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
 		/* this is vNORMAL because the user should get a notice
 		 * when a remote directory is created... */
 		res = ftp_do_mkd(ftp, path);
-		if(SOCKET_ERROR(res))
+		if(SOCK_ERROR(res))
 			return ERR_RECONNECT;
 		if(res < 0) return ERR_FAILED;	
 		
 		mkd = 1; 
 
 		res = ftp_do_cwd(ftp, path);
-		if(SOCKET_ERROR(res))
+		if(SOCK_ERROR(res))
 			return ERR_RECONNECT;
 		if(res < 0) return ERR_FAILED;
 	}
@@ -180,7 +180,7 @@ void set_resuming(_fsession * fsession) {
 
 int check_timestamp(_fsession * fsession) {
 	int res = ftp_get_modification_time(fsession->ftp, fsession->target_fname, &fsession->target_ftime);
-	if(SOCKET_ERROR(res)) return res;
+	if(SOCK_ERROR(res)) return res;
 	
 	/* this is for getting our local ftime in UTC+0 format which ftp-servers
 	 * usually issue. add the time-deviation to permit little clock-skews */
@@ -285,7 +285,7 @@ int do_send(_fsession * fsession){
 	
 	if(fsession->target_fsize > 0) {
 		res = ftp_do_rest(fsession->ftp, fsession->target_fsize);
-		if(SOCKET_ERROR(res)) return res;
+		if(SOCK_ERROR(res)) return res;
 		if(res == ERR_FAILED)
 			fsession->target_fsize = -1;
 	}
@@ -299,7 +299,7 @@ int do_send(_fsession * fsession){
 			} else {
 				/* just to be sure that it gets resetted... */
 				res = ftp_do_rest(fsession->ftp, fsession->target_fsize = -1);
-				if(SOCKET_ERROR(res)) return res;
+				if(SOCK_ERROR(res)) return res;
 			}
 		} else if(res == ERR_RETRY && (fsession->retry > 0 || fsession->retry == -1))
 			retry_wait(fsession);
@@ -387,7 +387,7 @@ int do_send(_fsession * fsession){
 					free(timers[1]);
 					opt.transfered_bytes += transfered_size - fsession->target_fsize;
 					res = ftp_do_abor(fsession->ftp);
-					if(SOCKET_ERROR(res)) return ERR_RECONNECT;
+					if(SOCK_ERROR(res)) return ERR_RECONNECT;
 					return ERR_FAILED;
 				}
 				/* reset convert buffer to proceed */
@@ -408,7 +408,7 @@ int do_send(_fsession * fsession){
 				free(timers[1]);
 				opt.transfered_bytes += transfered_size - fsession->target_fsize;
 				res = ftp_do_abor(fsession->ftp);
-				if(SOCKET_ERROR(res)) return ERR_RECONNECT;
+				if(SOCK_ERROR(res)) return ERR_RECONNECT;
 				return ERR_FAILED;
 			}
 		}
@@ -454,7 +454,7 @@ int do_send(_fsession * fsession){
 	
 	if(res == ERR_RETRY) return ERR_RETRY;
 	if(FTP_ERROR(res))   return ERR_FAILED;
-	if(SOCKET_ERROR(res)) return res;
+	if(SOCK_ERROR(res)) return res;
 	
 	if( fsession->local_fname &&
 		(transfered_size == fsession->local_fsize || fsession->binary == TYPE_A) 
@@ -468,7 +468,7 @@ int do_send(_fsession * fsession){
 	return 0;
 }
 #define SOCKET_RETRY \
-	if(SOCKET_ERROR(res)) {\
+	if(SOCK_ERROR(res)) {\
 		retry_wait(fsession);\
 		ftp_quit(fsession->ftp);\
 		fsession->ftp = ftp = NULL;\

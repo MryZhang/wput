@@ -23,7 +23,7 @@
 #define ERR_NOERROR 0
 #define ERR_OK 0
 
-#define SOCKET_ERROR(x) (x == ERR_RECONNECT || x == ERR_TIMEOUT)
+#define SOCK_ERROR(x) (x == ERR_RECONNECT || x == ERR_TIMEOUT)
 #define FTP_ERROR(x) (x == ERR_RETRY || x == ERR_PERMANENT)
 
 #define ERR_FAILED -1

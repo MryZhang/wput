@@ -209,7 +209,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 	do
 		res = ftp_get_msg(self);
 	while(res == ERR_POSITIVE_PRELIMARY);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_FAILED;
 	if(self->r.code != 220) {
 		printout(vNORMAL, _("Connection failed (%s)\n"), self->r.message);
@@ -254,7 +254,7 @@ int ftp_login(ftp_con * self, char * user, char * pass){
 	
 	ftp_issue_cmd(self, "USER", user);
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res)) return res;
+	if(SOCK_ERROR(res)) return res;
 	
 	/* rfc states: 331 need password
 	 *             332 need account TODO NRV (do we need support for this?)
@@ -271,7 +271,7 @@ int ftp_login(ftp_con * self, char * user, char * pass){
 			}
 			ftp_issue_cmd(self, "PASS", pass ? pass : "");
 			res = ftp_get_msg(self);
-			if(SOCKET_ERROR(res)) return res;
+			if(SOCK_ERROR(res)) return res;
 		
 		}
 		if(self->r.code == 332) {
@@ -375,7 +375,7 @@ int ftp_do_abor(ftp_con * self) {
 	res = ftp_get_msg(self);
 	/* if we have to do an abor, we usually have a failed connection, 
 	* so the control connection is certainly failed as well... */
-	if(SOCKET_ERROR(res)) {
+	if(SOCK_ERROR(res)) {
 		printout(vMORE, _("failed.\n"));
 		return ERR_RECONNECT;
 	}
@@ -426,7 +426,7 @@ int ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestam
 		printout(vMORE, "==> MDTM %s ... ", filename);
 		ftp_issue_cmd(self, "MDTM", filename);
 		res = ftp_get_msg(self);
-		if(SOCKET_ERROR(res)) return res;
+		if(SOCK_ERROR(res)) return res;
 		/* if the file does not exist remotely, this is ok for us */
 		if(self->r.code == 213) {
 			//JJJJMMDDHHMMSS
@@ -451,7 +451,7 @@ int ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestam
 		if(self->r.code == 551)
 			return ERR_FAILED;
 		res = ftp_get_list(self);
-		if(SOCKET_ERROR(res) || res == ERR_FAILED) return res;
+		if(SOCK_ERROR(res) || res == ERR_FAILED) return res;
 		dl = ftp_get_current_directory_list(self);
 	}
 	if(dl) finfo = fileinfo_find_file(dl, filename);
@@ -472,7 +472,7 @@ int ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize){
 		printout(vMORE, "==> SIZE %s ... ", filename);
 		ftp_issue_cmd(self, "SIZE", filename);
 		res = ftp_get_msg(self);
-		if(SOCKET_ERROR(res)) return res;
+		if(SOCK_ERROR(res)) return res;
 		
 		/* TODO USS there might be other codes for 'file not found' */
 		if(self->r.code == 213) {
@@ -486,7 +486,7 @@ int ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize){
 		
 		/* otherwise try LIST method */
 		res = ftp_get_list(self);
-		if(SOCKET_ERROR(res) || res == ERR_FAILED) return res;
+		if(SOCK_ERROR(res) || res == ERR_FAILED) return res;
 		dl = ftp_get_current_directory_list(self);
 	}
 	if(dl) finfo = fileinfo_find_file(dl, filename);
@@ -523,7 +523,7 @@ int ftp_do_cwd(ftp_con * self, char * directory) {
 	printout(vMORE, "==> CWD %s", directory);
 	ftp_issue_cmd(self, "CWD", directory);
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
 	if(self->r.code != 250) {
@@ -539,7 +539,7 @@ int ftp_do_mkd(ftp_con * self, char * directory) {
 	printout(vMORE, "==> MKD %s", directory);
 	ftp_issue_cmd(self, "MKD", directory);
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
 	if(self->r.code != 257) {
@@ -555,13 +555,13 @@ int ftp_do_list(ftp_con * self) {
 	int res;
 	/* ascii mode is a good idea, esp for listings */
 	res = ftp_set_type(self, TYPE_A);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
 	printout(vNORMAL, "==> LIST ... ");
 	ftp_issue_cmd(self, "LIST", NULL);
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 		
 	/* we get a 1xy (positive preliminary reply), so the
@@ -574,7 +574,7 @@ int ftp_do_list(ftp_con * self) {
 	printout(vNORMAL, _("done.\n"));
 	
 	if(ftp_complete_data_connection(self) < 0)	{
-		if(SOCKET_ERROR(ftp_do_abor(self))) return ERR_RECONNECT;
+		if(SOCK_ERROR(ftp_do_abor(self))) return ERR_RECONNECT;
 		return ERR_FAILED;
 	}
 	return 0;
@@ -622,7 +622,7 @@ int ftp_get_list(ftp_con * self) {
 	/* TODO NRV need to check error-level here too? */
 	if(res == ERR_TIMEOUT) {
 		res = ftp_do_abor(self);
-		if(SOCKET_ERROR(res)) return ERR_RECONNECT;
+		if(SOCK_ERROR(res)) return ERR_RECONNECT;
 	}
 	
 	if(self->datasock) {
@@ -668,7 +668,7 @@ int ftp_do_rest(ftp_con * self, off_t filesize) {
 	printout(vMORE, "==> REST %d ... ", filesize);
 	ftp_issue_cmd(self, "REST", int64toa(filesize, tmpbuf, 10));
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res))
+	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 
 	if(self->r.code != 350) {
@@ -680,7 +680,7 @@ int ftp_do_rest(ftp_con * self, off_t filesize) {
 }
 /* issue the STOR command which precedes the actual file-transmission
  * TODO IMP catch more errors that are not rfc-conform (such as 451 resuming not allowed. but from where to know? */
-/* error-levels: 1 (disable resuming), ERR_FAILED (=> skip), ERR_RETRY, SOCKET_ERRORs */
+/* error-levels: 1 (disable resuming), ERR_FAILED (=> skip), ERR_RETRY, SOCK_ERRORs */
 int ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/){
   int res;
 
@@ -694,7 +694,7 @@ int ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/){
   if(res == ERR_TIMEOUT) {
 	printout(vMORE, _("[not done, but should be allright]\n"));
 	return 0;
-  } else if(SOCKET_ERROR(res))
+  } else if(SOCK_ERROR(res))
 	return res;
   else if(res == ERR_PERMANENT)
   	return ERR_FAILED;
@@ -757,7 +757,7 @@ int ftp_establish_data_connection(ftp_con * self){
 		else
 #endif
 		res = ftp_set_protection_level(self);
-		if(SOCKET_ERROR(res)) return res;
+		if(SOCK_ERROR(res)) return res;
 		if(res < 0 && self->secure) return ERR_FAILED;
 		if(res == 0) self->datatls = 1;
 	}
@@ -818,7 +818,7 @@ int ftp_do_passive(ftp_con * self) {
 	printout(vMORE, "==> PASV ... ");
 	ftp_issue_cmd(self, "PASV", NULL);
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res)) return ERR_RECONNECT;
+	if(SOCK_ERROR(res)) return ERR_RECONNECT;
 	
 	if(self->r.code != 227) {
 		printout(vMORE, _("failed.\n"));
@@ -844,7 +844,7 @@ int ftp_do_passive(ftp_con * self) {
 }
 
 /* listen locally (or on the proxy) and issue the PORT command */
-/* error-levels: ERR_FAILED, SOCKET_ERRORs */
+/* error-levels: ERR_FAILED, SOCK_ERRORs */
 int ftp_do_port(ftp_con * self){
 	unsigned short int sport = 0;
 	unsigned       int sip   = 0;
@@ -888,7 +888,7 @@ int ftp_do_port(ftp_con * self){
 	
 	ftp_issue_cmd(self, "PORT", get_port_fmt(sip, sport));
 	res = ftp_get_msg(self);
-	if(SOCKET_ERROR(res)) return res;
+	if(SOCK_ERROR(res)) return res;
 	
 	if(self->r.code != 200) {
 		printout(vMORE, _("failed.\n"));

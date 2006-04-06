@@ -1,9 +1,15 @@
-Thr Apr 05 12:57:10 CET 2006
+Thu Apr 06 23:05:49 CET 2006
+	* changed SOCKET_ERROR to SOCK_ERROR because SOCKET_ERROR
+	  is somewhat defined by winsock in w32
+	* minor other changes to help compilation for win32
+
+Wed Apr 05 12:57:10 CET 2006
 	* fixing a bug in get_relative_path which returned
 	  false data for pathcombinations like "a","abc"
 
 Tue Apr 04 18:46:34 CET 2006 wput-0.6
 	* using gnutls now. adjusting includes. no need for win32
+	* parsing of mdtm forgot to decrease the month. fixed
 	* setting target_fsize to -1 to indicate unexisting files,
 	  so that wput will upload even files with 0 filesize
 	* fixing double free() of hostname if the host could not be

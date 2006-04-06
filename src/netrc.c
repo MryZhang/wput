@@ -33,7 +33,9 @@ Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
 #ifdef HAVE_STRING_H
 # include <string.h>
 #else
-# include <strings.h>
+# ifdef HAVE_STRINGS_H
+#  include <strings.h>
+# endif
 #endif
 #include <sys/types.h>
 #include <errno.h>

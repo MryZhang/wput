@@ -34,7 +34,9 @@ so, delete this exception statement from your version.  */
 #ifdef HAVE_STRING_H
 # include <string.h>
 #else
-# include <strings.h>
+# ifdef HAVE_STRINGS_H
+#  include <strings.h>
+# endif
 #endif
 #ifdef HAVE_UNISTD_H
 # include <unistd.h>

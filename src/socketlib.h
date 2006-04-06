@@ -15,7 +15,8 @@
 
 #define closesocket(x) close(x)
 #define WPUT_EINTR EINTR
-
+#else
+#include "windows.h"
 #endif
 
 #define PROXY_OFF   0
