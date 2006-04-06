@@ -1,3 +1,7 @@
+Thr Apr 05 12:57:10 CET 2006
+	* fixing a bug in get_relative_path which returned
+	  false data for pathcombinations like "a","abc"
+
 Tue Apr 04 18:46:34 CET 2006 wput-0.6
 	* using gnutls now. adjusting includes. no need for win32
 	* setting target_fsize to -1 to indicate unexisting files,

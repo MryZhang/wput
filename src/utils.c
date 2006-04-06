@@ -455,7 +455,7 @@ char * get_relative_path(char * src, char * dst) {
 		mark_dst = dst;
 	}
 	/* if all of src matches dst, we return the rest of dst */
-	if(*src == 0) return cpy(dst+1);
+	if(*src == 0 && *dst == '/') return cpy(dst+1);
 	
 	/* now count the remaining slashes and add a ../ to the rel path for each of them */
 	tmp = mark_src;
