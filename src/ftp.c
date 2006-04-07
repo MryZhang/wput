@@ -323,7 +323,6 @@ int do_send(_fsession * fsession){
 	timers[1] = wtimer_alloc();
 	wtimer_reset(timers[0]);
 	wtimer_reset(timers[1]);
-	
 	/* prepare resuming */
 	if(fsession->target_fsize > 0) {
 		/* TODO USS fseek in win (don't know about other OS) does not know 
@@ -399,11 +398,10 @@ int do_send(_fsession * fsession){
 		else {
 			transfered_size += readbytes;
 			transfered_last += readbytes;
-			
 			res = socket_write(fsession->ftp->datasock, databuf, readbytes);
 			if(res != readbytes) {
 				printout(vLESS, _("Error: "));
-				printout(vLESS, _("Error encountered during uploading data\n"));
+				printout(vLESS, _("Error encountered during uploading data (%s)\n"), strerror(errno));
 				free(timers[0]);
 				free(timers[1]);
 				opt.transfered_bytes += transfered_size - fsession->target_fsize;

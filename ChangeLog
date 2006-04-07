@@ -1,3 +1,9 @@
+Fri Apr 07 14:12:33 CET 2006
+	* fixed the bar_update function which was too busy printing
+	  out updates. limited to 10 updates per second
+	* fixed the bar_creating function which called get_terminal_size
+	  even in background mode, causing strange errors afterwards
+
 Thu Apr 06 23:05:49 CET 2006
 	* changed SOCKET_ERROR to SOCK_ERROR because SOCKET_ERROR
 	  is somewhat defined by winsock in w32

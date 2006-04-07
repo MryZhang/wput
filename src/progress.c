@@ -312,11 +312,13 @@ void bar_create(_fsession * fsession)
 	if( opt.verbose < vNORMAL ) return;
 
 #ifdef HAVE_IOCTL
-	terminal_width = get_term_width();
-	/* if the terminal is too small some calculations will fail
-	 * and there output rubbish */
-	if(terminal_width < 45)
-		opt.barstyle = 0;
+	if(opt.barstyle) {
+		terminal_width = get_term_width();
+		/* if the terminal is too small some calculations will fail
+		* and therefore output rubbish */
+		if(terminal_width < 45)
+			opt.barstyle = 0;
+	}
 #endif
 	
 	for(i=0 ; i<SPEED_BACKTRACE; i++)
@@ -359,13 +361,14 @@ void bar_create(_fsession * fsession)
 void bar_update(_fsession * fsession, off_t transfered, int transfered_last, struct wput_timer * last) {
 	unsigned char percent = (unsigned char) ((double) WINCONV transfered / WINCONV fsession->local_fsize * 100);
 	unsigned int time_elapsed;
+	static char updatecounter = 1;
 	if( opt.verbose < vNORMAL ) return;
 	
 	time_elapsed = wtimer_elapsed(last);
 
 	/* if at least one second has passed, update the transfer_rate and eta */
 	bar.transfered += transfered_last;
-	if(time_elapsed > 1000) {
+	if(updatecounter == 10) {
 	        /* printout(vDEBUG, "\nupdate (%l,%d,%d,%d)\n", transfered, transfered_last, (int) wtimer_elapsed(last),bar.transfered); */
         	/* rotate the backtrace buffer */
 		/* TODO NRV do not rotate but simple pass the pointer of the cell we update */
@@ -373,61 +376,67 @@ void bar_update(_fsession * fsession, off_t transfered, int transfered_last, str
 		bar.last_transfered[SPEED_BACKTRACE-1] = bar.transfered;
 		bar.transfered = 0;
 
-#ifdef WIN32
-		/* add 10^7 100-nanoseconds which should be one second */
-		last->start += 1000 * 1000 * 10; 
-#else
-		last->start.tv_sec++;
-#endif
+		updatecounter = 0;
+
 	        /* update the rates */
         	bar.last_rate = get_transfer_rate(fsession, (unsigned char) !opt.barstyle);
 		bar.last_eta  = calculate_eta(fsession, transfered);
 	}
-	
-	/* only update if there is at least 1/4 second gone since the last update */
-	if(opt.barstyle && time_elapsed > 250) {
-		unsigned short int bar_width = terminal_width - 4 - 2 - 14 - 9 - 15; /* == 36 */
-		short int data[2] = {
-			(short) ((double) WINCONV fsession->target_fsize / WINCONV fsession->local_fsize  * bar_width), //skipped
-			(short) ((double) WINCONV (transfered - fsession->target_fsize) / WINCONV fsession->local_fsize * bar_width), //really transfered
-		};
-		char * transf = legible(transfered);
-		//if(data[1] == bar_width || data[1]+data[2] == bar_width) data[1]--;
-		//if(data[2] == bar_width) data[2]--; //just in case we resume at 100%
-		
-		/* this line creates the cool bar
-		 * if we have 100% it will look a litte different
-		 * (no eta, and we'll display the average speed) */
-		if(percent < 100)
-			printout(vNORMAL, "\r%s%d%% [%*+%*=>%* ] %s%* %s %s",
-				(percent < 10) ? " " : "", percent,
-				data[0], data[1],
-				bar_width - data[1] - data[0] - 1,
-				transf,
-				17-strlen(transf),
-				bar.last_rate,
-				bar.last_eta);
-		else
-			printout(vNORMAL, "\r%* \r100%%[%*+%*=] %s%* %s", terminal_width,
-				data[0], data[1],
-				transf, 17-strlen(transf),
-				bar.last_rate);
-	} else if(!opt.barstyle) {
-		unsigned int dots = transfered_last / bar.bytes_per_dot;
-		//printout(vDEBUG, "dots: %d (%d) (%dK)\n", bar.dots, dots, (long int) (transfered / 1024));
-		for(;dots > 0;dots--) {
-			bar.dots++;
-			putc('.', opt.output);
-			if(bar.dots % bar.spacing == 0)
-				putc(' ', opt.output);
-			if(bar.dots == bar.dots_per_line) {
-				fprintf(opt.output, "%3ld%% %s\n%5ldK ", 
-					(long int) percent,
+	/* only update if there is at least 1/10 second gone since the last update */
+	if(time_elapsed > 100) {
+		updatecounter++;
+#ifdef WIN32
+		/* add 1/25 second */
+		last->start += 1000 * 1000; 
+#else
+		last->start.tv_usec+=100000;
+		if(last->start.tv_usec > 1000000) {
+			last->start.tv_usec -= 1000000;
+			last->start.tv_sec++;
+		}
+#endif
+		if(opt.barstyle) {
+			unsigned short int bar_width = terminal_width - 4 - 2 - 14 - 9 - 15; /* == 36 */
+			short int data[2] = {
+				(short) ((double) WINCONV fsession->target_fsize / WINCONV fsession->local_fsize  * bar_width), //skipped
+				(short) ((double) WINCONV (transfered - fsession->target_fsize) / WINCONV fsession->local_fsize * bar_width), //really transfered
+			};
+			char * transf = legible(transfered);
+			
+			/* this line creates the cool bar
+			* if we have 100% it will look a litte different
+			* (no eta, and we'll display the average speed) */
+			if(percent < 100)
+				printout(vNORMAL, "\r%s%d%% [%*+%*=>%* ] %s%* %s %s",
+					(percent < 10) ? " " : "", percent,
+					data[0], data[1],
+					bar_width - data[1] - data[0] - 1,
+					transf,
+					17-strlen(transf),
 					bar.last_rate,
-					(long int) (transfered / 1024));
-				bar.dots = 0;
+					bar.last_eta);
+			else
+				printout(vNORMAL, "\r%* \r100%%[%*+%*=] %s%* %s", terminal_width,
+					data[0], data[1],
+					transf, 17-strlen(transf),
+					bar.last_rate);
+		} else {
+			unsigned int dots = transfered_last / bar.bytes_per_dot;
+			//printout(vDEBUG, "dots: %d (%d) (%dK)\n", bar.dots, dots, (long int) (transfered / 1024));
+			for(;dots > 0;dots--) {
+				bar.dots++;
+				putc('.', opt.output);
+				if(bar.dots % bar.spacing == 0)
+					putc(' ', opt.output);
+				if(bar.dots == bar.dots_per_line) {
+					fprintf(opt.output, "%3ld%% %s\n%5ldK ", 
+						(long int) percent,
+						bar.last_rate,
+						(long int) (transfered / 1024));
+					bar.dots = 0;
+				}
 			}
 		}
+		fflush(opt.output);
 	}
-	fflush(opt.output);
 }
