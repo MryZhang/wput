@@ -84,7 +84,7 @@ int main(int argc, char *argv[]){
 		exit(4);
 	}
 #endif
-
+	signal(SIGPIPE, SIG_IGN);
 	/* i18n */
 #ifdef ENABLE_NLS
 	/* LC_MESSAGES is enough as the only thing that is done is
