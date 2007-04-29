@@ -366,7 +366,7 @@ int socket_is_data_writeable(int s, int timeout) {
 	printout(vDEBUG, "Checking whether %d is writable... ", s);
 	res = select(s+1, NULL, &inSet, NULL, &t);
 	printout(vDEBUG, "%d (%d:%s)\n", res, errno, strerror(errno));
-	if(errno > 0 && errno != 115)
+	if(errno > 0 && errno != 115 && errno != 36)
 		return 0;
 	return res;
 }
@@ -391,7 +391,7 @@ wput_socket * socket_timeout_connect(wput_socket * sock, struct sockaddr *remote
 #endif
   socket_set_blocking(sock->fd, 0);
   c = connect(sock->fd,remote_addr,size);
-  if(errno > 0 && errno != 115) {
+  if(errno > 0 && errno != 115 && errno != 36) {
 	printout(vMORE, "[%s]", strerror(errno));
 	return NULL;
   }
