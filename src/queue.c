@@ -29,6 +29,7 @@
  *  o One URL may take multiple files (e.g. directory)
  *  o We sometimes don't need a filename if we got the URL
  * */
+#include <errno.h>
 #include "wput.h"
 #include "_queue.h"
 #include "utils.h"

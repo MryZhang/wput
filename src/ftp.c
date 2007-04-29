@@ -18,6 +18,7 @@
 
 /* This file contains procedures for interacting with the FTP-Server */
 
+#include <errno.h>
 #include "ftp.h"
 #include "utils.h"
 #include "progress.h"
