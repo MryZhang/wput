@@ -33,7 +33,9 @@ unsigned char get_filemode(char * filename){
   int i, k;
   char * suffix;
   int dotpos = strlen(filename);
-  while(filename[--dotpos] != '.');
+  if(strchr(filename, '.')) {
+   while(filename[--dotpos] != '.');
+  }
 
   suffix = (char *)(filename + (++dotpos));
   k = strlen(suffix);
