@@ -145,6 +145,11 @@ int main(int argc, char *argv[]){
 	
 	commandlineoptions(argc, argv);
 
+	/* Delete argv contents, now passwords are not displayed by ps */
+	if(argc > 1) {
+		strncpy(argv[1], "", sizeof(argv[1]));
+	}
+
 #ifndef WIN32
 	/* If we are still at stdout, then redirect output to 'wput-log'. */
 	if(opt.background) {
