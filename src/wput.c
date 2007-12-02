@@ -57,9 +57,9 @@
 extern char *optarg;
 
 #ifdef WIN32
-const static char * version = "0.6-w32";
+const static char * version = "0.6.1-w32";
 #else
-const static char * version = "0.6";
+const static char * version = "0.6.1";
 #endif
 
 _fsession * fsession_queue_entry_point = NULL;
@@ -794,7 +794,7 @@ void commandlineoptions(int argc, char * argv[]){
             queue_add_file(cpy(argv[optind]));
 
 	/* delete argv content, so passwords are not displayed by ps */
-	argv[optind][0] = 0;
+	memset(argv[optind], ' ', strlen(argv[optind]));
 
         optind++;
     }
