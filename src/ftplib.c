@@ -541,8 +541,9 @@ int ftp_do_mkd(ftp_con * self, char * directory) {
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
-	
-	if(self->r.code != 257) {
+
+	/* fix for strato's ftp-server that says: 250 directory created */	
+	if(self->r.code/10 != 25) {
 		printout(vMORE, _(" failed (%s).\n"), self->r.message);
 		return ERR_FAILED;
 	}

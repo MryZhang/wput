@@ -646,7 +646,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 	SOCKET_RETRY;
 	
 	if(res == ERR_FAILED) {
-		printout(vLESS, _("Send Failed. "));
+		printout(vLESS, _("Send Failed (%s) "), fsession->ftp->r.message);
 		if(fsession->done) {
 			printout(vLESS, _("Skipping this file\n"));
 			break;

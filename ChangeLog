@@ -1,3 +1,12 @@
+Wed Apr 12 18:17:32 CET 2006
+	* adding dutch (nl) translation by Sebastiaan van der Velden
+
+Sat Apr 08 15:11:50 CET 2006
+	* gnutls created SIGPIPE events when the connection broke
+	  down. ignoring SIGPIPE now
+	* fixing some issues in transferrate/eta-calculation for
+	  slower rates than 10K
+
 Fri Apr 07 14:12:33 CET 2006
 	* fixed the bar_update function which was too busy printing
 	  out updates. limited to 10 updates per second

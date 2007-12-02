@@ -187,7 +187,7 @@ char * time_str (void)
 
 /* speed calculation is based on the average speed of the last 
  * SPEED_BACKTRACE seconds */
-#define SPEED_BACKTRACE 15
+#define SPEED_BACKTRACE 24
 
 struct _bar {
 	unsigned short int bytes_per_dot;
@@ -270,7 +270,7 @@ char * get_transfer_rate(_fsession * fsession, unsigned char sp) {
 		if(bar.last_transfered[i] == -1) time_diff--;
 		else tbytes += bar.last_transfered[i];
 	}
-    //printout(vDEBUG, "%d Seconds for %d Bytes\n", time_diff, tbytes);
+    //fprintf(stderr, "%d Seconds for %d Bytes\n", time_diff, tbytes);
     return calculate_transfer_rate(time_diff*1000, tbytes, sp);
 }
 
@@ -361,40 +361,43 @@ void bar_create(_fsession * fsession)
 void bar_update(_fsession * fsession, off_t transfered, int transfered_last, struct wput_timer * last) {
 	unsigned char percent = (unsigned char) ((double) WINCONV transfered / WINCONV fsession->local_fsize * 100);
 	unsigned int time_elapsed;
-	static char updatecounter = 1;
+	static int updatecounter = 1;
 	if( opt.verbose < vNORMAL ) return;
 	
 	time_elapsed = wtimer_elapsed(last);
 
 	/* if at least one second has passed, update the transfer_rate and eta */
 	bar.transfered += transfered_last;
-	if(updatecounter == 10) {
+	if(updatecounter >= 10) {
 	        /* printout(vDEBUG, "\nupdate (%l,%d,%d,%d)\n", transfered, transfered_last, (int) wtimer_elapsed(last),bar.transfered); */
-        	/* rotate the backtrace buffer */
-		/* TODO NRV do not rotate but simple pass the pointer of the cell we update */
-        	memcpy(bar.last_transfered, bar.last_transfered+1, sizeof(int)*(SPEED_BACKTRACE-1));
-		bar.last_transfered[SPEED_BACKTRACE-1] = bar.transfered;
-		bar.transfered = 0;
-
-		updatecounter = 0;
-
-	        /* update the rates */
+		while(updatecounter >= 10) {
+			/* rotate the backtrace buffer */
+			/* TODO NRV do not rotate but simple pass the pointer of the cell we update */
+			memcpy(bar.last_transfered, bar.last_transfered+1, sizeof(int)*(SPEED_BACKTRACE-1));
+			bar.last_transfered[SPEED_BACKTRACE-1] = bar.transfered;
+			bar.transfered = 0;
+			updatecounter -= 10;
+		}
+		/* update the rates */
         	bar.last_rate = get_transfer_rate(fsession, (unsigned char) !opt.barstyle);
 		bar.last_eta  = calculate_eta(fsession, transfered);
 	}
 	/* only update if there is at least 1/10 second gone since the last update */
 	if(time_elapsed > 100) {
-		updatecounter++;
+		while(time_elapsed > 100) {
+			updatecounter++;
+			time_elapsed -= 100;
 #ifdef WIN32
-		/* add 1/25 second */
-		last->start += 1000 * 1000; 
+			/* add 1/10 second */
+			last->start += 1000 * 1000; 
 #else
-		last->start.tv_usec+=100000;
-		if(last->start.tv_usec > 1000000) {
-			last->start.tv_usec -= 1000000;
-			last->start.tv_sec++;
-		}
+			last->start.tv_usec+=100000;
+			if(last->start.tv_usec > 1000000) {
+				last->start.tv_usec -= 1000000;
+				last->start.tv_sec++;
+			}
 #endif
+		}
 		if(opt.barstyle) {
 			unsigned short int bar_width = terminal_width - 4 - 2 - 14 - 9 - 15; /* == 36 */
 			short int data[2] = {

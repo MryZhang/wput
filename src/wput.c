@@ -145,11 +145,6 @@ int main(int argc, char *argv[]){
 	
 	commandlineoptions(argc, argv);
 
-	/* Delete argv contents, now passwords are not displayed by ps */
-	if(argc > 1) {
-		strncpy(argv[1], "", sizeof(argv[1]));
-	}
-
 #ifndef WIN32
 	/* If we are still at stdout, then redirect output to 'wput-log'. */
 	if(opt.background) {
@@ -797,6 +792,10 @@ void commandlineoptions(int argc, char * argv[]){
             queue_add_url(cpy(argv[optind]));
         else
             queue_add_file(cpy(argv[optind]));
+
+	/* delete argv content, so passwords are not displayed by ps */
+	argv[optind][0] = 0;
+
         optind++;
     }
 }
