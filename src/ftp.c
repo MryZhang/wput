@@ -523,6 +523,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 			retry_wait(fsession);
 			ftp_quit(fsession->ftp);
 			fsession->ftp = ftp = NULL;
+			res = ERR_FAILED;
 			continue;
 		}
 		/* set the portmode default value to the global setting */

@@ -361,6 +361,7 @@ _fsession * build_fsession(char * file, char * url) {
 		if(file) free(file);
 		free_fsession(fsession);
 		printout(vDEBUG, "fsession free()d\n");
+		opt.failed++;
 		return NULL;
 	}
 	
