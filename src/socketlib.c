@@ -166,12 +166,18 @@ wput_socket * socket_accept(wput_socket * sock){
 }
 #ifdef HAVE_SSL
 int socket_transform_to_ssl(wput_socket * sock) {
+	int res;
 	sock->ctx = SSL_CTX_new(SSLv23_client_method());
 	SSL_CTX_set_verify(sock->ctx, SSL_VERIFY_NONE, NULL);
 	sock->ssl = SSL_new(sock->ctx);
 	SSL_set_fd(sock->ssl, sock->fd);
-	if(!SSL_connect(sock->ssl)) {
-		printout(vNORMAL, _("TLS handshake failed.\n"));
+	/* sometimes this failes with SSL_ERROR_ZERO_RETURN, but for no obvious reason
+	 * it works fine when connecting through a proxy. works fine on some machines
+	 * and sometimes just failes rendering tls-encryption unusable */
+	if((res = SSL_connect(sock->ssl)) != 1) {
+		res = SSL_get_error(sock->ssl, res);
+		printout(vNORMAL, _("TLS handshake failed\n"));
+		if(res == 6) printout(vNORMAL, "SSL_ERROR_ZERO_RETURN-Bug\n");
 		SSL_free(sock->ssl);
 		SSL_CTX_free(sock->ctx);
 		sock->ssl  = NULL;

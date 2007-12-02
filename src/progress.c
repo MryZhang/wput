@@ -20,9 +20,14 @@
 #include "utils.h"
 #include "windows.h"
 
-#ifdef HAVE_TERMIO
+#ifdef HAVE_SYSTERMIO
 #include <sys/termio.h>
 #endif
+
+#ifdef HAVE_TERMIO
+#include <termio.h>
+#endif
+
 #ifdef HAVE_WINSIZE
 #include <sys/winsize.h>
 #endif
