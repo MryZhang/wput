@@ -184,9 +184,10 @@ int check_timestamp(_fsession * fsession) {
 	if(SOCK_ERROR(res)) return res;
 	
 	/* this is for getting our local ftime in UTC+0 format which ftp-servers
-	 * usually issue. add the time-deviation to permit little clock-skews */
+	 * usually issue. add the time-deviation to permit little clock-skews 
+	 * add time_offset in case ftp-server does not issue UTC-time */
 	/* TODO USS time_deviation? + or - ? */
-	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation;
+	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 24 * 3600;
 	printout(vDEBUG, "timestamping: local: %d seconds\n"
 	                 "             remote: %d seconds; diff: %d\n",
 		(int) fsession->local_ftime, (int) fsession->target_ftime,
@@ -583,6 +584,14 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		fsession->ftp->current_directory = cpy(fsession->target_dname);
 	}
 
+	/* fixing #1599242, the filemode has to be set, before doing SIZE
+	 * however, we do this before SIZE and afterwards again in order not
+	 * to issue the command in case we are skipping anyway */
+	/* set the filemode based on the extension unless it has been specified by */	
+	if(fsession->binary == TYPE_UNDEFINED)
+		fsession->binary = get_filemode(fsession->target_fname);
+
+	
     /* on most ftps we have to say PASV or PORT before typing REST n. 
      * So i assume that it's best to _only_ SIZE here and do REST in do_send() */
     /* we don't need to SIZE for input-pipes, since we don't know the local file-size anyway */
@@ -592,11 +601,20 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 	   fsession->resume_table->large_small == RESUME_TABLE_UPLOAD)
 		fsession->target_fsize = -1;
 	else
-    	if(fsession->local_fname) {
-			res = ftp_get_filesize(fsession->ftp, fsession->target_fname, &fsession->target_fsize);
-    		if(res == ERR_FAILED) fsession->target_fsize = -1;
-			SOCKET_RETRY;
-		}
+	if(fsession->local_fname) {
+		res = ftp_set_type(fsession->ftp, fsession->binary);
+		SOCKET_RETRY;
+		if(res == ERR_FAILED)
+			printout(vMORE, _("Unable to set transfer mode. Assuming binary\n"));
+		
+		res = ftp_get_filesize(fsession->ftp, fsession->target_fname, &fsession->target_fsize);
+		if(res == ERR_FAILED) fsession->target_fsize = -1;
+		SOCKET_RETRY;
+		
+		/* reupload last 512-byte block in case connection errors cause bad data to be inserted */
+		if(fsession->target_fsize > 0)
+			fsession->target_fsize = (fsession->target_fsize - 0x200) & ~0x1ff;
+	}
 	
 	printout(vDEBUG, "local_fsize: %d\ntarget_fsize: %d\n",
 		(int) fsession->local_fsize,
@@ -625,11 +643,8 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 			fsession->done = 1;
 			break;
 		}
-
-	/* set the filemode based on the extension unless it has been specified by */	
-	if(fsession->binary == TYPE_UNDEFINED)
-		fsession->binary = get_filemode(fsession->target_fname);
-
+	
+	/* redo setting of binary/ascii mode, in case we did no SIZE */
 	res = ftp_set_type(fsession->ftp, fsession->binary);
 	SOCKET_RETRY;
 	
@@ -637,7 +652,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		printout(vMORE, _("Unable to set transfer mode. Assuming binary\n"));
 
 	/* transmit the file and retry if requested */
-    while((res = do_send(fsession)) == ERR_RETRY) {
+    	while((res = do_send(fsession)) == ERR_RETRY) {
 		retry_wait(fsession);
 		if(!( fsession->retry > 0 || fsession->retry == -1)) {
 			res = ERR_FAILED;

@@ -1,5 +1,10 @@
-Sun Dec 02 14:29:30 CET 2006
+Sun Dec 02 16:55:29 CET 2006
+	* fixing #1776300 (build issues), #1834977 (netrc),
+	  #1737168 (return values), #1651042 (resume-corruption),
+	  #1599242 (TYPE<->SIZE), #1525208 (ps and passwords),
+	  #1523072 (timeoffset)
 	* adding simplified chinese (zh) translation by Sender Soff
+	* adding turkish (tr) translation by Eren Türkay
 
 Wed Apr 12 18:17:32 CET 2006
 	* adding dutch (nl) translation by Sebastiaan van der Velden

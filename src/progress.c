@@ -22,6 +22,8 @@
 
 #ifdef HAVE_TERMIO
 #include <sys/termio.h>
+#endif
+#ifdef HAVE_WINSIZE
 #include <sys/winsize.h>
 #endif
 

@@ -68,5 +68,11 @@
 /* Define to 1 if you have the long long type */
 #undef HAVE_LONG_LONG
 
+/* Define to 1 if you have the <sys/termio.h> header file. */
+#undef HAVE_TERMIO
+
+/* Define to 1 if you have the <sys/winsize.h> header file. */
+#undef HAVE_WINSIZE
+
 #undef SIZEOF_SHORT
 #undef SIZEOF_INT

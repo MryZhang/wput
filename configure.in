@@ -31,6 +31,8 @@ if test "$enable_g_switch" != "no"; then
 fi
 AC_PROG_CC
 AC_CHECK_HEADERS([sys/ioctl.h], AC_DEFINE(HAVE_IOCTL))
+AC_CHECK_HEADERS([sys/termio.h], AC_DEFINE(HAVE_TERMIO))
+AC_CHECK_HEADERS([sys/winsize.h], AC_DEFINE(HAVE_WINSIZE))
 AC_CHECK_HEADERS([locale.h], AC_DEFINE(HAVE_LOCALE_H))
 AC_CHECK_HEADERS([libintl.h], AC_DEFINE(HAVE_LIBINTL_H))
 AC_CHECK_HEADERS(getopt.h, [

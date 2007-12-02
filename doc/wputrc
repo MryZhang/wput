@@ -155,7 +155,7 @@
 ;timestamping = off
 # Since these ftp-servers are often located in a different time-zone,
 # you may wish to specify the offset between you and the server here.
-# (e.g. YOU: GMT+1, FTP: GMX-1 => timeoffset = -2)
+# (e.g. YOU: GMT+1, FTP: GMT-1 => timeoffset = -2)
 ;timeoffset = -2
 # Allowed Deviation
 # Your clock and the remote-clock may differ slightly. Therefore allow
