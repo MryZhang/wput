@@ -450,7 +450,7 @@ void read_netrc_file(void) {
     for (l = netrc_list; l; l = l->next) {
 	if (!l->host)
 	    continue;
-	opt.pl = password_list_add(opt.pl, cpy(l->host), cpy(l->acc), cpy(l->passwd));
+	opt.pl = password_list_add(opt.pl, cpy(l->host), l->acc ? cpy(l->acc) : NULL, l->passwd ? cpy(l->passwd) : NULL);
 	printout(vDEBUG, "added %s:%s@%s to the password-list (%x)\n", l->acc, l->passwd, l->host, opt.pl);
     }
 
