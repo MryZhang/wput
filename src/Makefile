@@ -1,7 +1,7 @@
 #wput.mk
 #mm make file for wput
-SHELL=/bin/sh
-prefix=/usr
+SHELL=/bin/bash
+prefix=/usr/local
 bindir=${exec_prefix}/bin
 localedir=$(prefix)/share/locale
 CC=gcc

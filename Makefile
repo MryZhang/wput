@@ -9,7 +9,8 @@ bindir=${exec_prefix}/bin
 all clean:
 	cd po && $(MAKE) $(MAKEDEFS) $@
 	cd src && $(MAKE) $(MAKEDEFS) $@
-	
+	cd doc && $(MAKE) $(MAKEDEFS) $@
+
 win-clean:
 	cd src && $(MAKE) $(MAKEDEFS) $@
 
