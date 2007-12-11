@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: wput\n"
-"POT-Creation-Date: \n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
+"POT-Creation-Date: 2007-12-11 20:32+0000\n"
 "PO-Revision-Date: 2006-10-30 10:04+0800\n"
 "Last-Translator: 苏信东 <webmaster@wavecn.com>\n"
 "Language-Team: wput <wput>\n"
@@ -11,139 +12,112 @@ msgstr ""
 "X-Poedit-Language: Chinese\n"
 "X-Poedit-Country: CHINA\n"
 
-#: src/wput.c:151
+#: src/wput.c:152
 msgid "Resuming in background. Logging output to 'wput-log'.\n"
 msgstr "正在从后台恢复。输出内容被记录到 “wput-log”。\n"
 
-#: src/wput.c:153
-#: src/wput.c:664
+#: src/wput.c:154 src/wput.c:665
 msgid "Unable to open logfile"
 msgstr "无法打开日志文件。"
 
-#: src/wput.c:161
-#: src/wput.c:171
-#: src/wput.c:181
-#: src/wput.c:341
-#: src/wput.c:708
-#: src/ftp.c:726
-#: src/ftp.c:766
-#: src/ftplib.c:269
-#: src/ftplib.c:861
-#: src/ftplib.c:872
-#: src/utils.c:282
-#: src/utils.c:309
-#: src/queue.c:254
-#: src/queue.c:261
-#: src/queue.c:302
-#: src/queue.c:378
-#: src/queue.c:414
-#: src/queue.c:448
+#: src/wput.c:162 src/wput.c:172 src/wput.c:182 src/wput.c:342 src/wput.c:709
+#: src/ftp.c:743 src/ftp.c:783 src/ftplib.c:269 src/ftplib.c:862
+#: src/ftplib.c:873 src/utils.c:284 src/utils.c:311 src/queue.c:255
+#: src/queue.c:262 src/queue.c:303 src/queue.c:380 src/queue.c:416
+#: src/queue.c:450
 msgid "Warning: "
 msgstr "警告："
 
-#: src/wput.c:162
-msgid "background-mode might not work correctly, if the input-pipe needs to read from stdin (like cat -).\n"
-msgstr "如果输入管道需要从stdin（标准输入）读取（比如cat命令）则后台模式可能不能正常工作。\n"
+#: src/wput.c:163
+msgid ""
+"background-mode might not work correctly, if the input-pipe needs to read "
+"from stdin (like cat -).\n"
+msgstr ""
+"如果输入管道需要从stdin（标准输入）读取（比如cat命令）则后台模式可能不能正常"
+"工作。\n"
 
-#: src/wput.c:172
-msgid "reading urls from stdin, while running in background-mode is not reliable.\n"
+#: src/wput.c:173
+msgid ""
+"reading urls from stdin, while running in background-mode is not reliable.\n"
 msgstr "当处于后台模式运行时从stdin读取url地址是不可靠的。\n"
 
-#: src/wput.c:182
-msgid "Ignoring request to turn proxy-usage on, since no proxy is configured.\n"
+#: src/wput.c:183
+msgid ""
+"Ignoring request to turn proxy-usage on, since no proxy is configured.\n"
 msgstr "由于未配置代理服务器参数，打开代理服务器使用情况的请求被忽略。\n"
 
-#: src/wput.c:211
+#: src/wput.c:212
 msgid "Nothing done. Try `wput --help'.\n"
 msgstr "未执行任何工作。请尝试“wput --help”以获得更多信息。\n"
 
-#: src/wput.c:213
+#: src/wput.c:214
 #, c-format
 msgid "FINISHED --%s--\n"
 msgstr "已完成 --%s--\n"
 
-#: src/wput.c:217
+#: src/wput.c:218
 #, c-format
 msgid "Transfered %s bytes in %d file at %s\n"
 msgstr "传输了 %s 字节对应 %d 文件在 %s\n"
 
-#: src/wput.c:218
+#: src/wput.c:219
 #, c-format
 msgid "Transfered %s bytes in %d files at %s\n"
 msgstr "传输了 %s 字节对应 %d 文件在 %s\n"
 
-#: src/wput.c:227
+#: src/wput.c:228
 #, c-format
 msgid "Skipped %d file.\n"
 msgstr "已跳过 %d 文件。\n"
 
-#: src/wput.c:227
+#: src/wput.c:228
 #, c-format
 msgid "Skipped %d files.\n"
 msgstr "已跳过 %d 文件。\n"
 
-#: src/wput.c:229
+#: src/wput.c:230
 #, c-format
 msgid "Transmission of %d file failed.\n"
 msgstr "传输 %d 文件失败。\n"
 
-#: src/wput.c:229
+#: src/wput.c:230
 #, c-format
 msgid "Transmission of %d files failed.\n"
 msgstr "传输 %d 文件失败。\n"
 
-#: src/wput.c:301
-#: src/ftp.c:217
-#: src/ftp.c:238
-#: src/ftp.c:345
-#: src/ftp.c:383
-#: src/ftp.c:403
-#: src/ftp.c:730
-#: src/socketlib.c:122
-#: src/socketlib.c:256
-#: src/socketlib.c:421
-#: src/socketlib.c:441
-#: src/socketlib.c:466
-#: src/socketlib.c:485
-#: src/socketlib.c:505
-#: src/socketlib.c:558
-#: src/socketlib.c:613
-#: src/ftplib.c:278
-#: src/ftplib.c:284
-#: src/ftplib.c:600
-#: src/ftplib.c:645
-#: src/queue.c:358
-#: src/queue.c:458
+#: src/wput.c:302 src/ftp.c:219 src/ftp.c:240 src/ftp.c:347 src/ftp.c:385
+#: src/ftp.c:405 src/ftp.c:747 src/socketlib.c:122 src/socketlib.c:262
+#: src/socketlib.c:427 src/socketlib.c:447 src/socketlib.c:472
+#: src/socketlib.c:491 src/socketlib.c:511 src/socketlib.c:564
+#: src/socketlib.c:619 src/ftplib.c:278 src/ftplib.c:284 src/ftplib.c:601
+#: src/ftplib.c:646 src/queue.c:359 src/queue.c:460
 msgid "Error: "
 msgstr "错误："
 
-#: src/wput.c:302
-#: src/wput.c:342
-#: src/ftp.c:727
-#: src/ftp.c:731
+#: src/wput.c:303 src/wput.c:343 src/ftp.c:744 src/ftp.c:748
 #, c-format
 msgid "`%s' could not be resolved. "
 msgstr "`%s' 无法解释。"
 
-#: src/wput.c:303
+#: src/wput.c:304
 msgid "Exiting.\n"
 msgstr "正在退出...\n"
 
-#: src/wput.c:343
+#: src/wput.c:344
 msgid "Disabling proxy support.\n"
 msgstr "正在禁止代理支持。\n"
 
-#: src/wput.c:437
+#: src/wput.c:438
 #, c-format
 msgid "netrc file '%s' cannot be read. skipping\n"
 msgstr "netrc 文件 '%s' 无法读取，正在跳过...\n"
 
-#: src/wput.c:467
+#: src/wput.c:468
 #, c-format
 msgid "password_file '%s' cannot be read. skipping\n"
 msgstr "password_file '%s' 无法读取，正在跳过...\n"
 
-#: src/wput.c:470
+#: src/wput.c:471
 msgid ""
 "Warning: You are using a wput password file. This is deprecated!\n"
 "         Please consider switch to the widely used netrc-files.\n"
@@ -151,36 +125,41 @@ msgstr ""
 "警告：你正在使用一个wput密码文件，这是一种已被废弃的操作！\n"
 "      请考虑转向更广泛地被使用的netrc文件。\n"
 
-#: src/wput.c:514
+#: src/wput.c:515
 #, c-format
 msgid "Fatal error while opening '%s': %s\n"
 msgstr "严重错误当打开 '%s': %s\n"
 
-#: src/wput.c:547
+#: src/wput.c:548
 #, c-format
 msgid "%s#%d: Option '%s' not recognized\n"
 msgstr "%s#%d: 选项 '%s' 无效。\n"
 
-#: src/wput.c:548
+#: src/wput.c:549
 #, c-format
 msgid "%s#%d: Unknow value '%s' for '%s'\n"
 msgstr "%s#%d: 未知的值 '%s' 对于 '%s'\n"
 
-#: src/wput.c:659
+#: src/wput.c:660
 #, c-format
 msgid "Option %s should not appear here :|\n"
 msgstr "选项 %s 不应在此出现。\n"
 
-#: src/wput.c:709
-msgid "You supplied an input-pipe. This is only to be used as fallback, if no filename can be found from the URL. This might not be the desired behavour. TODO\n"
-msgstr "你提供了一个输入管道。但这只能用作如果在网址URL中找不到文件名时的后备手段。这可能不是你实际想要的效果。 TODO\n"
+#: src/wput.c:710
+msgid ""
+"You supplied an input-pipe. This is only to be used as fallback, if no "
+"filename can be found from the URL. This might not be the desired behavour. "
+"TODO\n"
+msgstr ""
+"你提供了一个输入管道。但这只能用作如果在网址URL中找不到文件名时的后备手段。这"
+"可能不是你实际想要的效果。 TODO\n"
 
-#: src/wput.c:717
+#: src/wput.c:718
 #, c-format
 msgid "wput version: %s\n"
 msgstr "wput 版本：%s\n"
 
-#: src/wput.c:721
+#: src/wput.c:722
 #, c-format
 msgid ""
 "Usage: wput [options] [file]... [url]...\n"
@@ -197,12 +176,12 @@ msgstr ""
 "  -V, --version         显示wput的版本并退出。\n"
 "  -h, --help            输出本帮助信息。\n"
 
-#: src/wput.c:728
+#: src/wput.c:729
 #, c-format
 msgid "  -b, --background      go to background after startup\n"
 msgstr "  -b, --background      启动后转入后台运行。\n"
 
-#: src/wput.c:733
+#: src/wput.c:734
 #, c-format
 msgid ""
 "Logging and input file:\n"
@@ -214,7 +193,8 @@ msgid ""
 "  -nv, --less-verbose          be less verbose\n"
 "  -i,  --input-file=FILE       read the URLs from FILE\n"
 "  -s,  --sort                  sorts all input URLs by server-ip and path\n"
-"       --basename=PATH         snip PATH off each file when appendig to an URL\n"
+"       --basename=PATH         snip PATH off each file when appendig to an "
+"URL\n"
 "  -I,  --input-pipe=COMMAND    take the output of COMMAND as data-source\n"
 "  -R,  --remove-source-files   unlink files upon successful upload\n"
 "\n"
@@ -233,19 +213,22 @@ msgstr ""
 "  -R,  --remove-source-files   成功上传后删除文件\n"
 "\n"
 
-#: src/wput.c:749
+#: src/wput.c:750
 #, c-format
 msgid ""
 "Upload:\n"
 "       --bind-address=ADDR     bind to ADDR (hostname or IP) on local host\n"
-"  -t,  --tries=NUMBER          set retry count to NUMBER (-1 means infinite)\n"
+"  -t,  --tries=NUMBER          set retry count to NUMBER (-1 means "
+"infinite)\n"
 "  -nc, --dont-continue         do not resume partially-uploaded files\n"
 "  -u,  --reupload              do not skip already completed files\n"
 "       --skip-larger           do not upload files if remote size is larger\n"
 "       --skip-existing         do not upload files that exist remotely\n"
-"  -N,  --timestamping          don't re-upload files unless newer than remote\n"
+"  -N,  --timestamping          don't re-upload files unless newer than "
+"remote\n"
 "  -T,  --timeout=10th-SECONDS  set various timeouts to 10th-SECONDS\n"
-"  -w,  --wait=10th-SECONDS     wait 10th-SECONDS between uploads. (default: 0)\n"
+"  -w,  --wait=10th-SECONDS     wait 10th-SECONDS between uploads. (default: "
+"0)\n"
 "       --random-wait           wait from 0...2*WAIT secs between uploads.\n"
 "       --waitretry=SECONDS     wait SECONDS between retries of an upload\n"
 "  -l,  --limit-rate=RATE       limit upload rate to RATE\n"
@@ -274,25 +257,27 @@ msgstr ""
 "       --proxy-pass=PASS       设置代理服务器密码为PASS\n"
 "\n"
 
-#: src/wput.c:768
+#: src/wput.c:769
 #, c-format
 msgid ""
 "FTP-Options:\n"
-"  -p,  --port-mode             no-passive, turn on port mode ftp (def. pasv)\n"
+"  -p,  --port-mode             no-passive, turn on port mode ftp (def. "
+"pasv)\n"
 "  -A,  --ascii                 force ASCII  mode-transfer\n"
 "  -B,  --binary                force BINARY mode-transfer\n"
 msgstr ""
 "FTP选项:\n"
-"  -p,  --port-mode             不使用被动(Passive)模式，启用端口模式ftp传输。(默认：被动模式)\n"
+"  -p,  --port-mode             不使用被动(Passive)模式，启用端口模式ftp传输。"
+"(默认：被动模式)\n"
 "  -A,  --ascii                 强制使用ASCII模式进行传输\n"
 "  -B,  --binary                强制使用BINARY模式进行传输\n"
 
-#: src/wput.c:775
+#: src/wput.c:776
 #, c-format
 msgid "       --force-tls             force the useage of TLS\n"
 msgstr "       --force-tls             强制使用TLS加密\n"
 
-#: src/wput.c:780
+#: src/wput.c:781
 #, c-format
 msgid ""
 "\n"
@@ -305,95 +290,97 @@ msgstr ""
 "可通过SourceForge报告软件错误和提交建议：\n"
 "http://sourceforge.net/tracker/?group_id=141519\n"
 
-#: src/ftp.c:169
+#: src/ftp.c:170
 msgid "Remote file size is bigger than local size. Restarting at 0\n"
 msgstr "远端文件大小大于本地文件，从文件位置0开始重传。\n"
 
-#: src/ftp.c:173
+#: src/ftp.c:174
 msgid "Remote file size is equal to local size. Restarting at 0\n"
 msgstr "远端文件大小等于本地文件大小。从文件位置0开始重传。\n"
 
-#: src/ftp.c:177
+#: src/ftp.c:178
 msgid "Remote file size is smaller than local size. Restarting at 0.\n"
 msgstr "远端文件大小小于本地文件。从文件位置0开始重传。\n"
 
-#: src/ftp.c:218
+#: src/ftp.c:220
 msgid "Cannot open local source file to read\n"
 msgstr "无法打开本地源文件进行读取。\n"
 
-#: src/ftp.c:239
+#: src/ftp.c:241
 #, c-format
 msgid "opening the input-pipe failed: %s\n"
 msgstr "打开输入管道失败：%s\n"
 
-#: src/ftp.c:282
+#: src/ftp.c:284
 msgid "Disabling resuming due to ascii-mode transfer\n"
 msgstr "由于是ASCII模式传输，已停用上传恢复。\n"
 
-#: src/ftp.c:346
+#: src/ftp.c:348
 #, c-format
 msgid "local file could not be read: %s\n"
 msgstr "无法读取本地文件：%s\n"
 
-#: src/ftp.c:384
+#: src/ftp.c:386
 msgid "Error encountered during uploading data\n"
 msgstr "上传数据时发生错误。\n"
 
-#: src/ftp.c:404
+#: src/ftp.c:406
 #, c-format
 msgid "Error encountered during uploading data (%s)\n"
 msgstr "上传数据时发生错误。(%s)\n"
 
-#: src/ftp.c:460
+#: src/ftp.c:462
 #, c-format
 msgid "Removing source file `%s'\n"
 msgstr "正在删除源文件`%s'\n"
 
-#: src/ftp.c:488
+#: src/ftp.c:490
 #, c-format
 msgid "-- Skipping file: `%s'\n"
 msgstr "-- 正在跳过文件：`%s'\n"
 
-#: src/ftp.c:538
+#: src/ftp.c:541
 msgid "Skipping all files from this account...\n"
 msgstr "从此帐号起跳过所有文件...\n"
 
-#: src/ftp.c:571
+#: src/ftp.c:574
 msgid "Failed to change to target directory. Skipping this file/dir.\n"
 msgstr "无法切换到目标目录，跳过此文件/目录。\n"
 
-#: src/ftp.c:612
+#: src/ftp.c:608 src/ftp.c:652
+msgid "Unable to set transfer mode. Assuming binary\n"
+msgstr "无法设置传输模式，假设为BINARY模式\n"
+
+#: src/ftp.c:632
 msgid "Skipping this file due to resume/upload/skip rules.\n"
 msgstr "基于设定的恢复/上传/跳越规则而跳过此文件。\n"
 
-#: src/ftp.c:613
+#: src/ftp.c:633
 #, c-format
 msgid "-- Skipping file: %s\n"
 msgstr "-- 正在跳过文件：%s\n"
 
-#: src/ftp.c:635
-msgid "Unable to set transfer mode. Assuming binary\n"
-msgstr "无法设置传输模式，假设为BINARY模式\n"
-
-#: src/ftp.c:648
+#: src/ftp.c:665
 #, c-format
 msgid "Send Failed (%s) "
 msgstr "发送失败 （%s）"
 
-#: src/ftp.c:650
+#: src/ftp.c:667
 msgid "Skipping this file\n"
 msgstr "跳过此文件\n"
 
-#: src/ftp.c:728
+#: src/ftp.c:745
 msgid "Assuming the proxy to do the task.\n"
 msgstr "假设使用代理服务器去执行任务。\n"
 
-#: src/ftp.c:732
+#: src/ftp.c:749
 msgid "Skipping this URL.\n"
 msgstr "跳过此网址。\n"
 
-#: src/ftp.c:767
-msgid "URL: # or ? functions unimplemented. Assuming they are part of the filename.\n"
+#: src/ftp.c:784
+msgid ""
+"URL: # or ? functions unimplemented. Assuming they are part of the "
+"filename.\n"
 msgstr "对网址中的 # 或 ? 参数功能未实现，已将其假设为文件的部分。\n"
 
 #: src/socketlib.c:92
@@ -412,96 +399,89 @@ msgstr "服务器端：无法绑定到本地地址。\n"
 msgid "error accepting the incoming connection"
 msgstr "接受传入连接时发生错误。"
 
-#: src/socketlib.c:174
-msgid "TLS handshake failed.\n"
+#: src/socketlib.c:179
+#, fuzzy
+msgid "TLS handshake failed\n"
 msgstr "TLS加密方式握手失败。\n"
 
-#: src/socketlib.c:232
+#: src/socketlib.c:238
 #, c-format
 msgid "Receive-Warning: read() timed out. Read '%s' so far.\n"
 msgstr "接收警告：read()超时。已读取 '%s'。\n"
 
-#: src/socketlib.c:237
+#: src/socketlib.c:243
 #, c-format
 msgid "Receive-Error: read() failed. Read '%s' so far. (errno: %s (%d))\n"
 msgstr "接收错误：read() 失败。已读取 '%s'。(错误号: %s (%d))\n"
 
-#: src/socketlib.c:257
+#: src/socketlib.c:263
 msgid "recv() timed out. No data received\n"
 msgstr "recv()超时，未收到数据。\n"
 
-#: src/socketlib.c:420
-#: src/socketlib.c:440
-#: src/socketlib.c:465
-#: src/ftplib.c:348
-#: src/ftplib.c:379
-#: src/ftplib.c:450
-#: src/ftplib.c:483
-#: src/ftplib.c:516
-#: src/ftplib.c:571
-#: src/ftplib.c:731
-#: src/ftplib.c:824
-#: src/ftplib.c:894
+#: src/socketlib.c:426 src/socketlib.c:446 src/socketlib.c:471
+#: src/ftplib.c:348 src/ftplib.c:379 src/ftplib.c:450 src/ftplib.c:483
+#: src/ftplib.c:516 src/ftplib.c:572 src/ftplib.c:732 src/ftplib.c:825
+#: src/ftplib.c:895
 msgid "failed.\n"
 msgstr "失败。\n"
 
-#: src/socketlib.c:422
+#: src/socketlib.c:428
 msgid "Connection to proxy cannot be established.\n"
 msgstr "无法创建到代理服务器的连接。\n"
 
-#: src/socketlib.c:435
+#: src/socketlib.c:441
 #, c-format
 msgid "read() failed: %d (%d: %s)\n"
 msgstr "read() 失败： %d (%d: %s)\n"
 
-#: src/socketlib.c:442
+#: src/socketlib.c:448
 #, c-format
 msgid "Proxy version mismatch (%d)\n"
 msgstr "代理服务器版本不符 (%d)\n"
 
-#: src/socketlib.c:460
+#: src/socketlib.c:466
 msgid "Proxy authentication failure\n"
 msgstr "代理服务器校验失败。\n"
 
-#: src/socketlib.c:467
+#: src/socketlib.c:473
 #, c-format
 msgid "Proxy method mismatch (%d)\n"
 msgstr "代理服务器方式不符 (%d)\n"
 
-#: src/socketlib.c:486
+#: src/socketlib.c:492
 #, c-format
 msgid "Proxy discarded listen-request. Error-Code: %d\n"
 msgstr "代理服务器已放弃监听请求，错误代号：%d\n"
 
-#: src/socketlib.c:487
+#: src/socketlib.c:493
 msgid "Disabling listen-tries for proxy\n"
 msgstr "为代理服务器停用监听尝试。\n"
 
-#: src/socketlib.c:493
+#: src/socketlib.c:499
 #, c-format
 msgid "Proxy is listening on %s:%d for incoming connections\n"
 msgstr "代理服务器在%s:%d接收传入的连接。\n"
 
-#: src/socketlib.c:506
+#: src/socketlib.c:512
 #, c-format
 msgid "Proxy encountered an error while accepting. Error-Code: %d\n"
 msgstr "代理服务器在接收时遇到一个错误，错误代号：%d\n"
 
-#: src/socketlib.c:524
+#: src/socketlib.c:530
 #, c-format
 msgid "Using SOCKS5-Proxy %s:%d... "
 msgstr "正在使用SOCKS5代理 %s:%d... "
 
-#: src/socketlib.c:556
+#: src/socketlib.c:562
 msgid "Proxy connection established.\n"
 msgstr "已连接到代理服务器。\n"
 
-#: src/socketlib.c:559
+#: src/socketlib.c:565
 #, c-format
 msgid "Connection through proxy failed. Error-code: %d\n"
 msgstr "通过代理服务器建立连接失败。错误代号：%d\n"
 
-#: src/socketlib.c:614
+#: src/socketlib.c:620
 #, c-format
 msgid ""
 "Connection could not be established.\n"
@@ -580,15 +560,9 @@ msgstr "已加密！"
 msgid "Setting data protection level to private ... "
 msgstr "设置数据保护级别为私有..."
 
-#: src/ftplib.c:330
-#: src/ftplib.c:382
-#: src/ftplib.c:512
-#: src/ftplib.c:574
-#: src/ftplib.c:678
-#: src/ftplib.c:723
-#: src/ftplib.c:827
-#: src/ftplib.c:869
-#: src/ftplib.c:897
+#: src/ftplib.c:330 src/ftplib.c:382 src/ftplib.c:512 src/ftplib.c:575
+#: src/ftplib.c:679 src/ftplib.c:724 src/ftplib.c:828 src/ftplib.c:870
+#: src/ftplib.c:898
 msgid "done.\n"
 msgstr "完成。\n"
 
@@ -612,23 +586,22 @@ msgstr "完成 (被修改 %d.%d.%d 于 %d:%d:%d)\n"
 msgid "done (%s bytes)\n"
 msgstr "完成 (%s 字节)\n"
 
-#: src/ftplib.c:530
-#: src/ftplib.c:546
+#: src/ftplib.c:530 src/ftplib.c:547
 #, c-format
 msgid " failed (%s).\n"
 msgstr " 失败 (%s)。\n"
 
-#: src/ftplib.c:601
+#: src/ftplib.c:602
 #, c-format
 msgid "Cannot initiate data-connection (%s)\n"
 msgstr "无法初始化数据连接(%s)\n"
 
-#: src/ftplib.c:646
+#: src/ftplib.c:647
 #, c-format
 msgid "listing directory failed (%s)\n"
 msgstr "列目录内容失败(%s)\n"
 
-#: src/ftplib.c:675
+#: src/ftplib.c:676
 msgid ""
 "failed.\n"
 "Server seems not to support resuming. Restarting at 0\n"
@@ -636,120 +609,130 @@ msgstr ""
 "失败。\n"
 "服务器似乎不支持恢复操作，从文件位置0开始重新上传。\n"
 
-#: src/ftplib.c:695
+#: src/ftplib.c:696
 msgid "[not done, but should be allright]\n"
 msgstr "[未完成，但应无问题。]\n"
 
-#: src/ftplib.c:727
+#: src/ftplib.c:728
 #, c-format
 msgid "failed (%s). (disabling resuming)\n"
 msgstr "失败 (%s)。 (正在停用重传)\n"
 
-#: src/ftplib.c:734
+#: src/ftplib.c:735
 msgid "Trying to switch PORT/PASV mode\n"
 msgstr "尝试切换到PORT/PASV模式\n"
 
-#: src/ftplib.c:738
+#: src/ftplib.c:739
 #, c-format
 msgid "failed (%d %s). (skipping)\n"
 msgstr "失败 (%d %s). (跳过)\n"
 
-#: src/ftplib.c:839
+#: src/ftplib.c:840
 msgid "connection failed.\n"
 msgstr "连接失败。\n"
 
-#: src/ftplib.c:857
+#: src/ftplib.c:858
 msgid "Trying to listen on proxy server... "
 msgstr "正在尝试在代理服务器上监听..."
 
-#: src/ftplib.c:860
+#: src/ftplib.c:861
 msgid "failed. Falling back to listen locally\n"
 msgstr "失败。正在后退至在本地监听。\n"
 
-#: src/ftplib.c:863
-msgid "Unless FXP is enabled remotely, your control-connection should be from the same IP-address, as your PORT bind-request. So you should consider PASV-mode or reconnect without a proxy.\n"
-msgstr "除非已经在远端启用了FXP，否则你的控制连接应从与你的PORT模式捆绑请求的同一地址而来。你应考虑使用PASV模式或不使用代理服务器来重新连接。\n"
+#: src/ftplib.c:864
+msgid ""
+"Unless FXP is enabled remotely, your control-connection should be from the "
+"same IP-address, as your PORT bind-request. So you should consider PASV-mode "
+"or reconnect without a proxy.\n"
+msgstr ""
+"除非已经在远端启用了FXP，否则你的控制连接应从与你的PORT模式捆绑请求的同一地址"
+"而来。你应考虑使用PASV模式或不使用代理服务器来重新连接。\n"
 
-#: src/ftplib.c:873
+#: src/ftplib.c:874
 msgid "Using port-mode. Unable to use the http-proxy for this connection\n"
 msgstr "正在使用端口模式。对此连接无法使用HTTP代理。\n"
 
-#: src/ftplib.c:885
+#: src/ftplib.c:886
 msgid "Cannot determine local IP address"
 msgstr "无法判断本地IP地址。"
 
-#: src/utils.c:245
+#: src/utils.c:247
 #, c-format
 msgid "parse-error in escaped character: %c is not a hexadecimal character\n"
 msgstr "对转义符解析错误： %c 不是一个十六进制的字符。\n"
 
-#: src/utils.c:269
+#: src/utils.c:271
 #, c-format
 msgid "Waiting %d seconds... "
 msgstr "等待 %d 秒..."
 
-#: src/utils.c:283
+#: src/utils.c:285
 #, c-format
 msgid "No http-header found. Assuming socks-proxy $host:$port for `%s'\n"
 msgstr "未找到HTTP头。为`%s'假设使用SOCKS代理 $host:$port\n"
 
-#: src/utils.c:310
+#: src/utils.c:312
 #, c-format
 msgid "No port specified. Assuming default port %d.\n"
 msgstr "未指定端口，假设使用默认端口 %d。\n"
 
-#: src/queue.c:255
+#: src/queue.c:256
 #, c-format
 msgid "Error encountered but ignored during stat of `%s'.\n"
 msgstr "在执行对`%s'的stat操作时发生了错误，但被忽略。\n"
 
-#: src/queue.c:262
+#: src/queue.c:263
 #, c-format
 msgid "Error encountered but ignored during opendir of `%s'.\n"
 msgstr "在执行对`%s'的opendir操作时发生了错误，但被忽略。\n"
 
-#: src/queue.c:303
+#: src/queue.c:304
 msgid "Seems as though there are two equivalent entries to upload.\n"
 msgstr "貌似有两个相同的项目要上传。\n"
 
-#: src/queue.c:359
+#: src/queue.c:360
 #, c-format
 msgid "the url `%s' could not be parsed\n"
 msgstr "地址`%s'无法被解析。\n"
 
-#: src/queue.c:379
-msgid "Neither a remote location nor a local filename has been specified. Assuming you want to upload the current working directory to the remote server.\n"
-msgstr "未指定远端位置或本地文件名。假设你想上传整个当前工作目录到远端服务器。\n"
+#: src/queue.c:381
+msgid ""
+"Neither a remote location nor a local filename has been specified. Assuming "
+"you want to upload the current working directory to the remote server.\n"
+msgstr ""
+"未指定远端位置或本地文件名。假设你想上传整个当前工作目录到远端服务器。\n"
 
-#: src/queue.c:415
+#: src/queue.c:417
 msgid ""
 "No local file specified and no file found from URL.\n"
-"Assuming the current working directory is to be uploaded to the remote server.\n"
+"Assuming the current working directory is to be uploaded to the remote "
+"server.\n"
 msgstr ""
 "未指定本地文件名且在网址URL中找不到文件名。\n"
 "假设你想上传整个当前工作目录到远端服务器。\n"
 
-#: src/queue.c:449
+#: src/queue.c:451
 #, c-format
-msgid "File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
+msgid ""
+"File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
 msgstr "文件 `%s' 不存在。假设你通过-I参数提供其输入。\n"
 
-#: src/queue.c:459
+#: src/queue.c:461
 #, c-format
 msgid "File `%s' does not exist. Don't know what to do about this URL.\n"
 msgstr "文件`%s'不存在。对此网址URL未进行操作。\n"
 
-#: src/progress.c:328
+#: src/progress.c:335
 #, c-format
 msgid "Length: %s"
 msgstr "长度：%s"
 
-#: src/progress.c:332
+#: src/progress.c:339
 #, c-format
 msgid " [%s to go]\n"
 msgstr " [尚余 %s ]\n"
 
-#: src/progress.c:339
+#: src/progress.c:346
 msgid ""
 "%* [ skipped %dK ]\n"
 "%* %dK "
@@ -761,8 +744,7 @@ msgstr ""
 msgid "Unsupported listing type, trying Unix listing parser.\n"
 msgstr "不支持的列表方式。尝试Unix列表解析。\n"
 
-#: src/ftp-ls.c:1003
-#: src/ftp-ls.c:1005
+#: src/ftp-ls.c:1003 src/ftp-ls.c:1005
 #, c-format
 msgid "Index of /%s on %s:%d"
 msgstr " /%s 的索引，在 %s:%d"
@@ -796,4 +778,3 @@ msgstr "不确定"
 #, c-format
 msgid " (%s bytes)"
 msgstr " (%s 字节)"
-

@@ -1,4 +1,8 @@
-Sun Dec 02 16:55:29 CET 2006 wput-0.6.1
+Wed Dec 11 20:53:52 CET 2007 wput-0.6.1
+	* adding russian (ru) translation by Vyacheslav Nikitin
+	* building now to wput-VERSION fixing #1844014
+
+Sun Dec 02 16:55:29 CET 2007
 	* fixing #1776300 (build issues), #1834977 (netrc),
 	  #1737168 (return values), #1651042 (resume-corruption),
 	  #1599242 (TYPE<->SIZE), #1525208 (ps and passwords),
