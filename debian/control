@@ -1,0 +1,17 @@
+Source: wput
+Section: web
+Priority: optional
+Maintainer: Khalid El Fathi <invent@edena-fr.org>
+Build-Depends: debhelper (>= 4.0.0), libgnutls-dev
+Standards-Version: 3.7.3
+Homepage: http://wput.sourceforge.net/
+
+Package: wput
+Architecture: any
+Depends: ${shlibs:Depends}
+Description: A tiny wget-like ftp-client for uploading files
+ Wput is a tiny ftp-client, that uploads files or directories to a
+ remote ftp-server.
+ .
+ Main features are: resuming, time-stamping, wget-like interface,
+ proxy-support and speed-limit.

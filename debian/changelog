@@ -1,0 +1,62 @@
+wput (0.6-1.1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * Fix double-build FTBFS (Closes: #442765) by tweaking debian/rules:
+     - Call “$(MAKE) clean” rather than “$(MAKE) distclean” since the
+       latter doesn't exist.
+     - Don't ignore “$(MAKE) clean” errors anymore, by checking for the
+       presence of a Makefile.
+     - Do not remove config.status since it's needed for the “clean” run
+       in po/Makefile.
+     - Remove doc/wput.1.gz through dh_clean.
+     - Based on a patch by Kartik Mistry.
+  * Move the config.{guess,sub} update to the config.status target, remove
+    them in the clean target, they are now kept out of the Debian diff.
+  * Use dh_install on wput and doc/wput.1, remove now useless gzip call,
+    as well as useless (commented) dh_* calls.
+  * Delete debian/dirs, no longer needed now that dh_install is used.
+  * Move the Homepage from the description to a source field.
+  * Bump Standards-Version from 3.7.2 to 3.7.3, no changes needed.
+
+ -- Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>  Tue, 26 Feb 2008 18:52:18 +0100
+
+wput (0.6-1) unstable; urgency=low
+
+  * New upstream release.
+  * debian/control:
+    + Updated to Standards-Version 3.7.2.
+    + Added libgnutls-dev Build-Depends.
+  * doc/wput.1:
+    + Fixed hyphen-used-as-minus-sign in manpage.
+    + Fixed version number in manpage.
+
+ -- Khalid El Fathi <invent@edena-fr.org>  Mon,  3 Jul 2006 14:38:17 +0200
+
+wput (0.5-3) unstable; urgency=low
+
+  * debian/control: Updated to Standards-Version 3.6.2 and download location.
+  * debian/copyright: Updated download location and address of Free Software
+    Foundation.
+
+ -- Khalid El Fathi <invent@edena-fr.org>  Wed, 31 Aug 2005 21:48:44 +0200
+
+wput (0.5-2) unstable; urgency=low
+
+  * Bug fix: "Typo in description times-tamping->time-stamping"
+    (Closes: #310896).
+
+ -- Khalid El Fathi <invent@edena-fr.org>  Thu, 16 Jun 2005 10:10:57 +0200
+
+wput (0.5-1) unstable; urgency=low
+
+  * New upstream release
+
+ -- Khalid El Fathi <invent@edena-fr.org>  Mon,  6 Dec 2004 23:57:25 +0100
+
+wput (0.4.1-1) unstable; urgency=low
+
+  * Initial Release (Closes: bug#276991).
+  * This is my first Debian package. ;)
+
+ -- Khalid El Fathi <invent@edena-fr.org>  Sun, 17 Oct 2004 23:52:51 +0200
+
