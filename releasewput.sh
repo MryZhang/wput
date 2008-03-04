@@ -6,7 +6,7 @@ rm -f config.log
 cd ..
 cp -r wput wput-$VERSION
 find wput-$VERSION -name .svn | xargs rm -r
-tar czvf wput-$VERSION.tgz --exclude releasewput.sh wput/
+tar czvf wput-$VERSION.tgz --exclude releasewput.sh wput-$VERSION/
 cd wput-$VERSION
 make
 #fakeroot debian/rules binary

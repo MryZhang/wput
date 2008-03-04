@@ -469,6 +469,7 @@ int do_send(_fsession * fsession){
 }
 #define SOCKET_RETRY \
 	if(SOCK_ERROR(res)) {\
+		res = ERR_FAILED;\
 		retry_wait(fsession);\
 		ftp_quit(fsession->ftp);\
 		fsession->ftp = ftp = NULL;\
@@ -612,8 +613,8 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		SOCKET_RETRY;
 		
 		/* reupload last 512-byte block in case connection errors cause bad data to be inserted */
-		if(fsession->target_fsize > 0)
-			fsession->target_fsize = (fsession->target_fsize - 0x200) & ~0x1ff;
+		if(fsession->target_fsize > 0 && fsession->target_fsize != fsession->local_fsize)
+			fsession->target_fsize = (fsession->target_fsize - 511) & ~0x1ff;
 	}
 	
 	printout(vDEBUG, "local_fsize: %d\ntarget_fsize: %d\n",
