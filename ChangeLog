@@ -1,3 +1,6 @@
+Wed Jul 02 13:19:21 CET 2008
+	* fixing #2007526 (now using EINPROGRESS and not 115)
+
 Wed Dec 11 20:53:52 CET 2007 wput-0.6.1
 	* adding russian (ru) translation by Vyacheslav Nikitin
 	* building now to wput-VERSION fixing #1844014

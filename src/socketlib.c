@@ -23,6 +23,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <fcntl.h>
+#include <errno.h>
 #ifndef WIN32
 #  include <unistd.h>
 #  include <sys/select.h>
@@ -53,7 +54,6 @@
 #include <arpa/inet.h>
 #endif
 
-extern int errno;
 char * printip(unsigned char * ip);
 char * base64(char * p, size_t len);
 
@@ -397,7 +397,9 @@ wput_socket * socket_timeout_connect(wput_socket * sock, struct sockaddr *remote
 #endif
   socket_set_blocking(sock->fd, 0);
   c = connect(sock->fd,remote_addr,size);
-  if(errno > 0 && errno != 115 && errno != 36) {
+  /* here was a check also for errno != 36 (FILENAMETOOLONG)
+   * maybe this was EINPROGRESS on another system? */
+  if(errno > 0 && errno != EINPROGRESS) {
 	printout(vMORE, "[%s]", strerror(errno));
 	return NULL;
   }
