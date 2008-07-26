@@ -41,7 +41,7 @@ In case there are more files that URLs remaining, Wput uses the last known URL f
 .PP
 So you can specify e.g. one URL and read all filenames from a file.
 Or use \fIwput *.txt ftp://host\fR, to transfer all *.txt-files.
-So \fIdoc/USAGE.examples\fR for further examples.
+See \fIdoc/USAGE.examples\fR for further examples.
 .PP
 To be on the safe side, it is recommended to supply the files before the URLs.
 .SH "Guessing Local File"
@@ -305,7 +305,15 @@ Specifying this flag forces Wput to use ASCII mode file transfers.
 .IP "\fB\-\-binary\fR" 4
 .IX Item "--binary"
 .PD
-Specifiing this flag forces Wput to use BINARY mode file transfers.
+Specifying this flag forces Wput to use BINARY mode file transfers.
+.IP "\fB\-m\fR" 4
+.IX Item "-m"
+.PD 0
+.IP "\fB\-\-chmod\fR" 4
+.IX Item "--chmod"
+.PD
+This will change the access mode of the transferred files. The format is the
+three-digit octal unix mode, e.g. 644 means rw-r--r--.
 .IP "\fB\-\-force-tls\fR" 4
 .IX Item "--force-tls"
 If this flag is specified and Wput is linked with the OpenSSL-library, the flag

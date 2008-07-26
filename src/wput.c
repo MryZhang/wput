@@ -313,6 +313,23 @@ int set_option(char * com, char * val) {
         } else if(!strncasecmp(val, "port", 4)) {
           opt.portmode = 1;
         } else return -1;
+      }
+      else if(!strncasecmp(com, "chmod", 6)) {
+          int invalid = 0;
+          if(strlen(val) == 3) {
+              int modecounter;
+              for (modecounter = 0; modecounter < 3; modecounter++) {
+                  if (val[modecounter] < '0' || val[modecounter] > '7') {
+                      invalid = 1;
+                      break;
+                  }
+              }
+          } else {
+              invalid = 1;
+          }
+          if (!invalid)
+              opt.chmod = val;
+          else return -2;
       } else return -1;
       return 0;
 #ifdef HAVE_SSL
@@ -601,11 +618,12 @@ void commandlineoptions(int argc, char * argv[]){
 		{"version", 0, 0, 'V'},          //35
 		{"wait", 1, 0, 'w'},            
 		{"waitretry", 1, 0, 0},         
+		{"chmod", 1, 0, 'm'},
 		{0, 0, 0, 0}                    
       };
     while (1)
     {
-        c = getopt_long (argc, argv, "Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:u",
+        c = getopt_long (argc, argv, "Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
                            long_options, &option_index);
                 
         if (c == -1)
@@ -714,6 +732,7 @@ void commandlineoptions(int argc, char * argv[]){
                   opt.input_pipe = optarg;      break;
         case 'R': opt.unlink = 1;               break;
         case 'Y': set_option("proxy", optarg);  break;
+        case 'm': set_option("chmod", optarg);  break;
         case 'V':
             fprintf(opt.output, _("wput version: %s\n"), version);
             exit(0);
@@ -769,7 +788,8 @@ void commandlineoptions(int argc, char * argv[]){
 "FTP-Options:\n"
 "  -p,  --port-mode             no-passive, turn on port mode ftp (def. pasv)\n"
 "  -A,  --ascii                 force ASCII  mode-transfer\n"
-"  -B,  --binary                force BINARY mode-transfer\n"));
+"  -B,  --binary                force BINARY mode-transfer\n"
+"  -m,  --chmod                 change mode of transferred files ([0-7]{3})\n"));
 
 #ifdef HAVE_SSL
 			fprintf(stderr, _(

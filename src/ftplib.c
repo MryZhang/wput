@@ -580,6 +580,32 @@ int ftp_do_list(ftp_con * self) {
 	}
 	return 0;
 }
+
+int ftp_do_chmod(ftp_con * self, char * file) {
+	int res;
+
+	printout(vMORE, "==> SITE CHMOD %s %s ... ", opt.chmod, file);
+	char *value = malloc(strlen(opt.chmod)
+			+ 1 /* " " */
+			+ strlen(file)
+			+ 1 /* \0 */);
+	strcpy(value, opt.chmod);
+	strcat(value, " ");
+	strcat(value, file);
+	ftp_issue_cmd(self, "SITE CHMOD", value);
+	free(value);
+	res = ftp_get_msg(self);
+
+	if(self->r.code != 200) {
+		printout(vMORE, _(" failed (%s).\n"), self->r.message);
+		return ERR_FAILED;
+	} else {
+		printout(vMORE, _(" done.\n"));
+	}
+	printout(vMORE, _("\n"));
+	return 0;
+}
+
 /* Global (hence stable) pseudo file pointer for Wget ftp_parse_ls(). */
 char *ls_next;
 

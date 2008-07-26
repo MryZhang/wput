@@ -675,6 +675,11 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 	    	continue;
 		}
     } 
+
+	if(res == ERR_OK && opt.chmod) {
+		ftp_do_chmod(fsession->ftp, fsession->target_fname);
+	}
+
 	/* TODO USS is there any case when do_send fails, that the whole directory 
 	 * TODO USS is to be skipped? */
 	/*else if( res == -2) {

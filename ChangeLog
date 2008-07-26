@@ -1,3 +1,6 @@
+Fri Jul 25 22:32:49 CEST 2008 Jan Larres
+	* add support for the SITE CHMOD command
+
 Wed Jul 02 13:19:21 CET 2008
 	* fixing #2007526 (now using EINPROGRESS and not 115)
 

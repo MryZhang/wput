@@ -107,6 +107,7 @@ int  ftp_do_abor(ftp_con * self);
 void ftp_do_quit(ftp_con * self);
 int  ftp_do_cwd(ftp_con * self, char * directory);
 int  ftp_do_mkd(ftp_con * self, char * directory);
+int  ftp_do_chmod(ftp_con * self, char * file);
 
 int  ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestamp);
 int  ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize);

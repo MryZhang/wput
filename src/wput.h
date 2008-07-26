@@ -121,6 +121,8 @@ struct global_options {
   short int wait;
   short int retry;
 
+  char * chmod;
+
   struct wput_timer * session_start;
   off_t  transfered_bytes;
   int    files_transfered;
