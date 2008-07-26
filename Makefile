@@ -17,9 +17,12 @@ win-clean:
 install: all
 	cd po && $(MAKE) $(MAKEDEFS) $@
 	install -m0755 wput $(bindir)
+	install -m0755 wdel $(bindir)
 	install -m0644 doc/wput.1.gz $(mandir)
+	install -m0644 doc/wdel.1.gz $(mandir)
 	@echo "----------------"
-	@echo "Wput installed. See 'wput -h' or 'man wput' for usage information."
+	@echo "Wput and Wdel installed. See 'wput/wdel -h' or 'man wput/wdel' for"
+	@echo "usage information."
 	@echo "Further documentation is located in the doc/USAGE.* files."
 	@echo 
 	@echo "Wput is not perfect, so please report any bugs you notice (see BUGS-section"
@@ -27,5 +30,7 @@ install: all
 	@echo "----------------"
 uninstall:
 	rm -f $(bindir)/wput
+	rm -f $(bindir)/wdel
 	rm -f $(mandir)/wput.1.gz
+	rm -f $(mandir)/wdel.1.gz
 	

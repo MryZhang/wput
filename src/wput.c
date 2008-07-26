@@ -197,7 +197,7 @@ int main(int argc, char *argv[]){
 	if(opt.sorturls) {
 		printout(vDEBUG, "Transmitting sorted fsessions\n");
 		while(fsession_queue_entry_point != NULL) {
-				int res = fsession_transmit_file(fsession_queue_entry_point, opt.curftp);
+				int res = fsession_process_file(fsession_queue_entry_point, opt.curftp);
 				if(res == -1)      opt.failed++;
 				else if(res == -2) opt.skipped++;
 				opt.curftp = fsession_queue_entry_point->ftp;
@@ -623,7 +623,7 @@ void commandlineoptions(int argc, char * argv[]){
       };
     while (1)
     {
-        c = getopt_long (argc, argv, "Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
+        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
                            long_options, &option_index);
                 
         if (c == -1)

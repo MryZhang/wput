@@ -1,3 +1,7 @@
+Sat Jul 26 18:33:32 CEST 2008 Jan Larres
+	* add a wdel program for deleting files/directories on a server and
+	  a corresponding man page
+
 Fri Jul 25 22:32:49 CEST 2008 Jan Larres
 	* add support for the SITE CHMOD command
 

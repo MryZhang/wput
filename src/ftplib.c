@@ -495,6 +495,23 @@ int ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize){
 	return 0;
 }
 
+/* get the fileinfo of a directory entry */
+int ftp_get_fileinfo(ftp_con * self, char * filename, struct fileinfo ** info) {
+	int res;
+	struct fileinfo * finfo = NULL;
+	struct fileinfo * dl    = ftp_get_current_directory_list(self);
+
+	if(!dl) {
+		res = ftp_get_list(self);
+		if(SOCK_ERROR(res) || res == ERR_FAILED) return res;
+		dl = ftp_get_current_directory_list(self);
+	}
+	if(dl) finfo = fileinfo_find_file(dl, filename);
+	if(!finfo) return ERR_FAILED;
+	*info = finfo;
+	return 0;
+}
+
 /* set the transfer-mode to either ascii or binary */
 /* error-levels: get_msg() */
 int ftp_set_type(ftp_con * self, int type) {
@@ -521,7 +538,10 @@ int ftp_do_cwd(ftp_con * self, char * directory) {
 	int res;
 	
 	printout(vMORE, "==> CWD %s", directory);
-	ftp_issue_cmd(self, "CWD", directory);
+	if (!strncmp(directory, "..", 2))
+		ftp_issue_cmd(self, "CDUP", NULL);
+	else
+		ftp_issue_cmd(self, "CWD", directory);
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
@@ -559,7 +579,7 @@ int ftp_do_list(ftp_con * self) {
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
-	printout(vNORMAL, "==> LIST ... ");
+	printout(vMORE, "==> LIST ... ");
 	ftp_issue_cmd(self, "LIST", NULL);
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
@@ -569,10 +589,10 @@ int ftp_do_list(ftp_con * self) {
 	 * data-connection is open, but server still wait for the
 	 * connection to close unless it will issue the completion command */
 	if(self->r.reply[0] != '1') {
-		printout(vNORMAL, _("failed.\n"));
+		printout(vMORE, _("failed.\n"));
 		return ERR_FAILED;
 	}
-	printout(vNORMAL, _("done.\n"));
+	printout(vMORE, _("done.\n"));
 	
 	if(ftp_complete_data_connection(self) < 0)	{
 		if(SOCK_ERROR(ftp_do_abor(self))) return ERR_RECONNECT;
@@ -761,6 +781,51 @@ int ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/){
 			printout(vMORE, _("Trying to switch PORT/PASV mode\n"));
 		}
 		return ERR_RETRY;
+	}
+	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
+	return ERR_FAILED;
+}
+/* issue the DELE command which deletes normal files */
+/* error-levels: ERR_FAILED (=> skip), ERR_RETRY, SOCK_ERRORs */
+int ftp_do_dele(ftp_con * self, char * filename) {
+	int res;
+
+	printout(vMORE, "==> DELE %s ... ", filename);
+	ftp_issue_cmd(self, "DELE", filename);
+	res = ftp_get_msg(self);
+	if(SOCK_ERROR(res)) {
+		return res;
+	} else if(res == ERR_RETRY) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_RETRY;
+	} else if(res == ERR_PERMANENT) {
+		return ERR_FAILED;
+	} else if(self->r.code == 250) {
+		printout(vMORE, _("done.\n"));
+		return 0;
+	}
+	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
+	return ERR_FAILED;
+}
+/* issue the RMD command which deletes empty directories */
+/* error-levels: ERR_FAILED (=> skip), ERR_RETRY, SOCK_ERRORs */
+int ftp_do_rmd(ftp_con * self, char * dirname) {
+	int res;
+
+	printout(vMORE, "==> RMD %s ... ", dirname);
+	ftp_issue_cmd(self, "RMD", dirname);
+	res = ftp_get_msg(self);
+	if(SOCK_ERROR(res)) {
+		return res;
+	} else if(res == ERR_RETRY) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_RETRY;
+	} else if(res == ERR_PERMANENT) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_FAILED;
+	} else if(self->r.code == 250) {
+		printout(vMORE, _("done.\n"));
+		return 0;
 	}
 	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
 	return ERR_FAILED;

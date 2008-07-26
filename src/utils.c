@@ -408,6 +408,7 @@ char * snip_basename(char * file) {
 	}
 	return file;
 }
+
 /* took me ages to write this cute function (it's probably the one i like most in wput):
  * transforms things like "../..gaga/welt/.././.fool/../../new" to "../new"
  * (usually i don't expect such input, but who knows. works quite well now) */

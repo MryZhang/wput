@@ -1,7 +1,8 @@
 /* input-queue and fsession functions */
 
-/* Author: Hagen Fritsch <fritsch+wput-src@in.tum.de>
-   (C) 2002-2006 by Hagen Fritsch
+/* Author: Hagen Fritsch <fritsch+wput-src@in.tum.de>,
+           Jan Larres <jan@majutsushi.net>
+   (C) 2002-2008 by Hagen Fritsch, Jan Larres
     
    This file is part of wput.
 
@@ -30,6 +31,7 @@
  *  o We sometimes don't need a filename if we got the URL
  * */
 #include <errno.h>
+#include <string.h>
 #include "wput.h"
 #include "_queue.h"
 #include "utils.h"
@@ -94,6 +96,83 @@ void queue_add_entry(char * file, char * url) {
     K->next = M;
   }
 }
+
+void wdel_queue_add_entry(char * file, char * url) {
+	_queue * K = queue_entry_point;
+	_queue * M = malloc(sizeof(_queue));
+
+	if (url != NULL) {
+		M->url = url;
+		printout(vDEBUG, "Added URL `%s' to queue.\n", M->url);
+		/* save the url, for maybe url-less files that might belong to it */
+		/* we do it here since we only want 'real' urls to be known and not
+		 * generated urls (e.g. by the recur-dir-function) */
+		if(opt.last_url) free(opt.last_url);
+		opt.last_url = cpy(M->url);
+	} else {
+		M->url = cpy(opt.last_url);
+	}
+	M->file = file;
+	M->next = NULL;
+
+	if(K == NULL) queue_entry_point = M;
+	else {
+		K = queue_entry_point;
+		while(K->next != NULL) K = K->next;
+		K->next = M;
+	}
+}
+
+void wdel_queue_add_file(char * filename) {
+	_queue * K = queue_entry_point;
+
+	if(K == NULL) {
+		printout(vLESS, _("Error: Please specify a url first.\n"));
+		exit(4);
+	}
+
+	/* cut a trailing slash in the filename */
+	if (*(filename + strlen(filename) - 1) == '/')
+		*(filename + strlen(filename) - 1) = '\0';
+
+	printout(vDEBUG, "Added file `%s' to queue.\n", filename);
+
+	while(K->next != NULL) K = K->next;
+	/* queue entry with filename */
+	if(K->file == NULL) K->file = filename;
+	else wdel_queue_add_entry(filename, NULL);
+}
+
+/* separate the urls from a potential file and ensure that the urls end in a '/' */
+void separate_urls(void) {
+	_queue * K = queue_entry_point;
+
+	if (queue_entry_point == NULL) return;
+	while (K != NULL) {
+		if (K->file == NULL) {
+			/* no separate file found, cut off the last part of the url and
+			 * use it as a file*/
+			/* cut a trailing slash in the filename */
+			if (*(K->url + strlen(K->url) - 1) == '/')
+				*(K->url + strlen(K->url) - 1) = '\0';
+			char *d = strrchr(K->url + 6, '/');
+			if(d) {
+				int len = (d - K->url + 1);
+				char * tmpurl = malloc(len + 1);
+				strncpy(tmpurl, K->url, len);
+				*(tmpurl + len) = '\0';
+				K->file = cpy(d + 1);
+				free(K->url);
+				K->url = tmpurl;
+			}
+		} else if (*(K->url + strlen(K->url) - 1) != '/') {
+			K->url = realloc(K->url, strlen(K->url) + 2);
+			strcat(K->url, "/");
+		}
+		K = K->next;
+	}
+}
+
 /* we only process complete entries here. lonely urls are process after everything
  * has been read except when force is set to 1 */
 void queue_process(int force) {
@@ -109,7 +188,7 @@ void queue_process(int force) {
 		_fsession * F = build_fsession(queue_entry_point->file, queue_entry_point->url);
 		if(F && F != (void *) -2) {
 			if(!opt.sorturls) {
-				res = fsession_transmit_file(F, opt.curftp);
+				res = fsession_process_file(F, opt.curftp);
 				if(res == -1)      opt.failed++;
 				else if(res == -2) opt.skipped++;
 				if(F->ftp)
@@ -444,44 +523,48 @@ _fsession * build_fsession(char * file, char * url) {
 		file[strlen(file)-1] = 0;
 #endif
 	
-	if(stat(file, &statbuf) != 0) {
-		if(opt.input_pipe) {
-			/* TODO NRV is this message really necessary? */
-			printout(vMORE, _("Warning: "));
-			printout(vMORE, _("File `%s' does not exist. Assuming you supply its input using the -I flag.\n"), file);
-			fsession->local_fname = NULL;
-			if(!fsession->target_fname) {
-				printout(vNORMAL, "TODO USS this might be buggy. Do we know, where to upload?\n");
-				fsession->target_fname = basename(file);
+	if (!opt.wdel) {
+		if(stat(file, &statbuf) != 0) {
+			if(opt.input_pipe) {
+				/* TODO NRV is this message really necessary? */
+				printout(vMORE, _("Warning: "));
+				printout(vMORE, _("File `%s' does not exist. Assuming you supply its input using the -I flag.\n"), file);
+				fsession->local_fname = NULL;
+				if(!fsession->target_fname) {
+					printout(vNORMAL, "TODO USS this might be buggy. Do we know, where to upload?\n");
+					fsession->target_fname = basename(file);
+				}
+				free(file);
+				return fsession;
+			} else {
+				printout(vLESS, _("Error: "));
+				printout(vLESS, _("File `%s' does not exist. Don't know what to do about this URL.\n"), file);
+				free(file);
+				free_fsession(fsession);
+				return NULL;
 			}
-			free(file);
-			return fsession;
-		} else {
-			printout(vLESS, _("Error: "));
-			printout(vLESS, _("File `%s' does not exist. Don't know what to do about this URL.\n"), file);
-			free(file);
-			free_fsession(fsession);
-			return NULL;
-		}
-    } else
-	/* if file is a directory, we add all its entries to the queue
-	 * and finish building this fsession */
-	if( S_ISDIR(statbuf.st_mode) ) {
-		queue_add_dir(file, url, fsession);
-		printout(vDEBUG, "directory added successful\n");
-		free_fsession(fsession);
-		printout(vDEBUG, "fsession free()d\n");
-		free(file);
-		return (void *) -2;
+		} else
+			/* if file is a directory, we add all its entries to the queue
+			 * and finish building this fsession */
+			if( S_ISDIR(statbuf.st_mode) ) {
+				queue_add_dir(file, url, fsession);
+				printout(vDEBUG, "directory added successful\n");
+				free_fsession(fsession);
+				printout(vDEBUG, "fsession free()d\n");
+				free(file);
+				return (void *) -2;
+			}
 	}
     
 	fsession->local_fname = file;
 	file = snip_basename(file);
 
-	fsession->local_fsize = statbuf.st_size;
-	/* assuming that remote_ftps do normal ls, they show the mtime.
-	* utc is computed when actually comparing the dates... */
-	fsession->local_ftime = statbuf.st_mtime;
+	if (!opt.wdel) {
+		fsession->local_fsize = statbuf.st_size;
+		/* assuming that remote_ftps do normal ls, they show the mtime.
+		 * utc is computed when actually comparing the dates... */
+		fsession->local_ftime = statbuf.st_mtime;
+	}
 
 	if(!fsession->target_fname && strchr(file, dirsep)) {
 		int slashlen = strrchr(file, dirsep) - file;

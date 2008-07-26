@@ -111,12 +111,15 @@ int  ftp_do_chmod(ftp_con * self, char * file);
 
 int  ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestamp);
 int  ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize);
+int  ftp_get_fileinfo(ftp_con * self, char * filename, struct fileinfo ** info);
 int  ftp_set_type(ftp_con * self, int type);
 
 int  ftp_do_list(ftp_con * self);
 int  ftp_get_list(ftp_con * self);
 int  ftp_do_rest(ftp_con * self, off_t filesize);
 int  ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/);
+int  ftp_do_dele(ftp_con * self, char * filename);
+int  ftp_do_rmd(ftp_con * self, char * dirname);
 
 int  ftp_establish_data_connection(ftp_con * self);
 int  ftp_complete_data_connection(ftp_con * self);

@@ -123,6 +123,8 @@ struct global_options {
 
   char * chmod;
 
+  unsigned char wdel;
+
   struct wput_timer * session_start;
   off_t  transfered_bytes;
   int    files_transfered;
