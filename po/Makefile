@@ -40,10 +40,10 @@ MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
-POFILES =  de.po it.po nl.po ru.po tr.po zh.po
-GMOFILES =  de.gmo it.gmo nl.gmo ru.gmo tr.gmo zh.gmo
-UPDATEPOFILES =  de.po-update it.po-update nl.po-update ru.po-update tr.po-update zh.po-update
-DUMMYPOFILES =  de.nop it.nop nl.nop ru.nop tr.nop zh.nop
+POFILES =  da.po de.po el.po es.po fi.po fr.po it.po nl.po pl.po ru.po sv.po tr.po zh.po
+GMOFILES =  da.gmo de.gmo el.gmo es.gmo fi.gmo fr.gmo it.gmo nl.gmo pl.gmo ru.gmo sv.gmo tr.gmo zh.gmo
+UPDATEPOFILES =  da.po-update de.po-update el.po-update es.po-update fi.po-update fr.po-update it.po-update nl.po-update pl.po-update ru.po-update sv.po-update tr.po-update zh.po-update
+DUMMYPOFILES =  da.nop de.nop el.nop es.nop fi.nop fr.nop it.nop nl.nop pl.nop ru.nop sv.nop tr.nop zh.nop
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
 DISTFILES = $(DISTFILES.common) Makevars POTFILES.in $(DOMAIN).pot stamp-po \
@@ -61,7 +61,7 @@ POTFILES = \
      ../src/progress.c \
      ../src/ftp-ls.c
 
-CATALOGS =  de.gmo it.gmo nl.gmo ru.gmo tr.gmo zh.gmo
+CATALOGS =  da.gmo de.gmo el.gmo es.gmo fi.gmo fr.gmo it.gmo nl.gmo pl.gmo ru.gmo sv.gmo tr.gmo zh.gmo
 
 # Makevars gets inserted here. (Don't remove this line!)
 # Makefile variables for PO directory in any package using GNU gettext.
