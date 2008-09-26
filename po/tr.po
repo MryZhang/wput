@@ -8,12 +8,14 @@ msgstr ""
 "Project-Id-Version: wput 0.6 tr\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
 "POT-Creation-Date: 2008-09-26 16:06+0200\n"
-"PO-Revision-Date: 2006-04-18 18:39+0200\n"
-"Last-Translator: Muhammet Kara <muhammet_kara@users.sourceforge.net>\n"
+"PO-Revision-Date: 2007-12-11 23:55+0000\n"
+"Last-Translator: Muhammet Kara <Unknown>\n"
 "Language-Team: Turkey <tr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2008-09-26 15:40+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wput.c:152
 msgid "Resuming in background. Logging output to 'wput-log'.\n"
@@ -29,7 +31,7 @@ msgstr "Log dosyası açılamadı"
 #: src/queue.c:341 src/queue.c:382 src/queue.c:459 src/queue.c:495
 #: src/queue.c:530
 msgid "Warning: "
-msgstr "Uyarı:"
+msgstr "Uyarı: "
 
 #: src/wput.c:163
 msgid ""
@@ -98,12 +100,12 @@ msgstr "%d dosyalarıının transferi başarısız oldu.\n"
 #: src/socketlib.c:623 src/ftplib.c:279 src/ftplib.c:285 src/ftplib.c:648
 #: src/ftplib.c:693 src/queue.c:438 src/queue.c:540
 msgid "Error: "
-msgstr "Hata:"
+msgstr "Hata: "
 
 #: src/wput.c:303 src/wput.c:360 src/ftp.c:881 src/ftp.c:885
 #, c-format
 msgid "`%s' could not be resolved. "
-msgstr "'%s' çözümlenemedi."
+msgstr "'%s' çözümlenemedi. "
 
 #: src/wput.c:304
 msgid "Exiting.\n"
@@ -292,7 +294,7 @@ msgstr ""
 #: src/wput.c:796
 #, c-format
 msgid "       --force-tls             force the useage of TLS\n"
-msgstr "      --force-tls      TLS kullanmaya zorla\n"
+msgstr "       --force-tls      TLS kullanmaya zorla\n"
 
 #: src/wput.c:801
 #, c-format
@@ -416,7 +418,7 @@ msgstr "--Dosya atlanıyor: %s\n"
 #: src/ftp.c:795
 #, c-format
 msgid "Send Failed (%s) "
-msgstr "Gönderme Başarısız (%s)"
+msgstr "Gönderme Başarısız (%s) "
 
 #: src/ftp.c:797
 msgid "Delete Failed. "
@@ -531,7 +533,7 @@ msgstr "Proxy kabul sırasında bir hatayla karşılaştı. Hata-Kodu: %d\n"
 #: src/socketlib.c:534
 #, c-format
 msgid "Using SOCKS5-Proxy %s:%d... "
-msgstr "SOCKS5-Proxy kullanılıyor %s:%d..."
+msgstr "SOCKS5-Proxy kullanılıyor %s:%d... "
 
 #: src/socketlib.c:566
 msgid "Proxy connection established.\n"
@@ -567,7 +569,7 @@ msgstr "Emin olmak için tekrar bağlanılıyor, hiçbirşey yanlış gitmedi\n"
 #: src/ftplib.c:191
 #, c-format
 msgid "Connecting to %s:%d... "
-msgstr "Bağlanılıyor: %s:%d..."
+msgstr "Bağlanılıyor: %s:%d... "
 
 #: src/ftplib.c:201
 msgid "failed!\n"
@@ -589,7 +591,7 @@ msgstr "TLS şifrelemesi gerekli fakat sağlanamadı.\n"
 #: src/ftplib.c:254
 #, c-format
 msgid "Logging in as %s ... "
-msgstr "%s olarak giriş yapılıyor..."
+msgstr "%s olarak giriş yapılıyor... "
 
 #: src/ftplib.c:271
 msgid "remote server requires a password, but none set. Using an empty one.\n"
@@ -621,7 +623,7 @@ msgstr "şifrelenmiş!"
 
 #: src/ftplib.c:315
 msgid "Setting data protection level to private ... "
-msgstr "Veri koruma seviyesi özele ayarlanıyor..."
+msgstr "Veri koruma seviyesi özele ayarlanıyor... "
 
 #: src/ftplib.c:331 src/ftplib.c:383 src/ftplib.c:530 src/ftplib.c:596
 #: src/ftplib.c:726 src/ftplib.c:771 src/ftplib.c:805 src/ftplib.c:828
@@ -652,7 +654,7 @@ msgstr "tamam (%s byte)\n"
 #: src/ftplib.c:551 src/ftplib.c:568 src/ftplib.c:621
 #, c-format
 msgid " failed (%s).\n"
-msgstr "başarısız (%s).\n"
+msgstr " başarısız (%s).\n"
 
 #: src/ftplib.c:624
 #, fuzzy
@@ -711,7 +713,7 @@ msgstr "bağlantı başarısız.\n"
 
 #: src/ftplib.c:950
 msgid "Trying to listen on proxy server... "
-msgstr "Proxy sunucu üzerinden dinlemeye çalışılıyor..."
+msgstr "Proxy sunucu üzerinden dinlemeye çalışılıyor... "
 
 #: src/ftplib.c:953
 msgid "failed. Falling back to listen locally\n"
@@ -744,7 +746,7 @@ msgstr ""
 #: src/utils.c:271
 #, c-format
 msgid "Waiting %d seconds... "
-msgstr "%d saniye bekleniyor..."
+msgstr "%d saniye bekleniyor... "
 
 #: src/utils.c:285
 #, c-format
@@ -821,7 +823,7 @@ msgstr "Uzunluk: %s"
 #: src/progress.c:341
 #, c-format
 msgid " [%s to go]\n"
-msgstr "[%s kaldı]\n"
+msgstr " [%s kaldı]\n"
 
 #: src/progress.c:348
 msgid ""
@@ -829,7 +831,7 @@ msgid ""
 "%* %dK "
 msgstr ""
 "%* [ atlandı %dK ]\n"
-"%* %dK"
+"%* %dK "
 
 #: src/ftp-ls.c:957
 msgid "Unsupported listing type, trying Unix listing parser.\n"
@@ -843,29 +845,29 @@ msgstr "/%s 'nin indexi %s:%d üzerinde"
 #: src/ftp-ls.c:1028
 #, c-format
 msgid "time unknown       "
-msgstr "zaman bilinmiyor"
+msgstr "zaman bilinmiyor       "
 
 #: src/ftp-ls.c:1032
 #, c-format
 msgid "File        "
-msgstr "Dosya"
+msgstr "Dosya        "
 
 #: src/ftp-ls.c:1035
 #, c-format
 msgid "Directory   "
-msgstr "Dizin"
+msgstr "Dizin   "
 
 #: src/ftp-ls.c:1038
 #, c-format
 msgid "Link        "
-msgstr "Bağ"
+msgstr "Bağ        "
 
 #: src/ftp-ls.c:1041
 #, c-format
 msgid "Not sure    "
-msgstr "Belirsiz"
+msgstr "Belirsiz    "
 
 #: src/ftp-ls.c:1059
 #, c-format
 msgid " (%s bytes)"
-msgstr "(%s byte)"
+msgstr " (%s byte)"
