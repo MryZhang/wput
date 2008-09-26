@@ -337,7 +337,7 @@ int do_send(_fsession * fsession){
 		/* for now assume that off_t is set to a corresponding value by the OS and therefore
 		 * fseek has to use off_t and if it does not work, this is not my problem! */
 	
-		fseek(fdopen(fd,"r"), fsession->target_fsize, SEEK_SET);
+		lseek(fd, fsession->target_fsize, SEEK_SET);
 		transfered_size = fsession->target_fsize;
 	}
 	

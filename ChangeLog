@@ -3,6 +3,7 @@ Fri Sep 26 13:46:15 CEST 2008 wput-0.7
 	* adding a patch to allow wput to work on Haiku (#2081050)
 	* fixing #2062029 allowing for files > 2GB
 	* fixing #1979379 by initalilizing ftp->current_directory
+	* including Launchpad translations
 
 Sat Jul 26 18:33:32 CEST 2008 Jan Larres
 	* add a wdel program for deleting files/directories on a server and

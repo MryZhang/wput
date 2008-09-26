@@ -25,6 +25,7 @@
 #endif
 
 #define ISDIGIT(x) ((x) >= '0' && (x) <= '9')
+#define FORCE_STR(x) ((x) ? (x) : "")
 
 /* =================================== *
  * ===== basic (de)constructors ====== *
@@ -45,7 +46,6 @@ ftp_con * ftp_new(host_t * host, int secure) {
 	self->secure = secure;
 	self->sbuf   = malloc(82);
 	self->sbuflen= 82;
-	self->current_directory = cpy(".");
 	return self;
 }
 
@@ -539,7 +539,7 @@ int ftp_do_cwd(ftp_con * self, char * directory) {
 	int res;
 	
 	printout(vMORE, "==> CWD %s", directory);
-	if (!strncmp(directory, "..", 2))
+	if (!strncmp(directory, "..", 3))
 		ftp_issue_cmd(self, "CDUP", NULL);
 	else
 		ftp_issue_cmd(self, "CWD", directory);
@@ -703,7 +703,7 @@ int ftp_get_list(ftp_con * self) {
 	listing = ftp_parse_ls(list, self->OS);
 	free(list);
 	/* add it to the list of known directories */
-	self->directorylist = directory_add_dir(self->current_directory, self->directorylist, listing);
+	self->directorylist = directory_add_dir(FORCE_STR(self->current_directory), self->directorylist, listing);
 	return 0;
 }
 /* issue the REST command for resuming a file at a certain
@@ -1077,7 +1077,7 @@ struct fileinfo * fileinfo_find_file(struct fileinfo * F, char * name) {
 struct fileinfo * ftp_get_current_directory_list(ftp_con * self) {
     directory_list * K = self->directorylist;
     while(K != NULL) {
-        if( !strcmp(K->name, self->current_directory) ) return K->list;
+        if( !strcmp(K->name, FORCE_STR(self->current_directory)) ) return K->list;
         K = K->next;
     }
     return NULL;
