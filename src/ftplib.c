@@ -45,6 +45,7 @@ ftp_con * ftp_new(host_t * host, int secure) {
 	self->secure = secure;
 	self->sbuf   = malloc(82);
 	self->sbuflen= 82;
+	self->current_directory = cpy(".");
 	return self;
 }
 

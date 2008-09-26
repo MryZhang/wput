@@ -19,6 +19,17 @@ if test "$enable_memdbg" = "yes"; then
  echo "------------------------"
 fi
 
+if test -x /usr/bin/getconf ; then
+  echo -n "checking Large File System support: "
+  LFS_CFLAGS=`/usr/bin/getconf LFS_CFLAGS`
+  if test -n "$LFS_CFLAGS" ;then
+    CFLAGS="$CFLAGS $LFS_CFLAGS"
+    echo "yes"
+  else
+    echo "no"
+  fi
+fi
+
 AC_ARG_WITH(ssl,
 [[  --with-ssl              link with SSL support [default=auto]
   --without-ssl           disable SSL autodetection]])

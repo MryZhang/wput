@@ -5,7 +5,7 @@ prefix=/usr/local
 bindir=${exec_prefix}/bin
 localedir=$(prefix)/share/locale
 CC=gcc
-CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" -INONE/include
+CFLAGS=  -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -g -DLOCALEDIR=\"$(localedir)\" -INONE/include
 LIBS=   -lgnutls-openssl
 EXE=../wput
 EXEWDEL=../wdel

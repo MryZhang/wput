@@ -4,14 +4,13 @@ Generic Tasks:
 
 Simple Todo List, ordered by relevance and likelyness of implementation:
  o l10n
- o support for files >2gb
  o configure.in -> look what the system provides -> use it in the source
+ o chmod to also copy file permissions
  o ipv6 compatibility
  o temporary upload filename. rename afterwards
  o smart resuming (compare last bytes of the file)
  o better ascii mode transfer (resume etc)
  o scripting support
- o wdel, for deletion of remote files, synch option
  o HTTP/1.1 PUT / WebDAV
 
 Specific Tasks:
