@@ -18,7 +18,11 @@
 
 #  include <sys/uio.h>
 #  include <strings.h>
+#ifndef __HAIKU__ 
 #  include <sys/errno.h>
+#else
+#  include <errno.h>
+#endif
 #  include <pwd.h>
 
 #  define WINCONV

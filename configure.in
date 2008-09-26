@@ -171,6 +171,7 @@ sco*)    CC=${CC-"cc -belf"}
     LIBS="-lsocket $LIBS";;
 SCO*)      CC=${CC-"cc -belf"}
            LIBS="-lsocket $LIBS";;
+Haiku*)    LIBS="-lnetwork $LIBS";;
 esac
 AC_CONFIG_HEADER(src/config.h)
 AC_SUBST(GETOPT)

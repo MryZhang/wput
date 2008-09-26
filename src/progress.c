@@ -219,14 +219,16 @@ struct _bar {
 	unsigned short int terminal_width = 80;
 
 int get_term_width(void) {
+	int termwidth = 80;
+#ifndef __HAIKU__ 
 	struct winsize win;
 	char * p;
-	int termwidth = 80;
 	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &win) == -1 || !win.ws_col) {
         	if ((p = getenv("COLUMNS")) != NULL)
 			termwidth = atoi(p);
     	} else
         	termwidth = win.ws_col;
+#endif
 	return termwidth;
 }
 

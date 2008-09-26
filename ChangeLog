@@ -1,3 +1,7 @@
+Fri Sep 26 13:46:15 CEST 2008
+	* fixing #2129988 (now using EINPROGRESS and not 115/36)
+	* adding a patch to allow wput to work on Haiku (#2081050)
+
 Sat Jul 26 18:33:32 CEST 2008 Jan Larres
 	* add a wdel program for deleting files/directories on a server and
 	  a corresponding man page

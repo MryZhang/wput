@@ -49,7 +49,9 @@
 
 #ifndef WIN32
 #include <netdb.h>
-#include <sys/errno.h>
+#ifndef __HAIKU__ 
+#  include <sys/errno.h>
+#endif
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #endif
@@ -372,7 +374,7 @@ int socket_is_data_writeable(int s, int timeout) {
 	printout(vDEBUG, "Checking whether %d is writable... ", s);
 	res = select(s+1, NULL, &inSet, NULL, &t);
 	printout(vDEBUG, "%d (%d:%s)\n", res, errno, strerror(errno));
-	if(errno > 0 && errno != 115 && errno != 36)
+	if(errno > 0 && errno != EINPROGRESS)
 		return 0;
 	return res;
 }
