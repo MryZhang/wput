@@ -476,9 +476,6 @@ int do_send(_fsession * fsession){
 int do_delete(_fsession * fsession, char * filename){
 	int res = 0;
 
-	res = ftp_establish_data_connection(fsession->ftp);
-	if(res < 0) return res;
-
 	struct fileinfo * finfo = NULL;
 	res = ftp_get_fileinfo(fsession->ftp, filename, &finfo);
 	if (res == ERR_FAILED) {

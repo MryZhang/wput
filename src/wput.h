@@ -112,7 +112,7 @@ struct global_options {
   unsigned char barstyle    :1; /* 0 -> old wget-style, 1 -> new one... */
   //unsigned char done		:1;
   unsigned char verbose     :3;
-  unsigned char tls         :1; /* 1 -> force tls */
+  unsigned char tls         :2; /* 0:normal, 1:force tls, 2:disable tls */
   unsigned char no_directories:1;
 
   short time_deviation;

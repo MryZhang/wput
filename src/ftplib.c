@@ -233,7 +233,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 	else
 #endif
 	res = ftp_auth_tls(self);
-	if(res != 0 && self->secure) {
+	if(res != 0 && self->secure==1) {
 		printout(vLESS, _("TLS encryption is explicitly required, but could not be established.\n"));
 		return ERR_FAILED;
 	}
@@ -299,6 +299,7 @@ int ftp_login(ftp_con * self, char * user, char * pass){
 /* error-levels: ERR_FAILED, get_msg() */
 int ftp_auth_tls(ftp_con * self) {
 	int res;
+	if(self->secure == 2) return 0; /* TLS_DISABLED */
 	printout(vMORE, "\n==> AUTH TLS ... ");
 	ftp_issue_cmd(self, "AUTH TLS", 0);
 	res = ftp_get_msg(self);

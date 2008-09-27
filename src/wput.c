@@ -128,6 +128,9 @@ int main(int argc, char *argv[]){
 	opt.resume_table.large_small = RESUME_TABLE_RESUME;
 	
 	opt.email_address = cpy("wput@localhost.com");
+        
+        if(!strncmp(&argv[0][strlen(argv[0])-4], "wdel", 5))
+          opt.wdel = 1;
 	
 	/* env overrides home overrides system wputrc */
 #ifdef SYSTEM_WPUTRC
@@ -184,14 +187,18 @@ int main(int argc, char *argv[]){
 		opt.ps.type = PROXY_OFF;
 	}
 	
-	/* process all url/file combinations that were supplied by commandline */
-	queue_process(0);
-	
-	/* read URLs from input-file */
-	if(opt.input != 0) read_urls();
-	
-	/* if there are lonely files remaining, give them the last (user-supplied) url */
-	process_missing();
+        /* WDEL separate the urls from a potential file and ensure that the urls end in a '/' */
+        if(opt.wdel) separate_urls();
+        
+        /* WPUT process all url/file combinations that were supplied by commandline */
+        if(!opt.wdel) queue_process(0);
+        
+        /* read URLs from input-file */
+        if(opt.input != 0) read_urls();
+          
+        /* WPUT if there are lonely files remaining, give them the last (user-supplied) url */
+        if(!opt.wdel) process_missing();
+        else queue_process(0); /* later process in WDEL */
 	
 	/* now we've everything we need or are already done */
 	if(opt.sorturls) {
@@ -209,25 +216,36 @@ int main(int argc, char *argv[]){
 	if(opt.curftp) ftp_quit(opt.curftp);
 	
 	if(opt.transfered == 0 && opt.skipped == 0 && opt.failed == 0)
-		printout(vNORMAL, _("Nothing done. Try `wput --help'.\n"));
+		printout(vNORMAL, _("Nothing done. Try `%s --help'.\n"), argv[0]);
 	else
 		printout(vNORMAL, _("FINISHED --%s--\n"), time_str());
 	
-	if(opt.transfered > 0)
-		printout(vNORMAL, opt.transfered == 1 ?
-		_("Transfered %s bytes in %d file at %s\n") : 
-		_("Transfered %s bytes in %d files at %s\n"), 
-			legible(opt.transfered_bytes),
-			opt.transfered,
-			calculate_transfer_rate(
-				wtimer_elapsed(opt.session_start), 
-				opt.transfered_bytes,
-				0)
-			);
+	if(opt.transfered > 0) {
+		if(!opt.wdel) {
+			printout(vNORMAL, opt.transfered == 1 ?
+			_("Transfered %s bytes in %d file at %s\n") : 
+			_("Transfered %s bytes in %d files at %s\n"), 
+				legible(opt.transfered_bytes),
+				opt.transfered,
+				calculate_transfer_rate(
+					wtimer_elapsed(opt.session_start), 
+					opt.transfered_bytes,
+					0)
+				);
+		} else
+			printout(vNORMAL, opt.transfered == 1 ?
+				_("Deleted %d file\n") : 
+				_("Deleted %d files\n"), 
+				opt.transfered);
+		
+	}
+	
 	if(opt.skipped > 0)
 		printout(vNORMAL, opt.skipped == 1 ? _("Skipped %d file.\n") : _("Skipped %d files.\n"), opt.skipped);
 	if(opt.failed > 0)
-		printout(vNORMAL, opt.failed == 1 ? _("Transmission of %d file failed.\n") : _("Transmission of %d files failed.\n"), opt.failed);
+		printout(vNORMAL, !opt.wdel ?
+			(opt.failed == 1 ? _("Transmission of %d file failed.\n") : _("Transmission of %d files failed.\n")) :
+			(opt.failed == 1 ? _("Deletion of %d file failed.\n") : _("Deletion of %d files failed.\n")), opt.failed);
 	
 	/* clean up */
 	free(opt.session_start);
@@ -267,9 +285,9 @@ int read_urls(void) {
 		url[strlen(url)-1] = 0;
 
 		if(!strncmp(p, "ftp://", 6))
-			queue_add_url(cpy(p));
+			opt.wdel ? wdel_queue_add_entry(NULL, cpy(p)) : queue_add_url(cpy(p));
 		else
-			queue_add_file(cpy(p));
+			opt.wdel ? wdel_queue_add_file(cpy(p)) : queue_add_file(cpy(p));
 
 		free(url);
 		/* process anything that's already complete */
@@ -316,6 +334,7 @@ int set_option(char * com, char * val) {
       }
       else if(!strncasecmp(com, "chmod", 6)) {
           int invalid = 0;
+	  if(opt.wdel) return 0; /* disabled for wdel */
           if(strlen(val) == 3) {
               int modecounter;
               for (modecounter = 0; modecounter < 3; modecounter++) {
@@ -376,6 +395,7 @@ int set_option(char * com, char * val) {
       return 0;
     case 'r':
         if(!strncasecmp(com, "rate", 5)) {
+	  if(opt.wdel) return 0; /* disabled for wdel */
           opt.speed_limit = atoi(val);
           while(*val) {
             if(*val == 'K') opt.speed_limit *= 1024;
@@ -398,13 +418,15 @@ int set_option(char * com, char * val) {
   case 't':
       if(!strncasecmp(com, "timeout", 8))
         socket_set_default_timeout(atoi(val));
-      else if(!strncasecmp(com, "timestamping", 13))
-        opt.timestamping    = !strncasecmp(val, "on", 3);
+      else if(!strncasecmp(com, "timestamping", 13)) {
+	if(opt.wdel) return 0; /* disabled for wdel */
+        opt.timestamping    = !strncasecmp(val, "on", 3); }
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_offset     = atoi(val);
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_deviation  = atoi(val);
       else if(!strncasecmp(com, "transfer_type", 14)) {
+	if(opt.wdel) return 0; /* disabled for wdel */
         if(!strncasecmp(val, "auto", 5)) opt.binary = TYPE_UNDEFINED;
         else if(!strncasecmp(val, "ascii", 6))  opt.binary = TYPE_A;
         else if(!strncasecmp(val, "binary", 7)) opt.binary = TYPE_I;
@@ -619,7 +641,8 @@ void commandlineoptions(int argc, char * argv[]){
 		{"wait", 1, 0, 'w'},            
 		{"waitretry", 1, 0, 0},         
 		{"chmod", 1, 0, 'm'},
-		{0, 0, 0, 0}                    
+		{"disable-tls", 0, 0, 0},
+		{0, 0, 0, 0}                    //40
       };
     while (1)
     {
@@ -674,6 +697,8 @@ void commandlineoptions(int argc, char * argv[]){
                 opt.basename = optarg;                              break;
             case 37: //waitretry
                 opt.retry_interval = atoi(optarg);                  break;
+	    case 39: //disable-tls
+		    opt.tls = 2;                                    break;
             default:
                 fprintf(stderr, _("Option %s should not appear here :|\n"), long_options[option_index].name);
             }
@@ -766,7 +791,7 @@ void commandlineoptions(int argc, char * argv[]){
 "  -R,  --remove-source-files   unlink files upon successful upload\n"
 "\n"));
 			fprintf(stderr, _(
-"Upload:\n"
+"Connection:\n"
 "       --bind-address=ADDR     bind to ADDR (hostname or IP) on local host\n"
 "  -t,  --tries=NUMBER          set retry count to NUMBER (-1 means infinite)\n"
 "  -nc, --dont-continue         do not resume partially-uploaded files\n"
@@ -793,7 +818,8 @@ void commandlineoptions(int argc, char * argv[]){
 
 #ifdef HAVE_SSL
 			fprintf(stderr, _(
-"       --force-tls             force the useage of TLS\n"));
+"       --force-tls             force the useage of TLS\n"
+"       --disable-tls           disable the usage of TLS\n"));
 #endif
 /*"  -f,  --peace                 force wput not to be aggressive\n"*/
 /*"  -S,  --script=FILE      TODO USS load a wput-script\n\n"*/
@@ -808,11 +834,10 @@ void commandlineoptions(int argc, char * argv[]){
     
     /* TODO NRV check if we got any input urls. otherwise print usage information */
     while(optind < argc) {
-        if(!strncmp(argv[optind], "ftp://", 6))
-            queue_add_url(cpy(argv[optind]));
-        else
-            queue_add_file(cpy(argv[optind]));
-
+	if(!strncmp(argv[optind], "ftp://", 6))
+		opt.wdel ? wdel_queue_add_entry(NULL, cpy(argv[optind])) : queue_add_url(cpy(argv[optind]));
+	else
+		opt.wdel ? wdel_queue_add_file(cpy(argv[optind])) : queue_add_file(cpy(argv[optind]));
 	/* delete argv content, so passwords are not displayed by ps */
 	memset(argv[optind], ' ', strlen(argv[optind]));
 

@@ -11,7 +11,7 @@
 # Origin: gettext-0.14
 
 PACKAGE = wput
-VERSION = 0.6
+VERSION = 0.6.2
 
 SHELL = /bin/sh
 

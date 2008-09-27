@@ -75,7 +75,7 @@ typedef struct _ftp_connection {
 	unsigned char loggedin    :1;
 	unsigned char portmode    :1;
 	         char current_type:2; /* -1 (undefined), 0 (ascii), 1 binary */
-	unsigned char secure      :1; /* 1 tls required */
+	unsigned char secure      :2; /* 1:tls required, 2:tls disabled */
 #ifdef HAVE_SSL
 	unsigned char datatls     :1;
 #endif
