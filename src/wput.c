@@ -57,9 +57,9 @@
 extern char *optarg;
 
 #ifdef WIN32
-const static char * version = "0.6.1-w32";
+const static char * version = "0.6.2-w32";
 #else
-const static char * version = "0.6.1";
+const static char * version = "0.6.2";
 #endif
 
 _fsession * fsession_queue_entry_point = NULL;
