@@ -20,7 +20,7 @@ install: all
 	mkdir -p $(mandir) 
 	install -m0755 wput $(bindir)
 	install -m0644 doc/wput.1.gz $(mandir)
-	ln -s $(bindir)/wput $(bindir)/wdel
+	ln -sf $(bindir)/wput $(bindir)/wdel
 	install -m0644 doc/wdel.1.gz $(mandir)
 	@echo "----------------"
 	@echo "Wput and Wdel installed. See 'wput/wdel -h' or 'man wput/wdel' for"
