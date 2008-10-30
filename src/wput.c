@@ -347,7 +347,7 @@ int set_option(char * com, char * val) {
               invalid = 1;
           }
           if (!invalid)
-              opt.chmod = val;
+              opt.chmod = cpy(val);
           else return -2;
       } else return -1;
       return 0;
