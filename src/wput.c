@@ -115,6 +115,7 @@ int main(int argc, char *argv[]){
 	opt.retry_interval = 10;
 	opt.time_deviation = 10;
 	opt.binary    = TYPE_UNDEFINED;
+	opt.chmod     = 0;
 	opt.output    = stdout;
 	
 	opt.verbose   = vNORMAL;
@@ -333,21 +334,13 @@ int set_option(char * com, char * val) {
         } else return -1;
       }
       else if(!strncasecmp(com, "chmod", 6)) {
-          int invalid = 0;
-	  if(opt.wdel) return 0; /* disabled for wdel */
-          if(strlen(val) == 3) {
-              int modecounter;
-              for (modecounter = 0; modecounter < 3; modecounter++) {
-                  if (val[modecounter] < '0' || val[modecounter] > '7') {
-                      invalid = 1;
-                      break;
-                  }
-              }
-          } else {
-              invalid = 1;
-          }
-          if (!invalid)
-              opt.chmod = cpy(val);
+          if(opt.wdel) return 0; /* disabled for wdel */
+
+          char *endptr;
+
+          mode_t m = (mode_t) strtoul(val, &endptr, 8);
+          if ((*endptr == '\0') && ((m & 0777777) == m)) /* is valid mode */
+              opt.chmod = m;
           else return -2;
       } else return -1;
       return 0;
@@ -640,13 +633,13 @@ void commandlineoptions(int argc, char * argv[]){
 		{"version", 0, 0, 'V'},          //35
 		{"wait", 1, 0, 'w'},            
 		{"waitretry", 1, 0, 0},         
-		{"chmod", 1, 0, 'm'},
+		{"chmod", 2, 0, 'm'},
 		{"disable-tls", 0, 0, 0},
 		{0, 0, 0, 0}                    //40
       };
     while (1)
     {
-        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
+        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um::",
                            long_options, &option_index);
                 
         if (c == -1)
@@ -757,7 +750,12 @@ void commandlineoptions(int argc, char * argv[]){
                   opt.input_pipe = optarg;      break;
         case 'R': opt.unlink = 1;               break;
         case 'Y': set_option("proxy", optarg);  break;
-        case 'm': set_option("chmod", optarg);  break;
+        case 'm':
+                  if (optarg)
+                    set_option("chmod", optarg);
+                  else
+                    set_option("chmod", "1"); // use local mode
+                  break;
         case 'V':
             fprintf(opt.output, _("wput version: %s\n"), version);
             exit(0);

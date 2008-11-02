@@ -305,14 +305,15 @@ Specifying this flag forces Wput to use ASCII mode file transfers.
 .IX Item "--binary"
 .PD
 Specifying this flag forces Wput to use BINARY mode file transfers.
-.IP "\fB\-m\fR" 4
+.IP "\fB\-m\fR\fIMODE\fR" 4
 .IX Item "-m"
 .PD 0
-.IP "\fB\-\-chmod\fR" 4
-.IX Item "--chmod"
+.IP "\fB\-\-chmod=\fR\fIMODE\fR" 4
+.IX Item "--chmod="
 .PD
 This will change the access mode of the transferred files. The format is the
-three-digit octal unix mode, e.g. 644 means rw-r--r--.
+normal octal unix mode, e.g. 644 means rw-r--r--.
+If \fIMODE\fR is omitted, the mode of the local file will be used.
 .IP "\fB\-\-force-tls\fR" 4
 .IX Item "--force-tls"
 If this flag is specified and Wput is linked with the OpenSSL-library, the flag

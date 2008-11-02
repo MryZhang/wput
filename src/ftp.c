@@ -805,7 +805,7 @@ int fsession_process_file(_fsession * fsession, ftp_con * ftp) {
     } 
 
 	if(res == ERR_OK && opt.chmod) {
-		ftp_do_chmod(fsession->ftp, fsession->target_fname);
+		ftp_do_chmod(fsession->ftp, fsession->local_fname, fsession->target_fname);
 	}
 
 	/* TODO USS is there any case when do_send fails, that the whole directory 

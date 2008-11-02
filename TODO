@@ -5,7 +5,6 @@ Generic Tasks:
 Simple Todo List, ordered by relevance and likelyness of implementation:
  o l10n
  o configure.in -> look what the system provides -> use it in the source
- o chmod to also copy file permissions
  o ipv6 compatibility
  o temporary upload filename. rename afterwards
  o smart resuming (compare last bytes of the file)

@@ -1,3 +1,8 @@
+Fri Oct 31 17:38:48 CET 2008 Jan Larres
+	* add the ability to take the permissions of the local file as
+	  basis for the uploaded one and change the type of opt.chmod to
+	  the more standard mode_t
+
 Thu Oct 30 20:22:38 CET 2008 Jan Larres
 	* fix a bug with parsing of the chmod option from the wputrc file
 

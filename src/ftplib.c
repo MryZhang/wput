@@ -603,17 +603,36 @@ int ftp_do_list(ftp_con * self) {
 	return 0;
 }
 
-int ftp_do_chmod(ftp_con * self, char * file) {
+int ftp_do_chmod(ftp_con * self, char * lfile, char * rfile) {
 	int res;
+	char *mode = malloc(7);
 
-	printout(vMORE, "==> SITE CHMOD %s %s ... ", opt.chmod, file);
-	char *value = malloc(strlen(opt.chmod)
+	if(opt.chmod == 1) {
+#ifdef WIN32
+		struct _stat statbuf;
+		res = _stat(lfile, &statbuf);
+#else
+		struct stat statbuf;
+		res = stat(lfile, &statbuf);
+#endif
+		if (res != 0) {
+			perror(_("Error accessing local file for getting mode"));
+			return ERR_FAILED;
+		}
+		snprintf(mode, 7, "%lo", (unsigned long) statbuf.st_mode);
+	} else {
+		snprintf(mode, 7, "%lo", (unsigned long) opt.chmod);
+	}
+
+	printout(vMORE, "==> SITE CHMOD %s %s ... ", mode, rfile);
+	char *value = malloc(strlen(mode)
 			+ 1 /* " " */
-			+ strlen(file)
+			+ strlen(rfile)
 			+ 1 /* \0 */);
-	strcpy(value, opt.chmod);
+	strcpy(value, mode);
 	strcat(value, " ");
-	strcat(value, file);
+	strcat(value, rfile);
+	free(mode);
 	ftp_issue_cmd(self, "SITE CHMOD", value);
 	free(value);
 	res = ftp_get_msg(self);
