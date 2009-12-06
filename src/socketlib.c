@@ -425,13 +425,13 @@ wput_socket * proxy_init(proxy_settings * ps) {
 	char t[4] = {5, 1, 0};
 	wput_socket * sock = socket_connect(ps->ip, ps->port);
 	int res;
-    printout(vDEBUG, "proxy-sock: %d\n", sock->fd);
 	if(!sock) {
 		printout(vNORMAL, _("failed.\n"));
 		printout(vLESS, _("Error: "));
 		printout(vLESS, _("Connection to proxy cannot be established.\n"));
 		return NULL;
 	}
+	printout(vDEBUG, "proxy-sock: %d\n", sock->fd);
     
     if(ps->user && ps->pass) {
         t[1] = 2;
