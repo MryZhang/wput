@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wput 0.6\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
-"POT-Creation-Date: 2009-12-06 16:42+0100\n"
+"POT-Creation-Date: 2009-12-06 17:26+0100\n"
 "PO-Revision-Date: 2007-12-11 23:55+0000\n"
 "Last-Translator: Sebastiaan J.L. van der Velden <Unknown>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-26 15:40+0000\n"
+"X-Launchpad-Export-Date: 2009-12-06 15:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wput.c:156
@@ -28,9 +28,9 @@ msgstr "Kan log-bestand niet openen"
 
 #: src/wput.c:166 src/wput.c:176 src/wput.c:186 src/wput.c:371 src/wput.c:745
 #: src/ftp.c:877 src/ftp.c:917 src/ftplib.c:270 src/ftplib.c:974
-#: src/ftplib.c:985 src/utils.c:284 src/utils.c:311 src/queue.c:334
-#: src/queue.c:341 src/queue.c:382 src/queue.c:459 src/queue.c:495
-#: src/queue.c:530
+#: src/ftplib.c:985 src/utils.c:284 src/utils.c:311 src/queue.c:337
+#: src/queue.c:344 src/queue.c:385 src/queue.c:462 src/queue.c:498
+#: src/queue.c:533
 msgid "Warning: "
 msgstr "Waarschuwing: "
 
@@ -121,7 +121,7 @@ msgstr "Verzending van %d bestanden mislukt.\n"
 #: src/socketlib.c:430 src/socketlib.c:451 src/socketlib.c:476
 #: src/socketlib.c:495 src/socketlib.c:515 src/socketlib.c:568
 #: src/socketlib.c:623 src/ftplib.c:279 src/ftplib.c:285 src/ftplib.c:668
-#: src/ftplib.c:713 src/queue.c:438 src/queue.c:540
+#: src/ftplib.c:713 src/queue.c:441 src/queue.c:543
 msgid "Error: "
 msgstr "Fout: "
 
@@ -301,7 +301,7 @@ msgstr ""
 "\n"
 
 #: src/wput.c:811
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "FTP-Options:\n"
 "  -p,  --port-mode             no-passive, turn on port mode ftp (def. "
@@ -310,11 +310,6 @@ msgid ""
 "  -B,  --binary                force BINARY mode-transfer\n"
 "  -m,  --chmod                 change mode of transferred files ([0-7]{3})\n"
 msgstr ""
-"FTP-Opties:\n"
-"  -p,  --port-mode             niet-passief, schakel poort mode ftp in (def. "
-"pasv)\n"
-"  -A,  --ascii                 forceer ASCII  mode-transport\n"
-"  -B,  --binary                forceeer BINARY mode-transport\n"
 
 #: src/wput.c:819
 #, fuzzy, c-format
@@ -394,14 +389,12 @@ msgid "Failed to change to target directory. Skipping this file/dir.\n"
 msgstr "Niet gelukt om doelmap te veranderen. Overslaan bestand/map.\n"
 
 #: src/ftp.c:522
-#, fuzzy
 msgid "Directory empty, deletion failed.\n"
-msgstr "verbinding mislukt.\n"
+msgstr ""
 
 #: src/ftp.c:537
-#, fuzzy
 msgid "Failed to change to parent directory. Skipping this file/dir.\n"
-msgstr "Niet gelukt om doelmap te veranderen. Overslaan bestand/map.\n"
+msgstr ""
 
 #: src/ftp.c:563
 #, c-format
@@ -487,9 +480,8 @@ msgid "error accepting the incoming connection"
 msgstr "fout bij het accepteren van de binnenkomende verbinding"
 
 #: src/socketlib.c:181
-#, fuzzy
 msgid "TLS handshake failed\n"
-msgstr "TLS handshake mislukt.\n"
+msgstr ""
 
 #: src/socketlib.c:240
 #, c-format
@@ -686,9 +678,8 @@ msgid "Error accessing local file for getting mode"
 msgstr ""
 
 #: src/ftplib.c:644
-#, fuzzy
 msgid " done.\n"
-msgstr "klaar.\n"
+msgstr ""
 
 #: src/ftplib.c:646
 msgid "\n"
@@ -731,9 +722,9 @@ msgid "failed (%d %s). (skipping)\n"
 msgstr "mislukt (%d %s). (overslaan)\n"
 
 #: src/ftplib.c:820 src/ftplib.c:842 src/ftplib.c:845
-#, fuzzy, c-format
+#, c-format
 msgid "failed (%s)\n"
-msgstr "mislukt (%s).\n"
+msgstr ""
 
 #: src/ftplib.c:952
 msgid "connection failed.\n"
@@ -791,26 +782,26 @@ msgstr "Geen poort opgegeven. Gebruik standaard poort %d.\n"
 msgid "Error: Please specify a url first.\n"
 msgstr ""
 
-#: src/queue.c:335
+#: src/queue.c:338
 #, c-format
 msgid "Error encountered but ignored during stat of `%s'.\n"
 msgstr "Fout gevonden maar genegeerd tijdens stat van `%s'.\n"
 
-#: src/queue.c:342
+#: src/queue.c:345
 #, c-format
 msgid "Error encountered but ignored during opendir of `%s'.\n"
 msgstr "Fout gevonden maar genegeer tijdens opendir van `%s'.\n"
 
-#: src/queue.c:383
+#: src/queue.c:386
 msgid "Seems as though there are two equivalent entries to upload.\n"
 msgstr "Het lijkt erop dat er twee gelijke ingangen zijn om te verzenden.\n"
 
-#: src/queue.c:439
+#: src/queue.c:442
 #, c-format
 msgid "the url `%s' could not be parsed\n"
 msgstr "de url `%s' kon niet verwerkt worden\n"
 
-#: src/queue.c:460
+#: src/queue.c:463
 msgid ""
 "Neither a remote location nor a local filename has been specified. Assuming "
 "you want to upload the current working directory to the remote server.\n"
@@ -818,7 +809,7 @@ msgstr ""
 "Geen server lokatie nog een lokale bestandsnaam zijn opgegeven. Ga er van "
 "uit dat U de huide map wilt verzenden naar de server.\n"
 
-#: src/queue.c:496
+#: src/queue.c:499
 msgid ""
 "No local file specified and no file found from URL.\n"
 "Assuming the current working directory is to be uploaded to the remote "
@@ -827,7 +818,7 @@ msgstr ""
 "Geen lokaal bestand opgegeven an geen bestand gevonden in de URL.\n"
 "Ga er van uit dat de huidige map moet worden verzonden naar de server.\n"
 
-#: src/queue.c:531
+#: src/queue.c:534
 #, c-format
 msgid ""
 "File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
@@ -835,7 +826,7 @@ msgstr ""
 "Bestand `%s' bestaat niet. Ga er van uit dat u invoer gebruikt met behulp "
 "van de -I optie.\n"
 
-#: src/queue.c:541
+#: src/queue.c:544
 #, c-format
 msgid "File `%s' does not exist. Don't know what to do about this URL.\n"
 msgstr "Bestand `%s' bestaat niet. Geen idee wat te doen met deze URL.\n"
@@ -858,41 +849,41 @@ msgstr ""
 "%* [ overgeslagen %dK ]\n"
 "%* %dK "
 
-#: src/ftp-ls.c:957
+#: src/ftp-ls.c:961
 msgid "Unsupported listing type, trying Unix listing parser.\n"
 msgstr "Niet ondersteunde lijst-type, probeer Unix-lijst-verwerking.\n"
 
-#: src/ftp-ls.c:1003 src/ftp-ls.c:1005
+#: src/ftp-ls.c:1007 src/ftp-ls.c:1009
 #, c-format
 msgid "Index of /%s on %s:%d"
 msgstr "Inhoud van /%s op %s:%d"
 
-#: src/ftp-ls.c:1028
+#: src/ftp-ls.c:1032
 #, c-format
 msgid "time unknown       "
 msgstr "tijd onbekend       "
 
-#: src/ftp-ls.c:1032
+#: src/ftp-ls.c:1036
 #, c-format
 msgid "File        "
 msgstr "Bestand        "
 
-#: src/ftp-ls.c:1035
+#: src/ftp-ls.c:1039
 #, c-format
 msgid "Directory   "
 msgstr "Map   "
 
-#: src/ftp-ls.c:1038
+#: src/ftp-ls.c:1042
 #, c-format
 msgid "Link        "
 msgstr "Link        "
 
-#: src/ftp-ls.c:1041
+#: src/ftp-ls.c:1045
 #, c-format
 msgid "Not sure    "
 msgstr "Niet zeker    "
 
-#: src/ftp-ls.c:1059
+#: src/ftp-ls.c:1063
 #, c-format
 msgid " (%s bytes)"
 msgstr ""

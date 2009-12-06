@@ -7,29 +7,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: wput 0.6\n"
 "Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
-"POT-Creation-Date: 2009-12-06 16:42+0100\n"
-"PO-Revision-Date: 2008-08-01 16:51+0000\n"
-"Last-Translator: zolookas <zolookas@delfi.lt>\n"
+"POT-Creation-Date: 2009-12-06 17:26+0100\n"
+"PO-Revision-Date: 2009-07-04 08:26+0000\n"
+"Last-Translator: Dmitry Yerokhin <Unknown>\n"
 "Language-Team: <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2008-09-26 15:40+0000\n"
+"X-Launchpad-Export-Date: 2009-12-06 15:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #: src/wput.c:156
 msgid "Resuming in background. Logging output to 'wput-log'.\n"
-msgstr "Продолжаю в фоновом режиме, вывод перенаправлен в 'wput-log'.\n"
+msgstr "Продолжение в фоновом режиме. Отчёт перенаправлен в 'wput-log'.\n"
 
 #: src/wput.c:158 src/wput.c:701
 msgid "Unable to open logfile"
-msgstr "Невозможно открыть файл лога"
+msgstr "Невозможно открыть файл отчёта"
 
 #: src/wput.c:166 src/wput.c:176 src/wput.c:186 src/wput.c:371 src/wput.c:745
 #: src/ftp.c:877 src/ftp.c:917 src/ftplib.c:270 src/ftplib.c:974
-#: src/ftplib.c:985 src/utils.c:284 src/utils.c:311 src/queue.c:334
-#: src/queue.c:341 src/queue.c:382 src/queue.c:459 src/queue.c:495
-#: src/queue.c:530
+#: src/ftplib.c:985 src/utils.c:284 src/utils.c:311 src/queue.c:337
+#: src/queue.c:344 src/queue.c:385 src/queue.c:462 src/queue.c:498
+#: src/queue.c:533
 msgid "Warning: "
 msgstr "Внимание: "
 
@@ -38,110 +38,111 @@ msgid ""
 "background-mode might not work correctly, if the input-pipe needs to read "
 "from stdin (like cat -).\n"
 msgstr ""
-"фоновый режим может работать некорректно, если пайп ввода нуждается в чтении "
-"из stdin (например cat -).\n"
+"фоновый режим может работать некорректно, если перенаправление ввода "
+"нуждается в чтении из stdin (например, cat -).\n"
 
 #: src/wput.c:177
 msgid ""
 "reading urls from stdin, while running in background-mode is not reliable.\n"
-msgstr "читать из stdin url-ы, когда запущен в фоновым режиме - несмешно.\n"
+msgstr ""
+"чтение URL-адресов из stdin, когда работа в фоновым режиме ненадёжна.\n"
 
 #: src/wput.c:187
 msgid ""
 "Ignoring request to turn proxy-usage on, since no proxy is configured.\n"
-msgstr "Игнорируем просьбу включить прокси, поскольку proxy не задан.\n"
+msgstr "Игнорирование запроса включить прокси, поскольку прокси не задан.\n"
 
 #: src/wput.c:220
 #, fuzzy, c-format
 msgid "Nothing done. Try `%s --help'.\n"
-msgstr "Нечего делать, попробуйте прочитать хелп `wput --help'.\n"
+msgstr "Ничего не выполнено. Ознакомьтесь со справкой: `wput --help'.\n"
 
 #: src/wput.c:222
 #, c-format
 msgid "FINISHED --%s--\n"
-msgstr "ВЫПОЛНЕНО --%s--\n"
+msgstr "ГОТОВО --%s--\n"
 
 #: src/wput.c:227
 #, c-format
 msgid "Transfered %s bytes in %d file at %s\n"
-msgstr "Передано %s байт в %d файлах за %s\n"
+msgstr "Передано %s байт (файлов: %d) за %s\n"
 
 #: src/wput.c:228
 #, c-format
 msgid "Transfered %s bytes in %d files at %s\n"
-msgstr "Передано %s байт в %d файлах за %s\n"
+msgstr "Передано %s байт (файлов: %d) за %s\n"
 
 #: src/wput.c:238
 #, fuzzy, c-format
 msgid "Deleted %d file\n"
-msgstr "Пропущено %d файл(ов).\n"
+msgstr "Пропущено файлов: %d.\n"
 
 #: src/wput.c:239
 #, fuzzy, c-format
 msgid "Deleted %d files\n"
-msgstr "Пропущено %d файл(ов).\n"
+msgstr "Пропущено файлов: %d.\n"
 
 #: src/wput.c:245
 #, c-format
 msgid "Skipped %d file.\n"
-msgstr "Пропущено %d файл(ов).\n"
+msgstr "Пропущено файлов: %d.\n"
 
 #: src/wput.c:245
 #, c-format
 msgid "Skipped %d files.\n"
-msgstr "Пропущено %d файл(ов).\n"
+msgstr "Пропущено файлов: %d.\n"
 
 #: src/wput.c:248
 #, c-format
 msgid "Transmission of %d file failed.\n"
-msgstr "Передача %d файл(ов) завершилась неудачей.\n"
+msgstr "Ошибка при передаче файлов (%d шт.).\n"
 
 #: src/wput.c:248
 #, c-format
 msgid "Transmission of %d files failed.\n"
-msgstr "Передача %d файл(ов) завершилась неудачей.\n"
+msgstr "Ошибка при передаче файлов (%d шт.).\n"
 
 #: src/wput.c:249
 #, fuzzy, c-format
 msgid "Deletion of %d file failed.\n"
-msgstr "Передача %d файл(ов) завершилась неудачей.\n"
+msgstr "Ошибка при передаче файлов (%d шт.).\n"
 
 #: src/wput.c:249
 #, fuzzy, c-format
 msgid "Deletion of %d files failed.\n"
-msgstr "Передача %d файл(ов) завершилась неудачей.\n"
+msgstr "Ошибка при передаче файлов (%d шт.).\n"
 
 #: src/wput.c:321 src/ftp.c:219 src/ftp.c:240 src/ftp.c:347 src/ftp.c:385
 #: src/ftp.c:405 src/ftp.c:881 src/socketlib.c:124 src/socketlib.c:264
 #: src/socketlib.c:430 src/socketlib.c:451 src/socketlib.c:476
 #: src/socketlib.c:495 src/socketlib.c:515 src/socketlib.c:568
 #: src/socketlib.c:623 src/ftplib.c:279 src/ftplib.c:285 src/ftplib.c:668
-#: src/ftplib.c:713 src/queue.c:438 src/queue.c:540
+#: src/ftplib.c:713 src/queue.c:441 src/queue.c:543
 msgid "Error: "
 msgstr "Ошибка: "
 
 #: src/wput.c:322 src/wput.c:372 src/ftp.c:878 src/ftp.c:882
 #, c-format
 msgid "`%s' could not be resolved. "
-msgstr "Невозможно разрешить имя `%s' в адрес. "
+msgstr "Невозможно сопоставить `%s' адресу. "
 
 #: src/wput.c:323
 msgid "Exiting.\n"
-msgstr "Выходим.\n"
+msgstr "Выход.\n"
 
 #: src/wput.c:373
 msgid "Disabling proxy support.\n"
-msgstr "Отключаем поддержку прокси.\n"
+msgstr "Отключение поддержки прокси.\n"
 
 #: src/wput.c:470
 #, c-format
 msgid "netrc file '%s' cannot be read. skipping\n"
-msgstr "Не могу прочитать файл netrc '%s'. Игнорирую\n"
+msgstr "Невозможно прочитать файл netrc '%s'. Пропущено\n"
 
 #: src/wput.c:500
 #, c-format
 msgid "password_file '%s' cannot be read. skipping\n"
-msgstr "Не могу прочитать файл паролей '%s'. Игнорирую\n"
+msgstr "Невозможно прочитать файл паролей '%s'. Пропущено\n"
 
 #: src/wput.c:503
 msgid ""
@@ -296,7 +297,7 @@ msgstr ""
 "\n"
 
 #: src/wput.c:811
-#, fuzzy, c-format
+#, c-format
 msgid ""
 "FTP-Options:\n"
 "  -p,  --port-mode             no-passive, turn on port mode ftp (def. "
@@ -305,13 +306,6 @@ msgid ""
 "  -B,  --binary                force BINARY mode-transfer\n"
 "  -m,  --chmod                 change mode of transferred files ([0-7]{3})\n"
 msgstr ""
-"Опции FTP:\n"
-"  -p,  --port-mode             no-passive, turn on port mode ftp (def. "
-"pasv)\n"
-"  -A,  --ascii                 Обязательно использовать режим передачи "
-"ASCII\n"
-"  -B,  --binary                Обязательно использовать режим передачи "
-"BINARY\n"
 
 #: src/wput.c:819
 #, fuzzy, c-format
@@ -392,14 +386,12 @@ msgid "Failed to change to target directory. Skipping this file/dir.\n"
 msgstr "Не могу сменить каталог приемника. Пропускаю этот файл/каталог.\n"
 
 #: src/ftp.c:522
-#, fuzzy
 msgid "Directory empty, deletion failed.\n"
-msgstr "сбой подключения.\n"
+msgstr ""
 
 #: src/ftp.c:537
-#, fuzzy
 msgid "Failed to change to parent directory. Skipping this file/dir.\n"
-msgstr "Не могу сменить каталог приемника. Пропускаю этот файл/каталог.\n"
+msgstr ""
 
 #: src/ftp.c:563
 #, c-format
@@ -481,9 +473,8 @@ msgid "error accepting the incoming connection"
 msgstr "ошибка приема входящего соединения"
 
 #: src/socketlib.c:181
-#, fuzzy
 msgid "TLS handshake failed\n"
-msgstr "Рукопожатие TLS терпело неудачу.\n"
+msgstr ""
 
 #: src/socketlib.c:240
 #, c-format
@@ -679,9 +670,8 @@ msgid "Error accessing local file for getting mode"
 msgstr ""
 
 #: src/ftplib.c:644
-#, fuzzy
 msgid " done.\n"
-msgstr "готово.\n"
+msgstr ""
 
 #: src/ftplib.c:646
 msgid "\n"
@@ -724,9 +714,9 @@ msgid "failed (%d %s). (skipping)\n"
 msgstr "сбой (%d %s). (пропускаем)\n"
 
 #: src/ftplib.c:820 src/ftplib.c:842 src/ftplib.c:845
-#, fuzzy, c-format
+#, c-format
 msgid "failed (%s)\n"
-msgstr "сбой (%s).\n"
+msgstr ""
 
 #: src/ftplib.c:952
 msgid "connection failed.\n"
@@ -785,26 +775,26 @@ msgstr "Порт не задан. Считаем что по умолчанию 
 msgid "Error: Please specify a url first.\n"
 msgstr ""
 
-#: src/queue.c:335
+#: src/queue.c:338
 #, c-format
 msgid "Error encountered but ignored during stat of `%s'.\n"
 msgstr "Error encountered but ignored during stat of `%s'.\n"
 
-#: src/queue.c:342
+#: src/queue.c:345
 #, c-format
 msgid "Error encountered but ignored during opendir of `%s'.\n"
 msgstr "Error encountered but ignored during opendir of `%s'.\n"
 
-#: src/queue.c:383
+#: src/queue.c:386
 msgid "Seems as though there are two equivalent entries to upload.\n"
 msgstr "Seems as though there are two equivalent entries to upload.\n"
 
-#: src/queue.c:439
+#: src/queue.c:442
 #, c-format
 msgid "the url `%s' could not be parsed\n"
 msgstr "не могу разобрать url `%s'\n"
 
-#: src/queue.c:460
+#: src/queue.c:463
 msgid ""
 "Neither a remote location nor a local filename has been specified. Assuming "
 "you want to upload the current working directory to the remote server.\n"
@@ -812,7 +802,7 @@ msgstr ""
 "Поскольку не указано ни каталог назначения, ни локальный файл. Считаю что вы "
 "хотите закачть текщий рабочий каталог на сервер.\n"
 
-#: src/queue.c:496
+#: src/queue.c:499
 msgid ""
 "No local file specified and no file found from URL.\n"
 "Assuming the current working directory is to be uploaded to the remote "
@@ -822,14 +812,14 @@ msgstr ""
 "Assuming the current working directory is to be uploaded to the remote "
 "server.\n"
 
-#: src/queue.c:531
+#: src/queue.c:534
 #, c-format
 msgid ""
 "File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
 msgstr ""
 "File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
 
-#: src/queue.c:541
+#: src/queue.c:544
 #, c-format
 msgid "File `%s' does not exist. Don't know what to do about this URL.\n"
 msgstr "Файл `%s' не существует. Незнаю что делать с этим URL.\n"
@@ -852,41 +842,41 @@ msgstr ""
 "%* [ пропущено %dK ]\n"
 "%* %dK "
 
-#: src/ftp-ls.c:957
+#: src/ftp-ls.c:961
 msgid "Unsupported listing type, trying Unix listing parser.\n"
 msgstr "Не поддерживаемый тип листинга, пытаюсь распарсить как для Unix.\n"
 
-#: src/ftp-ls.c:1003 src/ftp-ls.c:1005
+#: src/ftp-ls.c:1007 src/ftp-ls.c:1009
 #, c-format
 msgid "Index of /%s on %s:%d"
 msgstr "Список для /%s на %s:%d"
 
-#: src/ftp-ls.c:1028
+#: src/ftp-ls.c:1032
 #, c-format
 msgid "time unknown       "
 msgstr "время неизвестно       "
 
-#: src/ftp-ls.c:1032
+#: src/ftp-ls.c:1036
 #, c-format
 msgid "File        "
 msgstr "Файл        "
 
-#: src/ftp-ls.c:1035
+#: src/ftp-ls.c:1039
 #, c-format
 msgid "Directory   "
 msgstr "Каталог   "
 
-#: src/ftp-ls.c:1038
+#: src/ftp-ls.c:1042
 #, c-format
 msgid "Link        "
 msgstr "Линк        "
 
-#: src/ftp-ls.c:1041
+#: src/ftp-ls.c:1045
 #, c-format
 msgid "Not sure    "
 msgstr "Неуверен    "
 
-#: src/ftp-ls.c:1059
+#: src/ftp-ls.c:1063
 #, c-format
 msgid " (%s bytes)"
 msgstr " (%s байт)"
