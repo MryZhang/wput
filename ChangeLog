@@ -1,6 +1,8 @@
 Sun Dec  6 16:38:11 CET 2009 Hagen Fritsch
-	* applying a patch of anrieff fixing crashes if a proxy is down
+	* applying a patch by anrieff fixing crashes if a proxy is down
 	  (#2908856)
+	* applying a patch by Lori Sulik fixing a crash after socket
+	  errors (#2527080)
 
 Fri Oct 31 17:38:48 CET 2008 Jan Larres
 	* add the ability to take the permissions of the local file as

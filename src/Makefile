@@ -5,8 +5,8 @@ prefix=/usr/local
 bindir=${exec_prefix}/bin
 localedir=$(prefix)/share/locale
 CC=gcc
-CFLAGS=  -Wall -D_LARGEFILE_SOURCE -D_FILE_OFFSET_BITS=64  -g -DLOCALEDIR=\"$(localedir)\" -INONE/include
-LIBS=   -lgnutls-openssl
+CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" 
+LIBS=  
 EXE=../wput
 GETOPT=
 MEMDBG=

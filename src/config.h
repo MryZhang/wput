@@ -64,7 +64,7 @@
 #define STDC_HEADERS 1
 
 /* Define if all libs needed for ssl support are existing */
-#define HAVE_SSL 1
+/* #undef HAVE_SSL */
 
 /* Define to 1 if you have the long long type */
 #define HAVE_LONG_LONG 1

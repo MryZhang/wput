@@ -189,7 +189,10 @@ void queue_process(int force) {
 		if(F && F != (void *) -2) {
 			if(!opt.sorturls) {
 				res = fsession_process_file(F, opt.curftp);
-				if(res == -1)      opt.failed++;
+				if(res == -1) {
+					opt.failed++;
+					opt.curftp = NULL;
+				}
 				else if(res == -2) opt.skipped++;
 				if(F->ftp)
 				  opt.curftp = F->ftp;
