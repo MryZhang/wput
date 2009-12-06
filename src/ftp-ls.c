@@ -118,6 +118,10 @@ ftp_parse_unix_ls (const char *file, int ignore_perms)
   char *line, *tok;		/* tokenizer */
   struct fileinfo *dir, *l, cur; /* list creation */
 
+  memset(&timenow, '\0', sizeof(timenow));
+  memset(&timestruct, '\0', sizeof(timestruct));
+  memset(&cur, '\0', sizeof(cur));
+
   fp = fopen (file, "r");
   if (!fp)
     {

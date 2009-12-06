@@ -89,7 +89,7 @@ int long_do_cwd(_fsession * fsession){
  * path and change there again */
 /* error-levels: ERR_RECONNECT, ERR_FAILED, ERR_SKIP (failed for '/'), 1 */
 int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
-	int res;
+	int res = 0;
 	if(!strcmp(path, "."))
 		return mkd;
 	if(!strcmp(path, ".."))
