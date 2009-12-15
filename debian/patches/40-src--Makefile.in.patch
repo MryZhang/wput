@@ -1,0 +1,27 @@
+From 14ecf6a51daf7c886c7eb327f3d31aeab4f05cdf Mon Sep 17 00:00:00 2001
+From: Jari Aalto <jari.aalto@cante.net>
+Date: Tue, 15 Dec 2009 23:35:33 +0200
+Subject: [PATCH] src/Makefile.in: add CFLAGS_EXTRA
+
+
+Signed-off-by: Jari Aalto <jari.aalto@cante.net>
+---
+ src/Makefile.in |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/src/Makefile.in b/src/Makefile.in
+index 1d78a61..c7dbf84 100644
+--- a/src/Makefile.in
++++ b/src/Makefile.in
+@@ -5,7 +5,7 @@ prefix=@prefix@
+ bindir=@bindir@
+ localedir=$(prefix)/share/locale
+ CC=@CC@
+-CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" @GNUTLS_CFLAGS@
++CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" @GNUTLS_CFLAGS@ $(CFLAGS_EXTRA)
+ LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
+ EXE=../wput
+ GETOPT=@GETOPT@
+-- 
+1.6.5
+
