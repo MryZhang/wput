@@ -1,0 +1,4 @@
+10-src--ftp.c.patch
+11-src--ftp-ls.c-compiling-fixes.patch
+12-src--wput.c-compiling-fixes.patch
+debian-changes-0.6.2-1
