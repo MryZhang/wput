@@ -15,6 +15,8 @@ wput (0.6.2-1) unstable; urgency=low
     - Use FSF URL.
   * debian/debian-{vars,autotools}:
     - New files.
+  * debian/patches
+    - (10, 11, 12): Add compilation cleanups.
   * debian/rules
     - (binary-arch): restore saved config.* files to prevent them
       from appearing in diff. This causes some lintian warning (see below).
@@ -28,7 +30,7 @@ wput (0.6.2-1) unstable; urgency=low
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 15:08:13 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 20:57:30 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
