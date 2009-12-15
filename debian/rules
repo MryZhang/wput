@@ -39,6 +39,16 @@ build-stamp: config-stamp
 
 build: build-stamp
 
+install: build
+	# target: install
+	dh_testdir
+	dh_testroot
+	dh_prep
+	dh_installdirs
+	#$(MAKE) install prefix=$(CURDIR)/debian/wput/usr
+	dh_install
+	dh_installman
+
 binary-arch: build install
 	# target: binary-arch
 	dh_testdir
