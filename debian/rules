@@ -34,7 +34,7 @@ build-stamp: config-stamp
 	# target: build-stamp
 	dh_testdir
 	$(MAKE) -C src CC="gcc $(CFLAGS)"
-	$(MAKE)
+	$(MAKE) -C po
 	touch build-stamp
 
 build: build-stamp
