@@ -8,6 +8,7 @@ wput (0.6-2) unstable; urgency=low
     - (Build-Depends): use debhelper 7.
     - (Depends): add ${misc:Depends}.
     - (Standards-Version): update to 3.8.3.
+    - (Vcs-*): add.
   * debian/copyright
     - Adjust layout.
     - Use FSF URL.
@@ -26,7 +27,7 @@ wput (0.6-2) unstable; urgency=low
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 14:26:26 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 14:41:22 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
