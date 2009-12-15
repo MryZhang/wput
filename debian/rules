@@ -49,6 +49,11 @@ install: build
 	dh_install
 	dh_installman
 
+clean:
+	dh_testdir
+	dh_clean
+	$(config-restore)
+
 binary-arch: build install
 	# target: binary-arch
 	dh_testdir
@@ -66,12 +71,9 @@ binary-arch: build install
 	dh_md5sums
 	dh_builddeb
 
-%:
-	dh $@
-
 binary: binary-arch
 
-.PHONY: build install
+.PHONY: build install clean
 .PHONY: binary-indep binary-arch binary
 
 # End of file
