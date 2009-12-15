@@ -8,6 +8,15 @@ PACKAGE = wput
 include debian/debian-vars.mk
 include debian/debian-autotools.mk
 
+# Taken from src/Makefile
+
+CFLAGS = -Wall -g -O2 -Wall  -g -DLOCALEDIR=/usr/share/locale -I/usr/include
+
+# [Debian add: Needed for]
+# ftp-ls.c:851: warning: implicit declaration of function 'strptime'
+
+CFLAGS += -DXOPEN_SOURCE
+
 config-stamp: configure
 	# target: config-stamp
 	dh_testdir
@@ -24,6 +33,7 @@ config-stamp: configure
 build-stamp: config-stamp
 	# target: build-stamp
 	dh_testdir
+	$(MAKE) -C src CC="gcc $(CFLAGS)"
 	$(MAKE)
 	touch build-stamp
 
