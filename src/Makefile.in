@@ -5,7 +5,7 @@ prefix=@prefix@
 bindir=@bindir@
 localedir=$(prefix)/share/locale
 CC=@CC@
-CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -DXOPEN_SOURCE @GNUTLS_CFLAGS@
+CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" -D_XOPEN_SOURCE @GNUTLS_CFLAGS@
 LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
 EXE=../wput
 GETOPT=@GETOPT@
