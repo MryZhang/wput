@@ -110,8 +110,8 @@ does. If you specify this flag twice, you get debug output.
 .IX Item "--less-verbose"
 .PD
 Be less verbose. That means reducing Wput's output to a minimun. Specifiing
-this flag more often is equal to the --quiet flag.
-Some people also like combining the -v and -nv flags, being quite senseless.
+this flag more often is equal to the \-\-quiet flag.
+Some people also like combining the \-v and \-nv flags, being quite senseless.
 .IP "\fB\-i\fR \fIfile\fR" 4
 .IX Item "-i file"
 .PD 0
@@ -125,9 +125,9 @@ See also the URL-Input-Handling section.
 If \fIfile\fR is \-, the URLs will be read from stdin.
 .PD
 If you want to pipe the contents of the file that shall be uploaded to
-stdin, this cannot be done (yet). But you can use the --input-pipe flag
-and read the contents a) from a named pipe -I "cat named.pipe; echo > /dev/null" or b)
-directly from the command, that outputs the data. (See --input-pipe)
+stdin, this cannot be done (yet). But you can use the \-\-input\-pipe flag
+and read the contents a) from a named pipe \-I "cat named.pipe; echo > /dev/null" or b)
+directly from the command, that outputs the data. (See \-\-input\-pipe)
 .PD
 Do \fBnot\fR do things like \fIfind | wput ftp://host/ \-i \-\fR!
 Wput would upload all files from the current directory (since the first output
@@ -169,7 +169,7 @@ the output of \fIcommand\fB is taken as file-input. command is invoked as follow
 .PD
 The hostname is only supplied if the ip cannot be resolved.
 If you do not want these parameters to confuse the programm from which you read
-the contents, use something like '-I "cat file; echo > /dev/null"' so that these
+the contents, use something like '\-I "cat file; echo > /dev/null"' so that these
 parameters are passed to echo and to /dev/null afterwards.
 Since the progressbar is not capable of handling unknown filesizes, the filesize
 is set to 1 GiB. Therefore the ETA shows a wrong value.
@@ -194,7 +194,7 @@ IPs.
 .IP "\fB\-\-tries=\fR\fInumber\fR" 4
 .IX Item "--tries=number"
 .PD
-Set number of retries to \fInumber\fR.  Specify -1 for infinite retrying,
+Set number of retries to \fInumber\fR. Specify \-1 for infinite retrying,
 which is default, too.
 .IP "\fB\-nc\fR" 4
 .IX Item "-nc"
