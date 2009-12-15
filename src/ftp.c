@@ -880,8 +880,8 @@ int parse_url(_fsession * fsession, char *url) {
 			printout(vMORE, _("`%s' could not be resolved. "), host);
 			printout(vMORE, _("Assuming the proxy to do the task.\n"));
 		} else {
-			printout(vMORE, _("Error: "));
-			printout(vMORE, _("`%s' could not be resolved. "), host);
+			printout(vNORMAL, _("Error: "));
+			printout(vNORMAL, _("`%s' could not be resolved. "), host);
 			printout(vLESS, _("Skipping this URL.\n"));
 			free(url);
 			return ERR_FAILED;
