@@ -1,15 +1,40 @@
+wput (0.6-2) unstable; urgency=low
+
+  * New maintainer (Closes: #1).
+  * debian/clean
+    - New file.
+  * debian/control
+    - (Build-Depends): use debhelper 7.
+    - (Depends): add ${misc:Depends}.
+    - (Standards-Version): update to 3.8.3.
+  * debian/copyright
+    - Adjust layout.
+    - Use FSF URL.
+  * debian/debian-{vars,autotools}:
+    - New files.
+  * debian/rules
+    - 
+  * debian/source.lintian-overrides
+    - New file. Ignore config.* warnings that are handled in debian/rules.
+  * debian/wput.{install,manpages}
+    - New files.
+  * debian/watch
+    - New file.
+
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 02:54:36 +0200
+
 wput (0.6-1.1) unstable; urgency=low
 
   * Non-maintainer upload.
   * Fix double-build FTBFS (Closes: #442765) by tweaking debian/rules:
-     - Call “$(MAKE) clean” rather than “$(MAKE) distclean” since the
-       latter doesn't exist.
-     - Don't ignore “$(MAKE) clean” errors anymore, by checking for the
-       presence of a Makefile.
-     - Do not remove config.status since it's needed for the “clean” run
-       in po/Makefile.
-     - Remove doc/wput.1.gz through dh_clean.
-     - Based on a patch by Kartik Mistry.
+    - Call "$(MAKE) clean" rather than "$(MAKE) distclean" since the
+      latter doesn't exist.
+    - Don't ignore "$(MAKE) clean" errors anymore, by checking for the
+      presence of a Makefile.
+    - Do not remove config.status since it's needed for the "clean" run
+      in po/Makefile.
+    - Remove doc/wput.1.gz through dh_clean.
+    - Based on a patch by Kartik Mistry.
   * Move the config.{guess,sub} update to the config.status target, remove
     them in the clean target, they are now kept out of the Debian diff.
   * Use dh_install on wput and doc/wput.1, remove now useless gzip call,
