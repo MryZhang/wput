@@ -1,1 +1,2 @@
-debian/man/debian/wput.1
+doc/wput.1
+doc/wdel.1
