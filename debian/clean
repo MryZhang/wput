@@ -1,2 +1,4 @@
 config.cache
 config.log
+wput
+src/*.o
