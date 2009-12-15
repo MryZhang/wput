@@ -1,6 +1,6 @@
 wput (0.6-2) unstable; urgency=low
 
-  * Move to format: 3.0 (quilt).
+  * Preparations for format: 3.0 (quilt).
   * New maintainer (Closes: #1).
   * debian/clean
     - New file.
@@ -14,15 +14,19 @@ wput (0.6-2) unstable; urgency=low
   * debian/debian-{vars,autotools}:
     - New files.
   * debian/rules
-    - 
+    - (binary-arch): restore saved config.* files to prevent them
+      from appearing in diff. This causes some lintian warning (see below).
+    - (config-stamp): save old config.* files and use new ones from Debian.
+  * debian/source/format
+    - New file. Format: 1.0.
   * debian/source.lintian-overrides
-    - New file. Ignore config.* warnings that are handled in debian/rules.
+    - New file. Ignore old config.* warnings (see rules::binary-arch).
   * debian/wput.{install,manpages}
     - New files.
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 02:58:11 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 13:37:06 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
