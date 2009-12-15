@@ -3,6 +3,7 @@ wput (0.6.2-1) unstable; urgency=low
   * New maintainer (Closes: #546992).
   * Move to format: 3.0 (quilt).
   * New upstream release.
+    - (Closes: #511554): wput says file does not exist on big files.
   * debian/clean
     - New file.
   * debian/control
@@ -30,7 +31,7 @@ wput (0.6.2-1) unstable; urgency=low
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 23:22:21 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 16 Dec 2009 00:25:43 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
