@@ -1,11 +1,6 @@
---- original/wput.1	2009-12-15 14:13:21.000000000 +0200
-+++ debian/wput.1	2009-12-15 14:12:29.000000000 +0200
-@@ -1,4 +1,4 @@
--.TH "wput" "1" "0.5" "Hagen Fritsch" "Internet Applications - FTP"
-+.TH "wput" "1" "0.6" "Hagen Fritsch" "Internet Applications - FTP"
- .SH "NAME"
- wput \- A wget\-like ftp\-uploader
- .SH "SYNOPSIS"
+=== modified file 'wput.1'
+--- wput.1	2009-12-15 13:00:10 +0000
++++ wput.1	2009-12-15 13:02:07 +0000
 @@ -110,8 +110,8 @@
  .IX Item "--less-verbose"
  .PD
@@ -43,8 +38,9 @@
  .IP "\fB\-\-tries=\fR\fInumber\fR" 4
  .IX Item "--tries=number"
  .PD
--Set number of retries to \fInumber\fR.  Specify -1 for infinite retrying.
-+Set number of retries to \fInumber\fR.  Specify \-1 for infinite retrying.
- The default is to retry 3 times, with some exceptions on
- fatal errors.
+-Set number of retries to \fInumber\fR.  Specify -1 for infinite retrying,
++Set number of retries to \fInumber\fR. Specify \-1 for infinite retrying,
+ which is default, too.
  .IP "\fB\-nc\fR" 4
+ .IX Item "-nc"
+

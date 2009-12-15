@@ -1,4 +1,4 @@
-.TH "wput" "1" "0.6" "Hagen Fritsch" "Internet Applications - FTP"
+.TH "wput" "1" "0.6.2" "Hagen Fritsch" "Internet Applications - FTP"
 .SH "NAME"
 wput \- A wget\-like ftp\-uploader
 .SH "SYNOPSIS"
@@ -41,7 +41,7 @@ In case there are more files that URLs remaining, Wput uses the last known URL f
 .PP
 So you can specify e.g. one URL and read all filenames from a file.
 Or use \fIwput *.txt ftp://host\fR, to transfer all *.txt-files.
-So \fIEXAMPLES\fR for further examples.
+See \fIdoc/USAGE.examples\fR for further examples.
 .PP
 To be on the safe side, it is recommended to supply the files before the URLs.
 .SH "Guessing Local File"
@@ -194,9 +194,8 @@ IPs.
 .IP "\fB\-\-tries=\fR\fInumber\fR" 4
 .IX Item "--tries=number"
 .PD
-Set number of retries to \fInumber\fR.  Specify \-1 for infinite retrying.
-The default is to retry 3 times, with some exceptions on
-fatal errors.
+Set number of retries to \fInumber\fR. Specify \-1 for infinite retrying,
+which is default, too.
 .IP "\fB\-nc\fR" 4
 .IX Item "-nc"
 .PD 0
@@ -207,7 +206,7 @@ If this flag is specified, resuming will be turned off, meaning that a remote
 file being smaller than the local one will be overwritten. To skip this file,
 you have to enable \-\-skip\-existing.
 .PD
-See also \fIUSAGE.resumehandling\fR
+See also \fIdoc/USAGE.resumehandling\fR
 .IP "\fB\-u\fR" 4
 .IX Item "-u"
 .PD 0
@@ -305,7 +304,15 @@ Specifying this flag forces Wput to use ASCII mode file transfers.
 .IP "\fB\-\-binary\fR" 4
 .IX Item "--binary"
 .PD
-Specifiing this flag forces Wput to use BINARY mode file transfers.
+Specifying this flag forces Wput to use BINARY mode file transfers.
+.IP "\fB\-m\fR" 4
+.IX Item "-m"
+.PD 0
+.IP "\fB\-\-chmod\fR" 4
+.IX Item "--chmod"
+.PD
+This will change the access mode of the transferred files. The format is the
+three-digit octal unix mode, e.g. 644 means rw-r--r--.
 .IP "\fB\-\-force-tls\fR" 4
 .IX Item "--force-tls"
 If this flag is specified and Wput is linked with the OpenSSL-library, the flag
