@@ -29,6 +29,7 @@ file, but you are not obligated to do so.  If you do not wish to do
 so, delete this exception statement from your version.  */
 
 #include "config.h"
+#include <time.h>
 #include <stdio.h>
 #include <stdlib.h>
 #ifdef HAVE_STRING_H

@@ -5,7 +5,7 @@ prefix=/usr/local
 bindir=${exec_prefix}/bin
 localedir=$(prefix)/share/locale
 CC=gcc
-CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" 
+CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" -DXOPEN_SOURCE 
 LIBS=  
 EXE=../wput
 GETOPT=
