@@ -1,25 +1,36 @@
-This package was debianized by Khalid El Fathi <invent@edena-fr.org> on
-Sun, 17 Oct 2004 23:52:51 +0200.
+This package was debianized by:
 
-It was downloaded from http://wput.sourceforge.net/
+    Khalid El Fathi <invent@edena-fr.org> on 2004-10-17 23:52:51+02 Sun.
 
-Copyright Holder: Hagen Fritsch <hagen@itooktheredpill.dyndns.org>
+It was downloaded from:
+
+    http://wput.sourceforge.net/
+
+Copyright Holder:
+
+    Hagen Fritsch <hagen@itooktheredpill.dyndns.org>
 
 License:
 
-   This package is free software; you can redistribute it and/or modify
-   it under the terms of the GNU General Public License as published by
-   the Free Software Foundation; either version 2 of the License, or
-   (at your option) any later version.
+    This package is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation; either version 2 of the License, or
+    (at your option) any later version.
 
-   This package is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-   GNU General Public License for more details.
+    This package is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
 
-   You should have received a copy of the GNU General Public License
-   along with this package; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301 USA
+    You should have received a copy of the GNU General Public License
+    along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-On Debian systems, the complete text of the GNU General
-Public License can be found in `/usr/share/common-licenses/GPL'.
+The Debian packaging is licensed under the GPL 2 or any later version,
+see below, and is:
+
+    Copyright (C) 2009      Jari Aalto <jari.aalto@cante.net>
+    Copyright (C) 2008      Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
+    Copyright (C) 2004-2006 Khalid El Fathi <invent@edena-fr.org>
+
+On Debian GNU/Linux systems, the complete text of the GNU General
+Public License can be found in "/usr/share/common-licenses/GPL-2".
