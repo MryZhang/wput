@@ -25,6 +25,7 @@
 #endif
 
 #define ISDIGIT(x) ((x) >= '0' && (x) <= '9')
+#define FORCE_STR(x) ((x) ? (x) : "")
 
 /* =================================== *
  * ===== basic (de)constructors ====== *
@@ -232,7 +233,7 @@ int ftp_connect(ftp_con * self, proxy_settings * ps) {
 	else
 #endif
 	res = ftp_auth_tls(self);
-	if(res != 0 && self->secure) {
+	if(res != 0 && self->secure==1) {
 		printout(vLESS, _("TLS encryption is explicitly required, but could not be established.\n"));
 		return ERR_FAILED;
 	}
@@ -298,6 +299,7 @@ int ftp_login(ftp_con * self, char * user, char * pass){
 /* error-levels: ERR_FAILED, get_msg() */
 int ftp_auth_tls(ftp_con * self) {
 	int res;
+	if(self->secure == 2) return 0; /* TLS_DISABLED */
 	printout(vMORE, "\n==> AUTH TLS ... ");
 	ftp_issue_cmd(self, "AUTH TLS", 0);
 	res = ftp_get_msg(self);
@@ -495,6 +497,23 @@ int ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize){
 	return 0;
 }
 
+/* get the fileinfo of a directory entry */
+int ftp_get_fileinfo(ftp_con * self, char * filename, struct fileinfo ** info) {
+	int res;
+	struct fileinfo * finfo = NULL;
+	struct fileinfo * dl    = ftp_get_current_directory_list(self);
+
+	if(!dl) {
+		res = ftp_get_list(self);
+		if(SOCK_ERROR(res) || res == ERR_FAILED) return res;
+		dl = ftp_get_current_directory_list(self);
+	}
+	if(dl) finfo = fileinfo_find_file(dl, filename);
+	if(!finfo) return ERR_FAILED;
+	*info = finfo;
+	return 0;
+}
+
 /* set the transfer-mode to either ascii or binary */
 /* error-levels: get_msg() */
 int ftp_set_type(ftp_con * self, int type) {
@@ -521,7 +540,10 @@ int ftp_do_cwd(ftp_con * self, char * directory) {
 	int res;
 	
 	printout(vMORE, "==> CWD %s", directory);
-	ftp_issue_cmd(self, "CWD", directory);
+	if (!strncmp(directory, "..", 3))
+		ftp_issue_cmd(self, "CDUP", NULL);
+	else
+		ftp_issue_cmd(self, "CWD", directory);
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
@@ -541,8 +563,9 @@ int ftp_do_mkd(ftp_con * self, char * directory) {
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
-	
-	if(self->r.code != 257) {
+
+	/* fix for strato's ftp-server that says: 250 directory created */	
+	if(self->r.code/10 != 25) {
 		printout(vMORE, _(" failed (%s).\n"), self->r.message);
 		return ERR_FAILED;
 	}
@@ -558,7 +581,7 @@ int ftp_do_list(ftp_con * self) {
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
-	printout(vNORMAL, "==> LIST ... ");
+	printout(vMORE, "==> LIST ... ");
 	ftp_issue_cmd(self, "LIST", NULL);
 	res = ftp_get_msg(self);
 	if(SOCK_ERROR(res))
@@ -568,10 +591,10 @@ int ftp_do_list(ftp_con * self) {
 	 * data-connection is open, but server still wait for the
 	 * connection to close unless it will issue the completion command */
 	if(self->r.reply[0] != '1') {
-		printout(vNORMAL, _("failed.\n"));
+		printout(vMORE, _("failed.\n"));
 		return ERR_FAILED;
 	}
-	printout(vNORMAL, _("done.\n"));
+	printout(vMORE, _("done.\n"));
 	
 	if(ftp_complete_data_connection(self) < 0)	{
 		if(SOCK_ERROR(ftp_do_abor(self))) return ERR_RECONNECT;
@@ -579,6 +602,32 @@ int ftp_do_list(ftp_con * self) {
 	}
 	return 0;
 }
+
+int ftp_do_chmod(ftp_con * self, char * file) {
+	int res;
+
+	printout(vMORE, "==> SITE CHMOD %s %s ... ", opt.chmod, file);
+	char *value = malloc(strlen(opt.chmod)
+			+ 1 /* " " */
+			+ strlen(file)
+			+ 1 /* \0 */);
+	strcpy(value, opt.chmod);
+	strcat(value, " ");
+	strcat(value, file);
+	ftp_issue_cmd(self, "SITE CHMOD", value);
+	free(value);
+	res = ftp_get_msg(self);
+
+	if(self->r.code != 200) {
+		printout(vMORE, _(" failed (%s).\n"), self->r.message);
+		return ERR_FAILED;
+	} else {
+		printout(vMORE, _(" done.\n"));
+	}
+	printout(vMORE, _("\n"));
+	return 0;
+}
+
 /* Global (hence stable) pseudo file pointer for Wget ftp_parse_ls(). */
 char *ls_next;
 
@@ -655,7 +704,7 @@ int ftp_get_list(ftp_con * self) {
 	listing = ftp_parse_ls(list, self->OS);
 	free(list);
 	/* add it to the list of known directories */
-	self->directorylist = directory_add_dir(self->current_directory, self->directorylist, listing);
+	self->directorylist = directory_add_dir(FORCE_STR(self->current_directory), self->directorylist, listing);
 	return 0;
 }
 /* issue the REST command for resuming a file at a certain
@@ -734,6 +783,51 @@ int ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/){
 			printout(vMORE, _("Trying to switch PORT/PASV mode\n"));
 		}
 		return ERR_RETRY;
+	}
+	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
+	return ERR_FAILED;
+}
+/* issue the DELE command which deletes normal files */
+/* error-levels: ERR_FAILED (=> skip), ERR_RETRY, SOCK_ERRORs */
+int ftp_do_dele(ftp_con * self, char * filename) {
+	int res;
+
+	printout(vMORE, "==> DELE %s ... ", filename);
+	ftp_issue_cmd(self, "DELE", filename);
+	res = ftp_get_msg(self);
+	if(SOCK_ERROR(res)) {
+		return res;
+	} else if(res == ERR_RETRY) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_RETRY;
+	} else if(res == ERR_PERMANENT) {
+		return ERR_FAILED;
+	} else if(self->r.code == 250) {
+		printout(vMORE, _("done.\n"));
+		return 0;
+	}
+	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
+	return ERR_FAILED;
+}
+/* issue the RMD command which deletes empty directories */
+/* error-levels: ERR_FAILED (=> skip), ERR_RETRY, SOCK_ERRORs */
+int ftp_do_rmd(ftp_con * self, char * dirname) {
+	int res;
+
+	printout(vMORE, "==> RMD %s ... ", dirname);
+	ftp_issue_cmd(self, "RMD", dirname);
+	res = ftp_get_msg(self);
+	if(SOCK_ERROR(res)) {
+		return res;
+	} else if(res == ERR_RETRY) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_RETRY;
+	} else if(res == ERR_PERMANENT) {
+		printout(vMORE, _("failed (%s)\n"), self->r.message);
+		return ERR_FAILED;
+	} else if(self->r.code == 250) {
+		printout(vMORE, _("done.\n"));
+		return 0;
 	}
 	printout(vMORE, _("failed (%d %s). (skipping)\n"), self->r.code, self->r.message);
 	return ERR_FAILED;
@@ -984,7 +1078,7 @@ struct fileinfo * fileinfo_find_file(struct fileinfo * F, char * name) {
 struct fileinfo * ftp_get_current_directory_list(ftp_con * self) {
     directory_list * K = self->directorylist;
     while(K != NULL) {
-        if( !strcmp(K->name, self->current_directory) ) return K->list;
+        if( !strcmp(K->name, FORCE_STR(self->current_directory)) ) return K->list;
         K = K->next;
     }
     return NULL;

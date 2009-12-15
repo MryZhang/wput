@@ -91,6 +91,11 @@
 # transfer_type = auto | ascii | binary
 ;transfer_type = auto
 
+# CHMOD
+# This will change the access mode of the transferred files. The format is the
+# three-digit octal unix mode, e.g. 644 means rw-r--r--.
+;chmod = 644
+
 # Resuming (see wput(1))
 # Wput will always try to resume a partially uploaded file or skip the file
 # if the remote file-size is equal. If remote size is wput will upload the
@@ -155,7 +160,7 @@
 ;timestamping = off
 # Since these ftp-servers are often located in a different time-zone,
 # you may wish to specify the offset between you and the server here.
-# (e.g. YOU: GMT+1, FTP: GMX-1 => timeoffset = -2)
+# (e.g. YOU: GMT+1, FTP: GMT-1 => timeoffset = -2)
 ;timeoffset = -2
 # Allowed Deviation
 # Your clock and the remote-clock may differ slightly. Therefore allow

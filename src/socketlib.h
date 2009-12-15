@@ -11,6 +11,7 @@
 
 #ifndef WIN32
 
+#include <sys/types.h>
 #include <sys/socket.h>
 
 #define closesocket(x) close(x)

@@ -5,6 +5,10 @@ void queue_add_entry(char * file, char * url);
 void queue_add_file(char * filename);
 void queue_add_url(char * url);
 
+void wdel_queue_add_entry(char * file, char * url);
+void wdel_queue_add_file(char * filename);
+void separate_urls(void);
+
 void queue_process(int force);
 void process_missing(void);
 

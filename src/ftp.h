@@ -35,18 +35,18 @@ typedef struct ftp_session {
 	
 	unsigned char done  :1;
 	         char binary :2;
-	
+
 	struct fileinfo * directory;
 	struct ftp_session * next;
 } _fsession;
 
-int do_cwd(_fsession * fsession);
+int do_cwd(_fsession * fsession, char * targetdir);
 int long_do_cwd(_fsession * fsession);
 int try_do_cwd(ftp_con * ftp, char * path, int mkd);
 
 int do_send(_fsession * fsession);
 
-int fsession_transmit_file(_fsession * fsession, ftp_con * ftp);
+int fsession_process_file(_fsession * fsession, ftp_con * ftp);
 
 /* for ftp-ls.c */
 

@@ -18,7 +18,11 @@
 
 #  include <sys/uio.h>
 #  include <strings.h>
+#ifndef __HAIKU__ 
 #  include <sys/errno.h>
+#else
+#  include <errno.h>
+#endif
 #  include <pwd.h>
 
 #  define WINCONV
@@ -108,7 +112,7 @@ struct global_options {
   unsigned char barstyle    :1; /* 0 -> old wget-style, 1 -> new one... */
   //unsigned char done		:1;
   unsigned char verbose     :3;
-  unsigned char tls         :1; /* 1 -> force tls */
+  unsigned char tls         :2; /* 0:normal, 1:force tls, 2:disable tls */
   unsigned char no_directories:1;
 
   short time_deviation;
@@ -120,6 +124,10 @@ struct global_options {
 
   short int wait;
   short int retry;
+
+  char * chmod;
+
+  unsigned char wdel;
 
   struct wput_timer * session_start;
   off_t  transfered_bytes;

@@ -18,6 +18,7 @@
 
 /* This file contains procedures for interacting with the FTP-Server */
 
+#include <errno.h>
 #include "ftp.h"
 #include "utils.h"
 #include "progress.h"
@@ -138,12 +139,12 @@ int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
  * most cases and usually safes time. if it fails we fall back
  * on the safe method */
 /* error-levels: ERR_FAILED, ERR_RECONNECT */
-int do_cwd(_fsession * fsession){
+int do_cwd(_fsession * fsession, char * targetdir){
 	int res;
 	/* by unescaping, we get in trouble with certain characters (such as /)
 	* thats why this method might fail sometimes. it also fails if the
 	* directory does not exist or is a file */
-	char * unescaped = cpy(fsession->target_dname);
+	char * unescaped = cpy(targetdir);
 	char * relative;
 	clear_path(unescaped);
 	unescape(unescaped);
@@ -183,9 +184,10 @@ int check_timestamp(_fsession * fsession) {
 	if(SOCK_ERROR(res)) return res;
 	
 	/* this is for getting our local ftime in UTC+0 format which ftp-servers
-	 * usually issue. add the time-deviation to permit little clock-skews */
+	 * usually issue. add the time-deviation to permit little clock-skews 
+	 * add time_offset in case ftp-server does not issue UTC-time */
 	/* TODO USS time_deviation? + or - ? */
-	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation;
+	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 24 * 3600;
 	printout(vDEBUG, "timestamping: local: %d seconds\n"
 	                 "             remote: %d seconds; diff: %d\n",
 		(int) fsession->local_ftime, (int) fsession->target_ftime,
@@ -335,7 +337,7 @@ int do_send(_fsession * fsession){
 		/* for now assume that off_t is set to a corresponding value by the OS and therefore
 		 * fseek has to use off_t and if it does not work, this is not my problem! */
 	
-		fseek(fdopen(fd,"r"), fsession->target_fsize, SEEK_SET);
+		lseek(fd, fsession->target_fsize, SEEK_SET);
 		transfered_size = fsession->target_fsize;
 	}
 	
@@ -465,8 +467,109 @@ int do_send(_fsession * fsession){
 	
 	return 0;
 }
+
+/* This method determines the type of the file to be deleted and chooses
+ * between the ftp commands DELE for files and RMD for directories.
+ * If it encounters a directory that is not empty, it will delete this
+ * directory recursively. */
+/* error-levels: ERR_FAILED, get_msg() */
+int do_delete(_fsession * fsession, char * filename){
+	int res = 0;
+
+	struct fileinfo * finfo = NULL;
+	res = ftp_get_fileinfo(fsession->ftp, filename, &finfo);
+	if (res == ERR_FAILED) {
+		printout(vLESS, _("No such file or directory: %s\n"), filename);
+		fsession->done = 1;
+		return ERR_FAILED;
+	}
+
+	while(1) {
+		if (finfo->type == FT_DIRECTORY) {
+			printout(vDEBUG, "%s is a directory, using RMD\n", filename);
+			res = ftp_do_rmd(fsession->ftp, filename);
+			if (res == ERR_FAILED) {
+				printout(vDEBUG, _("RMD of directory %s failed, probably not empty; deleting recursively\n"), filename);
+
+				/* save the current path so that we can cd back to it later, after the recursive delete */
+				char * oldpath = cpy(fsession->ftp->current_directory);
+				char * newpath = malloc(strlen(fsession->ftp->current_directory) + 1 + strlen(filename) + 1);
+				*newpath = '\0';
+				strcat(newpath, fsession->ftp->current_directory);
+				strcat(newpath, "/");
+				strcat(newpath, filename);
+
+				res = do_cwd(fsession, newpath);
+				if(res == ERR_FAILED) {
+					fsession->ftp->needcwd = 1;
+					printout(vLESS, _("Failed to change to target directory. Skipping this file/dir.\n"));
+					fsession->done = 1;
+					return ERR_FAILED;
+				}
+				fsession->ftp->needcwd = 0;
+				if(fsession->ftp->current_directory)
+					free(fsession->ftp->current_directory);
+				fsession->ftp->current_directory = cpy(newpath);
+
+				struct fileinfo * dl = ftp_get_current_directory_list(fsession->ftp);
+
+				if(!dl) {
+					res = ftp_get_list(fsession->ftp);
+					if(SOCK_ERROR(res) || res == ERR_FAILED) break;
+					dl = ftp_get_current_directory_list(fsession->ftp);
+				}
+				if(!dl) {
+					printout(vLESS, _("Directory empty, deletion failed.\n"));
+					res = ERR_FAILED;
+					break;
+				} else {
+					while (dl != NULL) {
+						/* recursive delete of every entry */
+						struct fileinfo * curr_entry = dl;
+						do_delete(fsession, curr_entry->name);
+						dl = dl->next;
+					}
+				}
+
+				do_cwd(fsession, oldpath);
+				if(res == ERR_FAILED) {
+					fsession->ftp->needcwd = 1;
+					printout(vLESS, _("Failed to change to parent directory. Skipping this file/dir.\n"));
+					return ERR_FAILED;
+				}
+				fsession->ftp->needcwd = 0;
+				if(fsession->ftp->current_directory)
+					free(fsession->ftp->current_directory);
+				fsession->ftp->current_directory = cpy(oldpath);
+				res = ftp_do_rmd(fsession->ftp, filename);
+			}
+		} else {
+			printout(vDEBUG, "%s is a file, symlink or unknown; using DELE\n", filename);
+			res = ftp_do_dele(fsession->ftp, filename);
+		}
+		if(res == ERR_RETRY && (fsession->retry > 0 || fsession->retry == -1))
+			retry_wait(fsession);
+		else break;
+	}
+	if(res == ERR_FAILED)
+		fsession->done = 1;
+	if(res < 0) return res;
+
+	if(res == ERR_RETRY) return ERR_RETRY;
+	if(FTP_ERROR(res))   return ERR_FAILED;
+	if(SOCK_ERROR(res)) return res;
+
+	if (filename == fsession->target_fname)
+		printout(vNORMAL, _("\n%s deleted.\n\n"), filename);
+
+	opt.transfered++;
+	fsession->done = 1;
+
+	return 0;
+}
 #define SOCKET_RETRY \
 	if(SOCK_ERROR(res)) {\
+		res = ERR_FAILED;\
 		retry_wait(fsession);\
 		ftp_quit(fsession->ftp);\
 		fsession->ftp = ftp = NULL;\
@@ -475,7 +578,7 @@ int do_send(_fsession * fsession){
 
 
 /* error-levels: 0 (success), -1 (failed), -2 (skipped) */
-int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
+int fsession_process_file(_fsession * fsession, ftp_con * ftp) {
 	int res = 0;
 	/* we don't do any GUI interactive stuff, so we can afford a "simpler" flow
 	* of command sequence */
@@ -489,17 +592,28 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		return ERR_FAILED;
 	}
 	
-	printout(vLESS,
-			"--%s-- `%s'\n"
-			"    => ftp://%s:xxxxx@%s:%d/%s%s%s\n",
-			time_str(),
-			fsession->local_fname,
-			fsession->user,
-			fsession->host->ip ? printip((unsigned char *) &fsession->host->ip) : fsession->host->hostname,
-			fsession->host->port,
-			fsession->target_dname,
-			fsession->target_dname ? "/" : "", 
-			fsession->target_fname);
+	if (!opt.wdel)
+		printout(vLESS,
+				"--%s-- `%s'\n"
+				"    => ftp://%s:xxxxx@%s:%d/%s%s%s\n",
+				time_str(),
+				fsession->local_fname,
+				fsession->user,
+				fsession->host->ip ? printip((unsigned char *) &fsession->host->ip) : fsession->host->hostname,
+				fsession->host->port,
+				fsession->target_dname,
+				fsession->target_dname ? "/" : "",
+				fsession->target_fname);
+	else
+		printout(vLESS,
+				_("--%s-- Deleting file/dir: ftp://%s:xxxxx@%s:%d/%s%s%s\n"),
+				time_str(),
+				fsession->user,
+				fsession->host->ip ? printip((unsigned char *) &fsession->host->ip) : fsession->host->hostname,
+				fsession->host->port,
+				fsession->target_dname,
+				fsession->target_dname ? "/" : "",
+				fsession->target_fname);
 
   while(!fsession->done && ( fsession->retry > 0 || fsession->retry == -1) ){
 	printout(vDEBUG, "starting again\n");
@@ -522,6 +636,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 			retry_wait(fsession);
 			ftp_quit(fsession->ftp);
 			fsession->ftp = ftp = NULL;
+			res = ERR_FAILED;
 			continue;
 		}
 		/* set the portmode default value to the global setting */
@@ -560,7 +675,7 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		fsession->ftp->needcwd || (fsession->ftp->current_directory &&
 		strcmp(fsession->ftp->current_directory, fsession->target_dname))))
 	{
-		res = do_cwd(fsession);
+		res = do_cwd(fsession, fsession->target_dname);
 		if( res == ERR_FAILED ) {
 			/* cwd for each directory in path */
 			res = long_do_cwd(fsession);
@@ -581,71 +696,102 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 		fsession->ftp->current_directory = cpy(fsession->target_dname);
 	}
 
-    /* on most ftps we have to say PASV or PORT before typing REST n. 
-     * So i assume that it's best to _only_ SIZE here and do REST in do_send() */
-    /* we don't need to SIZE for input-pipes, since we don't know the local file-size anyway */
-	/* don't size if we are going to upload anyway */
-	if(fsession->resume_table->small_large == RESUME_TABLE_UPLOAD &&
-	   fsession->resume_table->large_large == RESUME_TABLE_UPLOAD &&
-	   fsession->resume_table->large_small == RESUME_TABLE_UPLOAD)
-		fsession->target_fsize = -1;
-	else
-    	if(fsession->local_fname) {
-			res = ftp_get_filesize(fsession->ftp, fsession->target_fname, &fsession->target_fsize);
-    		if(res == ERR_FAILED) fsession->target_fsize = -1;
-			SOCKET_RETRY;
-		}
-	
-	printout(vDEBUG, "local_fsize: %d\ntarget_fsize: %d\n",
-		(int) fsession->local_fsize,
-		(int) fsession->target_fsize);
-    printout(vDEBUG, "resume_table: %d,%d,%d\n", fsession->resume_table->small_large,
-		fsession->resume_table->large_large, fsession->resume_table->large_small);
-	/* check whether this file is to be skipped */
-	if( fsession->local_fname && ( /* if we have an input-pipe, both sizes are 0. ignore it */
-	   (fsession->local_fsize < fsession->target_fsize && fsession->resume_table->small_large == RESUME_TABLE_SKIP) ||
-	   (fsession->local_fsize == fsession->target_fsize && fsession->resume_table->large_large == RESUME_TABLE_SKIP) ||
-	   (fsession->local_fsize  > fsession->target_fsize && fsession->resume_table->large_small == RESUME_TABLE_SKIP)))
-	{
-		res = ERR_SKIP;
-		fsession->done = 1;
-		printout(vMORE, _("Skipping this file due to resume/upload/skip rules.\n"));
-		printout(vLESS, _("-- Skipping file: %s\n"), fsession->local_fname);
-		break;
-	}
-	/* figure out the resume/upload/skip rules and probably set the remote filesize to -1 */
-	set_resuming(fsession);
-	
-	/* check timestamp and skip the file if whished */
-	if(opt.timestamping)
-		if(check_timestamp(fsession)) {
-			res = ERR_SKIP;
-			fsession->done = 1;
-			break;
-		}
-
+	/* fixing #1599242, the filemode has to be set, before doing SIZE
+	 * however, we do this before SIZE and afterwards again in order not
+	 * to issue the command in case we are skipping anyway */
 	/* set the filemode based on the extension unless it has been specified by */	
 	if(fsession->binary == TYPE_UNDEFINED)
 		fsession->binary = get_filemode(fsession->target_fname);
 
-	res = ftp_set_type(fsession->ftp, fsession->binary);
-	SOCKET_RETRY;
 	
-	if(res == ERR_FAILED)
-		printout(vMORE, _("Unable to set transfer mode. Assuming binary\n"));
+	if (!opt.wdel) {
+		/* on most ftps we have to say PASV or PORT before typing REST n. 
+		 * So i assume that it's best to _only_ SIZE here and do REST in do_send() */
+		/* we don't need to SIZE for input-pipes, since we don't know the local file-size anyway */
+		/* don't size if we are going to upload anyway */
+		if(fsession->resume_table->small_large == RESUME_TABLE_UPLOAD &&
+		   fsession->resume_table->large_large == RESUME_TABLE_UPLOAD &&
+		   fsession->resume_table->large_small == RESUME_TABLE_UPLOAD)
+			fsession->target_fsize = -1;
+		else
+			if(fsession->local_fname) {
+				res = ftp_set_type(fsession->ftp, fsession->binary);
+				SOCKET_RETRY;
+				if(res == ERR_FAILED)
+					printout(vMORE, _("Unable to set transfer mode. Assuming binary\n"));
 
-	/* transmit the file and retry if requested */
-    while((res = do_send(fsession)) == ERR_RETRY) {
-		retry_wait(fsession);
-		if(!( fsession->retry > 0 || fsession->retry == -1)) {
-			res = ERR_FAILED;
+				res = ftp_get_filesize(fsession->ftp, fsession->target_fname, &fsession->target_fsize);
+				if(res == ERR_FAILED) fsession->target_fsize = -1;
+				SOCKET_RETRY;
+
+				/* reupload last 512-byte block in case connection errors cause bad data to be inserted */
+				if(fsession->target_fsize > 0 && fsession->target_fsize != fsession->local_fsize)
+					fsession->target_fsize = (fsession->target_fsize - 511) & ~0x1ff;
+			}
+
+		printout(vDEBUG, "local_fsize: %d\ntarget_fsize: %d\n",
+			 (int) fsession->local_fsize,
+			 (int) fsession->target_fsize);
+		printout(vDEBUG, "resume_table: %d,%d,%d\n", fsession->resume_table->small_large,
+			 fsession->resume_table->large_large, fsession->resume_table->large_small);
+		/* check whether this file is to be skipped */
+		if( fsession->local_fname && ( /* if we have an input-pipe, both sizes are 0. ignore it */
+		   (fsession->local_fsize < fsession->target_fsize && fsession->resume_table->small_large == RESUME_TABLE_SKIP) ||
+		   (fsession->local_fsize == fsession->target_fsize && fsession->resume_table->large_large == RESUME_TABLE_SKIP) ||
+		   (fsession->local_fsize  > fsession->target_fsize && fsession->resume_table->large_small == RESUME_TABLE_SKIP)))
+		{
+			res = ERR_SKIP;
+			fsession->done = 1;
+			printout(vMORE, _("Skipping this file due to resume/upload/skip rules.\n"));
+			printout(vLESS, _("-- Skipping file: %s\n"), fsession->local_fname);
 			break;
+		}
+		/* figure out the resume/upload/skip rules and probably set the remote filesize to -1 */
+		set_resuming(fsession);
+
+		/* check timestamp and skip the file if whished */
+		if(opt.timestamping)
+			if(check_timestamp(fsession)) {
+				res = ERR_SKIP;
+				fsession->done = 1;
+				break;
+			}
+
+		/* redo setting of binary/ascii mode, in case we did no SIZE */
+		res = ftp_set_type(fsession->ftp, fsession->binary);
+		SOCKET_RETRY;
+
+		if(res == ERR_FAILED)
+			printout(vMORE, _("Unable to set transfer mode. Assuming binary\n"));
+	}
+
+	if (!opt.wdel) {
+		/* transmit the file and retry if requested */
+		while((res = do_send(fsession)) == ERR_RETRY) {
+			retry_wait(fsession);
+			if(!( fsession->retry > 0 || fsession->retry == -1)) {
+				res = ERR_FAILED;
+				break;
+			}
+		}
+	} else {
+		/* delete the file and retry if requested, the extra parameter is
+		 * to allow recursion */
+		while((res = do_delete(fsession, fsession->target_fname)) == ERR_RETRY) {
+			retry_wait(fsession);
+			if(!( fsession->retry > 0 || fsession->retry == -1)) {
+				res = ERR_FAILED;
+				break;
+			}
 		}
 	}
 	SOCKET_RETRY;
 	
 	if(res == ERR_FAILED) {
-		printout(vLESS, _("Send Failed. "));
+		if (!opt.wdel)
+			printout(vLESS, _("Send Failed (%s) "), fsession->ftp->r.message);
+		else
+			printout(vLESS, _("Delete Failed. "));
 		if(fsession->done) {
 			printout(vLESS, _("Skipping this file\n"));
 			break;
@@ -657,6 +803,11 @@ int fsession_transmit_file(_fsession * fsession, ftp_con * ftp) {
 	    	continue;
 		}
     } 
+
+	if(res == ERR_OK && opt.chmod) {
+		ftp_do_chmod(fsession->ftp, fsession->target_fname);
+	}
+
 	/* TODO USS is there any case when do_send fails, that the whole directory 
 	 * TODO USS is to be skipped? */
 	/*else if( res == -2) {

@@ -21,6 +21,7 @@
    
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 #ifndef WIN32
 #  include <netinet/in.h>
 #endif
@@ -56,9 +57,9 @@
 extern char *optarg;
 
 #ifdef WIN32
-const static char * version = "0.6-w32";
+const static char * version = "0.6.2-w32";
 #else
-const static char * version = "0.6";
+const static char * version = "0.6.2";
 #endif
 
 _fsession * fsession_queue_entry_point = NULL;
@@ -84,7 +85,7 @@ int main(int argc, char *argv[]){
 		exit(4);
 	}
 #endif
-
+	signal(SIGPIPE, SIG_IGN);
 	/* i18n */
 #ifdef ENABLE_NLS
 	/* LC_MESSAGES is enough as the only thing that is done is
@@ -127,6 +128,9 @@ int main(int argc, char *argv[]){
 	opt.resume_table.large_small = RESUME_TABLE_RESUME;
 	
 	opt.email_address = cpy("wput@localhost.com");
+        
+        if(!strncmp(&argv[0][strlen(argv[0])-4], "wdel", 5))
+          opt.wdel = 1;
 	
 	/* env overrides home overrides system wputrc */
 #ifdef SYSTEM_WPUTRC
@@ -183,20 +187,24 @@ int main(int argc, char *argv[]){
 		opt.ps.type = PROXY_OFF;
 	}
 	
-	/* process all url/file combinations that were supplied by commandline */
-	queue_process(0);
-	
-	/* read URLs from input-file */
-	if(opt.input != 0) read_urls();
-	
-	/* if there are lonely files remaining, give them the last (user-supplied) url */
-	process_missing();
+        /* WDEL separate the urls from a potential file and ensure that the urls end in a '/' */
+        if(opt.wdel) separate_urls();
+        
+        /* WPUT process all url/file combinations that were supplied by commandline */
+        if(!opt.wdel) queue_process(0);
+        
+        /* read URLs from input-file */
+        if(opt.input != 0) read_urls();
+          
+        /* WPUT if there are lonely files remaining, give them the last (user-supplied) url */
+        if(!opt.wdel) process_missing();
+        else queue_process(0); /* later process in WDEL */
 	
 	/* now we've everything we need or are already done */
 	if(opt.sorturls) {
 		printout(vDEBUG, "Transmitting sorted fsessions\n");
 		while(fsession_queue_entry_point != NULL) {
-				int res = fsession_transmit_file(fsession_queue_entry_point, opt.curftp);
+				int res = fsession_process_file(fsession_queue_entry_point, opt.curftp);
 				if(res == -1)      opt.failed++;
 				else if(res == -2) opt.skipped++;
 				opt.curftp = fsession_queue_entry_point->ftp;
@@ -208,25 +216,36 @@ int main(int argc, char *argv[]){
 	if(opt.curftp) ftp_quit(opt.curftp);
 	
 	if(opt.transfered == 0 && opt.skipped == 0 && opt.failed == 0)
-		printout(vNORMAL, _("Nothing done. Try `wput --help'.\n"));
+		printout(vNORMAL, _("Nothing done. Try `%s --help'.\n"), argv[0]);
 	else
 		printout(vNORMAL, _("FINISHED --%s--\n"), time_str());
 	
-	if(opt.transfered > 0)
-		printout(vNORMAL, opt.transfered == 1 ?
-		_("Transfered %s bytes in %d file at %s\n") : 
-		_("Transfered %s bytes in %d files at %s\n"), 
-			legible(opt.transfered_bytes),
-			opt.transfered,
-			calculate_transfer_rate(
-				wtimer_elapsed(opt.session_start), 
-				opt.transfered_bytes,
-				0)
-			);
+	if(opt.transfered > 0) {
+		if(!opt.wdel) {
+			printout(vNORMAL, opt.transfered == 1 ?
+			_("Transfered %s bytes in %d file at %s\n") : 
+			_("Transfered %s bytes in %d files at %s\n"), 
+				legible(opt.transfered_bytes),
+				opt.transfered,
+				calculate_transfer_rate(
+					wtimer_elapsed(opt.session_start), 
+					opt.transfered_bytes,
+					0)
+				);
+		} else
+			printout(vNORMAL, opt.transfered == 1 ?
+				_("Deleted %d file\n") : 
+				_("Deleted %d files\n"), 
+				opt.transfered);
+		
+	}
+	
 	if(opt.skipped > 0)
 		printout(vNORMAL, opt.skipped == 1 ? _("Skipped %d file.\n") : _("Skipped %d files.\n"), opt.skipped);
 	if(opt.failed > 0)
-		printout(vNORMAL, opt.failed == 1 ? _("Transmission of %d file failed.\n") : _("Transmission of %d files failed.\n"), opt.failed);
+		printout(vNORMAL, !opt.wdel ?
+			(opt.failed == 1 ? _("Transmission of %d file failed.\n") : _("Transmission of %d files failed.\n")) :
+			(opt.failed == 1 ? _("Deletion of %d file failed.\n") : _("Deletion of %d files failed.\n")), opt.failed);
 	
 	/* clean up */
 	free(opt.session_start);
@@ -266,9 +285,9 @@ int read_urls(void) {
 		url[strlen(url)-1] = 0;
 
 		if(!strncmp(p, "ftp://", 6))
-			queue_add_url(cpy(p));
+			opt.wdel ? wdel_queue_add_entry(NULL, cpy(p)) : queue_add_url(cpy(p));
 		else
-			queue_add_file(cpy(p));
+			opt.wdel ? wdel_queue_add_file(cpy(p)) : queue_add_file(cpy(p));
 
 		free(url);
 		/* process anything that's already complete */
@@ -312,6 +331,24 @@ int set_option(char * com, char * val) {
         } else if(!strncasecmp(val, "port", 4)) {
           opt.portmode = 1;
         } else return -1;
+      }
+      else if(!strncasecmp(com, "chmod", 6)) {
+          int invalid = 0;
+	  if(opt.wdel) return 0; /* disabled for wdel */
+          if(strlen(val) == 3) {
+              int modecounter;
+              for (modecounter = 0; modecounter < 3; modecounter++) {
+                  if (val[modecounter] < '0' || val[modecounter] > '7') {
+                      invalid = 1;
+                      break;
+                  }
+              }
+          } else {
+              invalid = 1;
+          }
+          if (!invalid)
+              opt.chmod = val;
+          else return -2;
       } else return -1;
       return 0;
 #ifdef HAVE_SSL
@@ -358,6 +395,7 @@ int set_option(char * com, char * val) {
       return 0;
     case 'r':
         if(!strncasecmp(com, "rate", 5)) {
+	  if(opt.wdel) return 0; /* disabled for wdel */
           opt.speed_limit = atoi(val);
           while(*val) {
             if(*val == 'K') opt.speed_limit *= 1024;
@@ -380,13 +418,15 @@ int set_option(char * com, char * val) {
   case 't':
       if(!strncasecmp(com, "timeout", 8))
         socket_set_default_timeout(atoi(val));
-      else if(!strncasecmp(com, "timestamping", 13))
-        opt.timestamping    = !strncasecmp(val, "on", 3);
+      else if(!strncasecmp(com, "timestamping", 13)) {
+	if(opt.wdel) return 0; /* disabled for wdel */
+        opt.timestamping    = !strncasecmp(val, "on", 3); }
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_offset     = atoi(val);
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_deviation  = atoi(val);
       else if(!strncasecmp(com, "transfer_type", 14)) {
+	if(opt.wdel) return 0; /* disabled for wdel */
         if(!strncasecmp(val, "auto", 5)) opt.binary = TYPE_UNDEFINED;
         else if(!strncasecmp(val, "ascii", 6))  opt.binary = TYPE_A;
         else if(!strncasecmp(val, "binary", 7)) opt.binary = TYPE_I;
@@ -449,7 +489,7 @@ void read_netrc_file(void) {
     for (l = netrc_list; l; l = l->next) {
 	if (!l->host)
 	    continue;
-	opt.pl = password_list_add(opt.pl, cpy(l->host), cpy(l->acc), cpy(l->passwd));
+	opt.pl = password_list_add(opt.pl, cpy(l->host), l->acc ? cpy(l->acc) : NULL, l->passwd ? cpy(l->passwd) : NULL);
 	printout(vDEBUG, "added %s:%s@%s to the password-list (%x)\n", l->acc, l->passwd, l->host, opt.pl);
     }
 
@@ -600,11 +640,13 @@ void commandlineoptions(int argc, char * argv[]){
 		{"version", 0, 0, 'V'},          //35
 		{"wait", 1, 0, 'w'},            
 		{"waitretry", 1, 0, 0},         
-		{0, 0, 0, 0}                    
+		{"chmod", 1, 0, 'm'},
+		{"disable-tls", 0, 0, 0},
+		{0, 0, 0, 0}                    //40
       };
     while (1)
     {
-        c = getopt_long (argc, argv, "Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:u",
+        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
                            long_options, &option_index);
                 
         if (c == -1)
@@ -655,6 +697,8 @@ void commandlineoptions(int argc, char * argv[]){
                 opt.basename = optarg;                              break;
             case 37: //waitretry
                 opt.retry_interval = atoi(optarg);                  break;
+	    case 39: //disable-tls
+		    opt.tls = 2;                                    break;
             default:
                 fprintf(stderr, _("Option %s should not appear here :|\n"), long_options[option_index].name);
             }
@@ -713,6 +757,7 @@ void commandlineoptions(int argc, char * argv[]){
                   opt.input_pipe = optarg;      break;
         case 'R': opt.unlink = 1;               break;
         case 'Y': set_option("proxy", optarg);  break;
+        case 'm': set_option("chmod", optarg);  break;
         case 'V':
             fprintf(opt.output, _("wput version: %s\n"), version);
             exit(0);
@@ -746,7 +791,7 @@ void commandlineoptions(int argc, char * argv[]){
 "  -R,  --remove-source-files   unlink files upon successful upload\n"
 "\n"));
 			fprintf(stderr, _(
-"Upload:\n"
+"Connection:\n"
 "       --bind-address=ADDR     bind to ADDR (hostname or IP) on local host\n"
 "  -t,  --tries=NUMBER          set retry count to NUMBER (-1 means infinite)\n"
 "  -nc, --dont-continue         do not resume partially-uploaded files\n"
@@ -768,11 +813,13 @@ void commandlineoptions(int argc, char * argv[]){
 "FTP-Options:\n"
 "  -p,  --port-mode             no-passive, turn on port mode ftp (def. pasv)\n"
 "  -A,  --ascii                 force ASCII  mode-transfer\n"
-"  -B,  --binary                force BINARY mode-transfer\n"));
+"  -B,  --binary                force BINARY mode-transfer\n"
+"  -m,  --chmod                 change mode of transferred files ([0-7]{3})\n"));
 
 #ifdef HAVE_SSL
 			fprintf(stderr, _(
-"       --force-tls             force the useage of TLS\n"));
+"       --force-tls             force the useage of TLS\n"
+"       --disable-tls           disable the usage of TLS\n"));
 #endif
 /*"  -f,  --peace                 force wput not to be aggressive\n"*/
 /*"  -S,  --script=FILE      TODO USS load a wput-script\n\n"*/
@@ -787,10 +834,13 @@ void commandlineoptions(int argc, char * argv[]){
     
     /* TODO NRV check if we got any input urls. otherwise print usage information */
     while(optind < argc) {
-        if(!strncmp(argv[optind], "ftp://", 6))
-            queue_add_url(cpy(argv[optind]));
-        else
-            queue_add_file(cpy(argv[optind]));
+	if(!strncmp(argv[optind], "ftp://", 6))
+		opt.wdel ? wdel_queue_add_entry(NULL, cpy(argv[optind])) : queue_add_url(cpy(argv[optind]));
+	else
+		opt.wdel ? wdel_queue_add_file(cpy(argv[optind])) : queue_add_file(cpy(argv[optind]));
+	/* delete argv content, so passwords are not displayed by ps */
+	memset(argv[optind], ' ', strlen(argv[optind]));
+
         optind++;
     }
 }

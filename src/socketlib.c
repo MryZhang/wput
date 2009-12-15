@@ -23,6 +23,7 @@
 #include <malloc.h>
 #include <string.h>
 #include <fcntl.h>
+#include <errno.h>
 #ifndef WIN32
 #  include <unistd.h>
 #  include <sys/select.h>
@@ -48,12 +49,13 @@
 
 #ifndef WIN32
 #include <netdb.h>
-#include <sys/errno.h>
+#ifndef __HAIKU__ 
+#  include <sys/errno.h>
+#endif
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #endif
 
-extern int errno;
 char * printip(unsigned char * ip);
 char * base64(char * p, size_t len);
 
@@ -166,12 +168,18 @@ wput_socket * socket_accept(wput_socket * sock){
 }
 #ifdef HAVE_SSL
 int socket_transform_to_ssl(wput_socket * sock) {
+	int res;
 	sock->ctx = SSL_CTX_new(SSLv23_client_method());
 	SSL_CTX_set_verify(sock->ctx, SSL_VERIFY_NONE, NULL);
 	sock->ssl = SSL_new(sock->ctx);
 	SSL_set_fd(sock->ssl, sock->fd);
-	if(!SSL_connect(sock->ssl)) {
-		printout(vNORMAL, _("TLS handshake failed.\n"));
+	/* sometimes this failes with SSL_ERROR_ZERO_RETURN, but for no obvious reason
+	 * it works fine when connecting through a proxy. works fine on some machines
+	 * and sometimes just failes rendering tls-encryption unusable */
+	if((res = SSL_connect(sock->ssl)) != 1) {
+		res = SSL_get_error(sock->ssl, res);
+		printout(vNORMAL, _("TLS handshake failed\n"));
+		if(res == 6) printout(vNORMAL, "SSL_ERROR_ZERO_RETURN-Bug\n");
 		SSL_free(sock->ssl);
 		SSL_CTX_free(sock->ctx);
 		sock->ssl  = NULL;
@@ -366,7 +374,7 @@ int socket_is_data_writeable(int s, int timeout) {
 	printout(vDEBUG, "Checking whether %d is writable... ", s);
 	res = select(s+1, NULL, &inSet, NULL, &t);
 	printout(vDEBUG, "%d (%d:%s)\n", res, errno, strerror(errno));
-	if(errno > 0 && errno != 115)
+	if(errno > 0 && errno != EINPROGRESS)
 		return 0;
 	return res;
 }
@@ -391,7 +399,9 @@ wput_socket * socket_timeout_connect(wput_socket * sock, struct sockaddr *remote
 #endif
   socket_set_blocking(sock->fd, 0);
   c = connect(sock->fd,remote_addr,size);
-  if(errno > 0 && errno != 115) {
+  /* here was a check also for errno != 36 (FILENAMETOOLONG)
+   * maybe this was EINPROGRESS on another system? */
+  if(errno > 0 && errno != EINPROGRESS) {
 	printout(vMORE, "[%s]", strerror(errno));
 	return NULL;
   }
