@@ -25,12 +25,12 @@ wput (0.6.2-1) unstable; urgency=low
     - New file. Format: 1.0.
   * debian/source.lintian-overrides
     - New file. Ignore old config.* warnings (see rules::binary-arch).
-  * debian/wput.{install,manpages}
+  * debian/wput.{docs,examples,install,manpages}
     - New files.
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 20:57:30 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 23:22:21 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
