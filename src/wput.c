@@ -551,6 +551,7 @@ void readwputrc(char * f) {
     
   while ((line = read_line (fp))) {
     char * tmp = line;
+    int itmp;
     char * com;
     char * val;
     /* skip leading spaces */
@@ -575,10 +576,9 @@ void readwputrc(char * f) {
     if(*(tmp-1) == '\r') *(tmp-1) = 0;
     else                 * tmp    = 0;
 
-    /* we mis-use tmp to store the ret_val, and print a message if something was not parse-able */
-    tmp = (char *) set_option(com, val);
-    if(tmp == (char *) -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
-    if(tmp == (char *) -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
+    itmp = set_option(com, val);
+    if(itmp == -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
+    if(itmp == -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
     free(line);
     ln++;
   }
@@ -670,7 +670,7 @@ void commandlineoptions(int argc, char * argv[]){
 #ifdef HAVE_SSL
                 fprintf(opt.output, "HAVE_SSL\n");
 #endif
-                fprintf(opt.output, "\nUsing %d-Bytes for off_t\n", sizeof(off_t));
+                fprintf(opt.output, "\nUsing %d-Bytes for off_t\n", (int) sizeof(off_t));
                 exit(0);
             case 27: //skip-larger
                 opt.resume_table.small_large = RESUME_TABLE_SKIP;   break;

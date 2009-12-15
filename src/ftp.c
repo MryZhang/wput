@@ -203,7 +203,7 @@ int check_timestamp(_fsession * fsession) {
 }
 
 int open_input_file(_fsession * fsession) {
-	int fd;
+	int fd = 0;
 	int oflags = O_RDONLY;
 	char * cmd;
 	FILE * pipe;
@@ -251,6 +251,8 @@ int open_input_file(_fsession * fsession) {
 		fsession->local_fsize = 2047 * 1024 * 1024;
 		opt.barstyle = 0;
 	}
+	/* TODO USS can this be reached without fd being initialised?
+	*  TODO USS i.e.: can local_fname not be set while opt.input_pipe is also not set? */
 	return fd;
 }
 /* finally this is about actually transmitting the file.
