@@ -75,7 +75,7 @@ typedef struct _ftp_connection {
 	unsigned char loggedin    :1;
 	unsigned char portmode    :1;
 	         char current_type:2; /* -1 (undefined), 0 (ascii), 1 binary */
-	unsigned char secure      :1; /* 1 tls required */
+	unsigned char secure      :2; /* 1:tls required, 2:tls disabled */
 #ifdef HAVE_SSL
 	unsigned char datatls     :1;
 #endif
@@ -107,15 +107,19 @@ int  ftp_do_abor(ftp_con * self);
 void ftp_do_quit(ftp_con * self);
 int  ftp_do_cwd(ftp_con * self, char * directory);
 int  ftp_do_mkd(ftp_con * self, char * directory);
+int  ftp_do_chmod(ftp_con * self, char * file);
 
 int  ftp_get_modification_time(ftp_con * self, char * filename, time_t * timestamp);
 int  ftp_get_filesize(ftp_con * self, char * filename, off_t * filesize);
+int  ftp_get_fileinfo(ftp_con * self, char * filename, struct fileinfo ** info);
 int  ftp_set_type(ftp_con * self, int type);
 
 int  ftp_do_list(ftp_con * self);
 int  ftp_get_list(ftp_con * self);
 int  ftp_do_rest(ftp_con * self, off_t filesize);
 int  ftp_do_stor(ftp_con * self, char * filename/*, off_t filesize*/);
+int  ftp_do_dele(ftp_con * self, char * filename);
+int  ftp_do_rmd(ftp_con * self, char * dirname);
 
 int  ftp_establish_data_connection(ftp_con * self);
 int  ftp_complete_data_connection(ftp_con * self);

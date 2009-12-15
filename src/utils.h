@@ -49,4 +49,5 @@ void   retry_wait(_fsession * fsession);
 int    parse_url(_fsession * fsession, char *url);
 void   parse_proxy(char * url);
 char * snip_basename(char * file);
+
 #endif

@@ -1,9 +1,9 @@
-AC_INIT(wput, 0.6)
-AC_REVISION($Revision: 1.2 $)
+AC_INIT(wput, 0.6.2)
+AC_REVISION($Revision: 42 $)
 AC_PREREQ(2.53)
 CFLAGS="${CFLAGS} -Wall"
 PACKAGE="wput"
-VERSION="0.6"
+VERSION="0.6.2"
 AC_SUBST(PACKAGE)
 AC_SUBST(VERSION)
 GETOPT=""
@@ -19,6 +19,17 @@ if test "$enable_memdbg" = "yes"; then
  echo "------------------------"
 fi
 
+if test -x /usr/bin/getconf ; then
+  echo -n "checking Large File System support: "
+  LFS_CFLAGS=`/usr/bin/getconf LFS_CFLAGS`
+  if test -n "$LFS_CFLAGS" ;then
+    CFLAGS="$CFLAGS $LFS_CFLAGS"
+    echo "yes"
+  else
+    echo "no"
+  fi
+fi
+
 AC_ARG_WITH(ssl,
 [[  --with-ssl              link with SSL support [default=auto]
   --without-ssl           disable SSL autodetection]])
@@ -31,6 +42,9 @@ if test "$enable_g_switch" != "no"; then
 fi
 AC_PROG_CC
 AC_CHECK_HEADERS([sys/ioctl.h], AC_DEFINE(HAVE_IOCTL))
+AC_CHECK_HEADERS([sys/termio.h], AC_DEFINE(HAVE_SYSTERMIO))
+AC_CHECK_HEADERS([termio.h], AC_DEFINE(HAVE_TERMIO))
+AC_CHECK_HEADERS([sys/winsize.h], AC_DEFINE(HAVE_WINSIZE))
 AC_CHECK_HEADERS([locale.h], AC_DEFINE(HAVE_LOCALE_H))
 AC_CHECK_HEADERS([libintl.h], AC_DEFINE(HAVE_LIBINTL_H))
 AC_CHECK_HEADERS(getopt.h, [
@@ -168,6 +182,7 @@ sco*)    CC=${CC-"cc -belf"}
     LIBS="-lsocket $LIBS";;
 SCO*)      CC=${CC-"cc -belf"}
            LIBS="-lsocket $LIBS";;
+Haiku*)    LIBS="-lnetwork $LIBS";;
 esac
 AC_CONFIG_HEADER(src/config.h)
 AC_SUBST(GETOPT)
