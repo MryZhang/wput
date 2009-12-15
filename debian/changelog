@@ -1,7 +1,7 @@
 wput (0.6-2) unstable; urgency=low
 
   * New maintainer (Closes: #546992).
-  * Preparations for format: 3.0 (quilt).
+  * Move to format: 3.0 (quilt).
   * debian/clean
     - New file.
   * debian/control
@@ -26,7 +26,7 @@ wput (0.6-2) unstable; urgency=low
   * debian/watch
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 13:59:36 +0200
+ -- Jari Aalto <jari.aalto@cante.net>  Tue, 15 Dec 2009 14:26:26 +0200
 
 wput (0.6-1.1) unstable; urgency=low
 
