@@ -1,3 +1,11 @@
+wput (0.6.2-2) unstable; urgency=low
+
+  * debian/rules
+    - (config-stamp): Move "config-patch" before ./configure to install
+      new config.{sub,guess} files (AVR32 FTBFS; Closes: #561378).
+
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 16 Dec 2009 23:03:46 +0200
+
 wput (0.6.2-1) unstable; urgency=low
 
   * New maintainer (Closes: #546992).
