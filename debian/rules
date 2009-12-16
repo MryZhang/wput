@@ -16,14 +16,14 @@ CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
 config-stamp: configure
 	# target: config-stamp
 	dh_testdir
+	$(config-save)
+	$(config-patch)
 	FLAGS="$(CFLAGS)" ./configure \
 		--host=$(DEB_HOST_GNU_TYPE) \
 		--build=$(DEB_BUILD_GNU_TYPE) \
 		--prefix=/usr \
 		--mandir=\$${prefix}/share/man \
 		--infodir=\$${prefix}/share/info
-	$(config-save)
-	$(config-patch)
 	touch config-stamp
 
 build-stamp: config-stamp
