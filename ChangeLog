@@ -1,3 +1,7 @@
+Fri Jan 15 12:37:45 CET 2010 Hagen Fritsch
+	* applying a patch by mfmain fixing connection errors because
+	  of uninitialised errno (#2931215)
+
 Sun Dec  6 16:38:11 CET 2009 Hagen Fritsch
 	* applying a patch by anrieff fixing crashes if a proxy is down
 	  (#2908856)
