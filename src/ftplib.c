@@ -548,7 +548,8 @@ int ftp_do_cwd(ftp_con * self, char * directory) {
 	if(SOCK_ERROR(res))
 		return ERR_RECONNECT;
 	
-	if(self->r.code != 250) {
+	// CWD answers with 250, CDUP with 200
+	if(self->r.code != 250 || self->r.code == 200) {
 		printout(vMORE, _(" failed (%s).\n"), self->r.message);
 		return ERR_FAILED;
 	}
