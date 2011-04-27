@@ -816,7 +816,7 @@ void commandlineoptions(int argc, char * argv[]){
 
 #ifdef HAVE_SSL
 			fprintf(stderr, _(
-"       --force-tls             force the useage of TLS\n"
+"       --force-tls             force the usage of TLS\n"
 "       --disable-tls           disable the usage of TLS\n"));
 #endif
 /*"  -f,  --peace                 force wput not to be aggressive\n"*/
