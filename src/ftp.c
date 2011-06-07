@@ -187,7 +187,7 @@ int check_timestamp(_fsession * fsession) {
 	 * usually issue. add the time-deviation to permit little clock-skews 
 	 * add time_offset in case ftp-server does not issue UTC-time */
 	/* TODO USS time_deviation? + or - ? */
-	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 24 * 3600;
+	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 3600;
 	printout(vDEBUG, "timestamping: local: %d seconds\n"
 	                 "             remote: %d seconds; diff: %d\n",
 		(int) fsession->local_ftime, (int) fsession->target_ftime,

@@ -416,7 +416,7 @@ int set_option(char * com, char * val) {
         opt.timestamping    = !strncasecmp(val, "on", 3); }
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_offset     = atoi(val);
-      else if(!strncasecmp(com, "timeoffset", 11))
+      else if(!strncasecmp(com, "timedeviation", 14))
         opt.time_deviation  = atoi(val);
       else if(!strncasecmp(com, "transfer_type", 14)) {
 	if(opt.wdel) return 0; /* disabled for wdel */
