@@ -1,8 +1,8 @@
 From: Jari Aalto <jari.aalto@cante.net>
 Subject: Order alphabetically, use GNU -o, --option format
 ---
- doc/wput.1 |  361 +++++++++++++++++++++++--------------------------------------
- 1 file changed, 139 insertions(+), 222 deletions(-)
+ doc/wput.1 |  364 +++++++++++++++++++++++--------------------------------------
+ 1 file changed, 141 insertions(+), 223 deletions(-)
 
 --- a/doc/wput.1
 +++ b/doc/wput.1
@@ -135,7 +135,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  Do \fBnot\fR do things like \fIfind | wput ftp://host/ \-i \-\fR!
  Wput would upload all files from the current directory (since the first output
  of find will be '.') and afterwards each file again (since find postes its name to Wput. And further problematic is that Wput will upload each directory that
-@@ -137,187 +83,155 @@
+@@ -137,187 +83,156 @@
  Use \fIwput ftp://host/\fR to upload everything from the local directory.
  Or use \fIfind ! \-type d | wput ftp://host/ \-i \-\fR to tell find, not to
  output directories.
@@ -341,6 +341,9 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--proxy=MODE"
 -.PD
 -MODE can be either \fIhttp\fR for http-based proxies (such as SQUID),
+-\fIsocks\fR for SOCKSv5 proxies or \fIoff\fR to disable the proxy.
+-.IP "\fB\-\-proxy-user=\fR\fINAME\fR" 4
+-.IX Item "--proxy-user=NAME"
 +.TP
 +.BR -p ", " --port-mode
 +Per default, Wput uses passive mode ftp, which works well for most
@@ -350,10 +353,9 @@ Subject: Order alphabetically, use GNU -o, --option format
 +If you want Wput to start using port mode ftp, specify this flag.
 +.TP
 +.BR --proxy=MODE
-+Alias is option -Y. The MODE can be either \fIhttp\fR for http-based proxies (such as SQUID),
- \fIsocks\fR for SOCKSv5 proxies or \fIoff\fR to disable the proxy.
--.IP "\fB\-\-proxy-user=\fR\fINAME\fR" 4
--.IX Item "--proxy-user=NAME"
++Alias is option \-Y. The MODE can be either \fIhttp\fR for http-based
++proxies (such as SQUID), \fIsocks\fR for SOCKSv5 proxies or \fIoff\fR
++to disable the proxy.
 +.TP
 +.BR --proxy-user=NAME
  If the proxy\-server requires authentication, use \fINAME\fR as user-name.
@@ -439,7 +441,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH DIAGNOSTICS
  Normally, the exit status is 0 if either everything went fine or there was nothing
  to do.
-@@ -326,6 +240,7 @@
+@@ -326,6 +241,7 @@
  remote error, exit status is 2. If some files failed and some others were skipped,
  exit status is 3. For general problems like failure of some system-functions the
  exit status is 4.
@@ -447,7 +449,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH BUGS
  .IX Header "BUGS"
  .PD
-@@ -343,6 +258,7 @@
+@@ -343,6 +259,7 @@
  to get the backtrace. It would also be great help if you could recompile wput
  with memory-debugging support (make clean; make memdbg; [make install]) and use
  this debug-dump.
@@ -455,7 +457,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH "SEE ALSO"
  .IX Header "SEE ALSO"
  Many options can be set in a wputrc file. For its documentation consult the
-@@ -350,6 +266,7 @@
+@@ -350,6 +267,7 @@
  .PD 0
  There are some USAGE.* files in the doc/ directory of Wput. These contain
  further information and samples on how to use Wput.
