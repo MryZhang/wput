@@ -44,12 +44,16 @@
 #		$(file-state-restore)
 #		...
 
+ifdef PACKAGE
+    prefix = $(prefix).
+endif
+
 define file-state-save
 	# save files
 	suffix=.original; \
 	for file in $(FILE_LIST_PRESERVE); \
 	do \
-		backup=/tmp/$(PACKAGE)$$(echo $$file | sed 's,/,%,g')$$suffix; \
+		backup=/tmp/$(prefix)$$(echo $$file | sed 's,/,%,g')$$suffix; \
 		if [ -f "$$file" ] && [ ! -f "$$backup" ]; then \
 			cp --archive --verbose "$$file" "$$backup"; \
 		fi; \
@@ -61,7 +65,7 @@ define file-state-restore-copy
 	suffix=.original; \
 	for file in $(FILE_LIST_PRESERVE); \
 	do \
-		backup=/tmp/$(PACKAGE)$$(echo $$file | sed 's,/,%,g')$$suffix; \
+		backup=/tmp/$(prefix)$$(echo $$file | sed 's,/,%,g')$$suffix; \
 		if [ -f "$$backup" ]; then \
 			 dir=$$(dirname "$$file"); \
 			 if [ "$$dir" != "." ]; then \
@@ -77,7 +81,7 @@ define file-state-restore
 	suffix=.original; \
 	for file in $(FILE_LIST_PRESERVE); \
 	do \
-		backup=/tmp/$(PACKAGE)$$(echo $$file | sed 's,/,%,g')$$suffix; \
+		backup=/tmp/$(prefix)$$(echo $$file | sed 's,/,%,g')$$suffix; \
 		if [ -f "$$backup" ]; then \
 			 dir=$$(dirname "$$file"); \
 			 if [ "$$dir" != "." ]; then \
