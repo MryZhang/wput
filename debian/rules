@@ -28,7 +28,6 @@ CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
 
 override_dh_auto_configure:
 	$(config-save)
-	$(file-state-save)
 	$(config-patch)
 	dh_auto_configure
 
@@ -39,12 +38,12 @@ override_dh_auto_build:
 override_dh_install:
 	dh_install
 	$(config-restore)
-	$(file-state-restore)
+	$(file-state-restore-copy)
 
 override_dh_clean:
+	$(file-state-save)
 	dh_clean
-	$(config-restore)
-	$(file-state-restore)
+
 
 %:
 	dh $@
