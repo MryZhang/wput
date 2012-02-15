@@ -11,7 +11,7 @@ Homepage: http://freshmeat.net/projects/wput
 Package: wput
 Architecture: any
 Depends: ${misc:Depends}, ${shlibs:Depends}
-Description: A tiny wget-like ftp-client for uploading files
+Description: tiny wget-like ftp-client for uploading files
  Wput is a tiny ftp-client, that uploads files or directories to a
  remote ftp-server.
  .
