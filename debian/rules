@@ -19,23 +19,17 @@ FILE_LIST_PRESERVE = \
 include /usr/share/dpkg/buildflags.mk
 CFLAGS	+= -Wall -pedantic
 LDFLAGS += -Wl,--as-needed
+export CFLAGS LDFLAGS
 
 # _XOPEN_SOURCE is needed for
 # ftp-ls.c:851: warning: implicit declaration of function 'strptime'
 CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
 
-override_sh_auto_configure:
+override_dh_auto_configure:
 	$(config-save)
 	$(file-state-save)
 	$(config-patch)
-	FLAGS="$(CFLAGS)" \
-	LDFLAGS="$(LDFLAGS)" \
-		./configure \
-		--host=$(DEB_HOST_GNU_TYPE) \
-		--build=$(DEB_BUILD_GNU_TYPE) \
-		--prefix=/usr \
-		--mandir=\$${prefix}/share/man \
-		--infodir=\$${prefix}/share/info
+	dh_auto_configure
 
 override_dh_auto_build:
 	$(MAKE) -C src CFLAGS_EXTRA="$(CFLAGS_EXTRA)"
