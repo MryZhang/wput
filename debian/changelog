@@ -13,8 +13,10 @@ wput (0.6.2-3) unstable; urgency=low
     - Delete unnecessary targets.
     - Use hardened CFLAGS.
       http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
+  * debian/debian-save-restore.mk
+    - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 10:32:42 -0500
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 14:05:04 -0500
 
 wput (0.6.2-2) unstable; urgency=low
 
