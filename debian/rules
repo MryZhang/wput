@@ -1,76 +1,36 @@
 #!/usr/bin/make -f
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
-
 PACKAGE = wput
 
 include debian/debian-vars.mk
 include debian/debian-autotools.mk
 
+include /usr/share/dpkg/buildflags.mk
+CFLAGS	+= -Wall -pedantic
+LDFLAGS += -Wl,--as-needed
+
 # _XOPEN_SOURCE is needed for
 # ftp-ls.c:851: warning: implicit declaration of function 'strptime'
-
 CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
 
-config-stamp: configure
-	# target: config-stamp
-	dh_testdir
+override_sh_auto_configure:
 	$(config-save)
 	$(config-patch)
-	FLAGS="$(CFLAGS)" ./configure \
+	FLAGS="$(CFLAGS)" \
+	LDFLAGS="$(LDFLAGS)" \
+		./configure \
 		--host=$(DEB_HOST_GNU_TYPE) \
 		--build=$(DEB_BUILD_GNU_TYPE) \
 		--prefix=/usr \
 		--mandir=\$${prefix}/share/man \
 		--infodir=\$${prefix}/share/info
-	touch config-stamp
 
-build-stamp: config-stamp
-	# target: build-stamp
-	dh_testdir
+override_dh_auto_build:
 	$(MAKE) -C src CFLAGS_EXTRA="$(CFLAGS_EXTRA)"
 	$(MAKE) -C po
-	touch build-stamp
 
-build: build-stamp
-
-install: build
-	# target: install
-	dh_testdir
-	dh_testroot
-	dh_prep
-	dh_installdirs
-	#$(MAKE) install prefix=$(CURDIR)/debian/wput/usr
-	dh_install
-	dh_installman
-
-clean:
-	dh_testdir
+override_dh_clean:
 	dh_clean
 	$(config-restore)
-
-binary-arch: build install
-	# target: binary-arch
-	dh_testdir
-	dh_testroot
-	$(config-restore)
-	dh_installchangelogs
-	dh_installdocs
-	dh_installexamples
-	dh_lintian
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-arch
-
-.PHONY: build install clean
-.PHONY: binary-indep binary-arch binary
 
 # End of file
