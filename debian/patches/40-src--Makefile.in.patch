@@ -6,8 +6,9 @@ Subject: [PATCH] src/Makefile.in: add CFLAGS_EXTRA
 
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
+ Makefile.in     |   18 +++++++++---------
  src/Makefile.in |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ 2 files changed, 10 insertions(+), 10 deletions(-)
 
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
@@ -20,3 +21,35 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
  EXE=../wput
  GETOPT=@GETOPT@
+--- a/Makefile.in
++++ b/Makefile.in
+@@ -1,7 +1,7 @@
+ #wput makefile
+-PACKAGE     = @PACKAGE@
+-prefix      = @prefix@
+-datadir     = $(prefix)/share
++PACKAGE	    = @PACKAGE@
++prefix	    = @prefix@
++datadir	    = $(prefix)/share
+ mandir	    = $(datadir)/man/man1
+ exec_prefix = @exec_prefix@
+ bindir=@bindir@
+@@ -16,12 +16,12 @@
+ 
+ install: all
+ 	cd po && $(MAKE) $(MAKEDEFS) $@
+-	mkdir -p $(bindir) 
+-	mkdir -p $(mandir) 
+-	install -m0755 wput $(bindir)
+-	install -m0644 doc/wput.1.gz $(mandir)
+-	ln -s $(bindir)/wput $(bindir)/wdel
+-	install -m0644 doc/wdel.1.gz $(mandir)
++	install -m 755 -d  $(DESTDIR)$(bindir)
++	install -m 755 -d  $(DESTDIR)$(mandir)
++	install -m0755 wput $(DESTDIR)$(bindir)
++	install -m0644 doc/wput.1.gz $(DESTDIR)$(mandir)
++	cd $(DESTDIR)$(bindir) && ln -s wput wdel
++	install -m0644 doc/wdel.1.gz $(DESTDIR)$(mandir)
+ 	@echo "----------------"
+ 	@echo "Wput and Wdel installed. See 'wput/wdel -h' or 'man wput/wdel' for"
+ 	@echo "usage information."
