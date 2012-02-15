@@ -4,6 +4,15 @@ PACKAGE = wput
 
 include debian/debian-vars.mk
 include debian/debian-autotools.mk
+include debian/debian-save-restore.mk
+
+# Original sources modified by build process
+FILE_LIST_PRESERVE = \
+ Makefile \
+ config.status \
+ po/Makefile \
+ po/Makefile.in \
+ src/Makefile
 
 include /usr/share/dpkg/buildflags.mk
 CFLAGS	+= -Wall -pedantic
@@ -15,6 +24,7 @@ CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
 
 override_sh_auto_configure:
 	$(config-save)
+	$(file-state-save)
 	$(config-patch)
 	FLAGS="$(CFLAGS)" \
 	LDFLAGS="$(LDFLAGS)" \
@@ -32,6 +42,7 @@ override_dh_auto_build:
 override_dh_clean:
 	dh_clean
 	$(config-restore)
+	$(file-state-restore-copy)
 
 %:
 	dh $@
