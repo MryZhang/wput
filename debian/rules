@@ -34,6 +34,10 @@ override_dh_auto_build:
 	$(MAKE) -C src CFLAGS_EXTRA="$(CFLAGS_EXTRA)"
 	$(MAKE) -C po
 
+override_dh_install:
+	dh_install
+	$(file-state-restore)
+
 override_dh_clean:
 	dh_clean
 	$(config-restore)
