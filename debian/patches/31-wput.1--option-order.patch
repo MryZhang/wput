@@ -1,8 +1,8 @@
 From: Jari Aalto <jari.aalto@cante.net>
 Subject: Order alphabetically, use GNU -o, --option format
 ---
- doc/wput.1 |  364 +++++++++++++++++++++++--------------------------------------
- 1 file changed, 141 insertions(+), 223 deletions(-)
+ doc/wput.1 |  371 +++++++++++++++++++++++--------------------------------------
+ 1 file changed, 145 insertions(+), 226 deletions(-)
 
 --- a/doc/wput.1
 +++ b/doc/wput.1
@@ -135,7 +135,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  Do \fBnot\fR do things like \fIfind | wput ftp://host/ \-i \-\fR!
  Wput would upload all files from the current directory (since the first output
  of find will be '.') and afterwards each file again (since find postes its name to Wput. And further problematic is that Wput will upload each directory that
-@@ -137,187 +83,156 @@
+@@ -137,187 +83,157 @@
  Use \fIwput ftp://host/\fR to upload everything from the local directory.
  Or use \fIfind ! \-type d | wput ftp://host/ \-i \-\fR to tell find, not to
  output directories.
@@ -216,6 +216,9 @@ Subject: Order alphabetically, use GNU -o, --option format
  .IX Subsection "Upload Options"
 -.IP "\fB\-\-bind\-address=\fR\fI\s-1ADDRESS\s0\fR" 4
 -.IX Item "--bind-address=ADDRESS"
+-When making client \s-1TCP/IP\s0 connections, \f(CW\*(C`bind()\*(C'\fR to \fI\s-1ADDRESS\s0\fR on
+-the local machine.  \fI\s-1ADDRESS\s0\fR may be specified as a hostname or \s-1IP\s0
+-address.  This option can be useful if your machine is bound to multiple
 +.TP
 +.BR -A ", " --ascii
 +Wput automatically determines which transfer\-format to use, by looking at
@@ -232,9 +235,10 @@ Subject: Order alphabetically, use GNU -o, --option format
 +Specifying this flag forces Wput to use BINARY mode file transfers.
 +.TP
 +.BR --bind-address=ADDRESS
- When making client \s-1TCP/IP\s0 connections, \f(CW\*(C`bind()\*(C'\fR to \fI\s-1ADDRESS\s0\fR on
- the local machine.  \fI\s-1ADDRESS\s0\fR may be specified as a hostname or \s-1IP\s0
- address.  This option can be useful if your machine is bound to multiple
++When making client TCP/IP connections, bind() to ADDRESS to
++\fI\s-1ADDRESS\s0\fR on the local machine. \fI\s-1ADDRESS\s0\fR may be
++specified as a hostname or \s-1IP\s0 address. This option can be
++useful if your machine is bound to multiple
  IPs.
 -.IP "\fB\-t\fR \fInumber\fR" 4
 -.IX Item "-t number"
@@ -441,7 +445,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH DIAGNOSTICS
  Normally, the exit status is 0 if either everything went fine or there was nothing
  to do.
-@@ -326,6 +241,7 @@
+@@ -326,6 +242,7 @@
  remote error, exit status is 2. If some files failed and some others were skipped,
  exit status is 3. For general problems like failure of some system-functions the
  exit status is 4.
@@ -449,7 +453,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH BUGS
  .IX Header "BUGS"
  .PD
-@@ -343,6 +259,7 @@
+@@ -343,6 +260,7 @@
  to get the backtrace. It would also be great help if you could recompile wput
  with memory-debugging support (make clean; make memdbg; [make install]) and use
  this debug-dump.
@@ -457,7 +461,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH "SEE ALSO"
  .IX Header "SEE ALSO"
  Many options can be set in a wputrc file. For its documentation consult the
-@@ -350,6 +267,7 @@
+@@ -350,6 +268,7 @@
  .PD 0
  There are some USAGE.* files in the doc/ directory of Wput. These contain
  further information and samples on how to use Wput.
