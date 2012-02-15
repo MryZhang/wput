@@ -38,11 +38,11 @@ override_sh_auto_configure:
 override_dh_auto_build:
 	$(MAKE) -C src CFLAGS_EXTRA="$(CFLAGS_EXTRA)"
 	$(MAKE) -C po
+	$(file-state-restore-copy)
 
 override_dh_clean:
 	dh_clean
 	$(config-restore)
-	$(file-state-restore-copy)
 
 %:
 	dh $@
