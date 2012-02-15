@@ -8,12 +8,11 @@ include debian/debian-save-restore.mk
 
 # Original sources modified by build process
 FILE_LIST_PRESERVE = \
- Makefile \
  doc/wdel.1~ \
  doc/wput.1~ \
  config.status \
+ Makefile \
  po/Makefile \
- po/Makefile.in \
  src/Makefile
 
 include /usr/share/dpkg/buildflags.mk
