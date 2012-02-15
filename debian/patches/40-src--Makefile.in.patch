@@ -7,13 +7,11 @@ Subject: [PATCH] src/Makefile.in: add CFLAGS_EXTRA
 Signed-off-by: Jari Aalto <jari.aalto@cante.net>
 ---
  src/Makefile.in |    2 +-
- 1 files changed, 1 insertions(+), 1 deletions(-)
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/src/Makefile.in b/src/Makefile.in
-index 1d78a61..c7dbf84 100644
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
-@@ -5,7 +5,7 @@ prefix=@prefix@
+@@ -5,7 +5,7 @@
  bindir=@bindir@
  localedir=$(prefix)/share/locale
  CC=@CC@
@@ -22,6 +20,3 @@ index 1d78a61..c7dbf84 100644
  LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
  EXE=../wput
  GETOPT=@GETOPT@
--- 
-1.6.5
-
