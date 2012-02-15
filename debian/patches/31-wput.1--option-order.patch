@@ -1,8 +1,8 @@
 From: Jari Aalto <jari.aalto@cante.net>
 Subject: Order alphabetically, use GNU -o, --option format
 ---
- doc/wput.1 |  371 +++++++++++++++++++++++--------------------------------------
- 1 file changed, 145 insertions(+), 226 deletions(-)
+ doc/wput.1 |  381 ++++++++++++++++++++++++-------------------------------------
+ 1 file changed, 150 insertions(+), 231 deletions(-)
 
 --- a/doc/wput.1
 +++ b/doc/wput.1
@@ -453,10 +453,20 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH BUGS
  .IX Header "BUGS"
  .PD
-@@ -343,6 +260,7 @@
- to get the backtrace. It would also be great help if you could recompile wput
- with memory-debugging support (make clean; make memdbg; [make install]) and use
- this debug-dump.
+@@ -338,11 +255,12 @@
+ analysing the problem. If you use a wputrc file, it might also be useful
+ to provide the relevant parts of it.
+ .PP 0
+-If there is a crash due to a segfault or similar, try to run it in a debugger, 
+-e.g. \f(CW\*(C`gdb `which wput` core\*(C'\fR and type \f(CW\*(C`where\*(C'\fR
+-to get the backtrace. It would also be great help if you could recompile wput
+-with memory-debugging support (make clean; make memdbg; [make install]) and use
+-this debug-dump.
++If there is a crash due to a segfault or similar, try to run it in a
++debugger, e.g. gdb /usr/bin/wput core and type where to get the
++backtrace. It would also be great help if you could recompile wput
++with memory-debugging support (make clean; make memdbg; [make
++install]) and use this debug-dump.
 +
  .SH "SEE ALSO"
  .IX Header "SEE ALSO"
