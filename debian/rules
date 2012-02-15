@@ -33,4 +33,7 @@ override_dh_clean:
 	dh_clean
 	$(config-restore)
 
+%:
+	dh $@
+
 # End of file
