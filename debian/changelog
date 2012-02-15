@@ -7,12 +7,14 @@ wput (0.6.2-3) unstable; urgency=low
     - (Standards-Version): update to 3.9.2
   * debian/copyright
     - Update to DEP5.
+  * debian/patches
+    - (31): New. Order options alphanetically and use -o, --option syntax.
   * debian/rules
     - Delete unnecessary targets.
     - Use hardened CFLAGS.
       http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
 
- -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 09:17:55 -0500
+ -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 10:32:42 -0500
 
 wput (0.6.2-2) unstable; urgency=low
 
