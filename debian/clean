@@ -3,3 +3,4 @@ config.log
 wput
 src/*.o
 .pc/.version
+doc/*.1.gz
