@@ -45,7 +45,7 @@
 #		...
 
 ifdef PACKAGE
-    prefix = $(prefix).
+    prefix := $(PACKAGE).
 endif
 
 define file-state-save
