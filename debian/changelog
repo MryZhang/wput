@@ -16,7 +16,7 @@ wput (0.6.2-3) unstable; urgency=low
   * debian/debian-save-restore.mk
     - New file.
 
- -- Jari Aalto <jari.aalto@cante.net>  Wed, 15 Feb 2012 14:05:04 -0500
+ -- Jari Aalto <jari.aalto@cante.net>  Thu, 23 Feb 2012 10:22:37 -0500
 
 wput (0.6.2-2) unstable; urgency=low
 
@@ -122,4 +122,3 @@ wput (0.4.1-1) unstable; urgency=low
   * This is my first Debian package. ;)
 
  -- Khalid El Fathi <invent@edena-fr.org>  Sun, 17 Oct 2004 23:52:51 +0200
-
