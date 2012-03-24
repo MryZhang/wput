@@ -1,23 +1,25 @@
 wput (0.6.2-3) unstable; urgency=low
 
+  * debian/clean
+    - Add wput.hardened (hardened compilation result).
   * debian/compat
     - Update to 9
   * debian/control
-    - (Build-Depends): update to debhelper 9, dpkg-dev 1.16.1. Add
-      autotools-dev.
-    - (Standards-Version): update to 3.9.2
+    - (Build-Depends): Update to debhelper 9, add autotools-dev.
+    - (Standards-Version): update to 3.9.3.1
   * debian/copyright
-    - Update to DEP5.
+    - Update to format 1.0.
   * debian/patches
-    - (31): New. Order options alphanetically and use -o, --option syntax.
+    - (31): New. Order options alphabetically and use -o, --option syntax.
   * debian/rules
     - Delete unnecessary targets.
     - Use hardened CFLAGS.
       http://wiki.debian.org/ReleaseGoals/SecurityHardeningBuildFlags
-  * debian/debian-save-restore.mk
-    - New file.
+  * debian/*.mk
+    - (debian-save-restore): New file.
+    - Minor updates to other *.mk files.
 
- -- Jari Aalto <jari.aalto@cante.net>  Thu, 23 Feb 2012 10:23:29 -0500
+ -- Jari Aalto <jari.aalto@cante.net>  Sat, 24 Mar 2012 04:32:09 -0400
 
 wput (0.6.2-2) unstable; urgency=low
 

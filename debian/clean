@@ -1,6 +1,7 @@
 config.cache
 config.log
 wput
+wput.done
 src/*.o
 .pc/.version
 doc/*.1.gz

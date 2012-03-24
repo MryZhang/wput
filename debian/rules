@@ -17,27 +17,31 @@ FILE_LIST_PRESERVE = \
  src/Makefile \
  src/config.h
 
-include /usr/share/dpkg/buildflags.mk
-CFLAGS	+= -Wall -pedantic
-LDFLAGS += -Wl,--as-needed
-export CFLAGS LDFLAGS
+export DEB_BUILD_MAINT_OPTIONS	= hardening=+all
+export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
+export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
 # _XOPEN_SOURCE is needed for
 # ftp-ls.c:851: warning: implicit declaration of function 'strptime'
-CFLAGS_EXTRA = -D_XOPEN_SOURCE=600 $(CFLAGS)
+DEBFLAGS = -D_XOPEN_SOURCE=600 $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
 
 override_dh_auto_configure:
 	$(config-save)
 	$(config-patch)
 	dh_auto_configure
+	$(config-restore)
 
 override_dh_auto_build:
-	$(MAKE) -C src CFLAGS_EXTRA="$(CFLAGS_EXTRA)"
+	$(MAKE) -C src CC="$(CC) $(DEBFLAGS)"
+	# Copy this compiling result. The dh_auto_install step causes
+	# recompilation (without our flags).
+	cp --archive wput wput.hardened
 	$(MAKE) -C po
 
 override_dh_install:
 	dh_install
-	$(config-restore)
+	# Replace binary with one compiled with our flags
+	install -m 755 wput.hardened $(CURDIR)/debian/$(PACKAGE)/usr/bin/wput
 	$(file-state-restore-copy)
 
 override_dh_clean:

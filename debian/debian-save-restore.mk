@@ -40,6 +40,11 @@
 #		$(file-state-save)
 #		<configure call>
 #
+#	override_dh_install:
+#		dh_install
+#		$(config-restore)
+#		$(file-state-restore)
+#
 #	binary-arch:
 #		$(file-state-restore)
 #		...
@@ -54,9 +59,7 @@ define file-state-save
 	for file in $(FILE_LIST_PRESERVE); \
 	do \
 		backup=/tmp/$(prefix)$$(echo $$file | sed 's,/,%,g')$$suffix; \
-		if [ -f "$$file" ] && [ ! -f "$$backup" ]; then \
-			cp --archive --verbose "$$file" "$$backup"; \
-		fi; \
+		cp --archive --verbose "$$file" "$$backup"; \
 	done
 endef
 
