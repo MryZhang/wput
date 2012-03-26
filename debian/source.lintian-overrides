@@ -1,10 +1,7 @@
 # source.lintian-overrides
 
-# The new files from Debian are used (see debian/rules). The original ones
-# are restores just before making *.deb, so lintian won't know about them.
+# This file is part of the original sources
 
 wput source: configure-generated-file-in-source config.status
-wput source: outdated-autotools-helper-file config.sub 2004-03-12
-wput source: outdated-autotools-helper-file config.guess 2004-06-11
 
 # End o file
