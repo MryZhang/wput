@@ -3,6 +3,7 @@ wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
   * New maintainer, thanks Jari for all your work on this package!
     (Closes: #701867.)
   * New upstream snapshot.
+  * Drop patches 10 and 12, fixed upstream.
 
  -- Stephen Kitt <skitt@debian.org>  Thu, 10 Oct 2013 23:25:56 +0200
 
