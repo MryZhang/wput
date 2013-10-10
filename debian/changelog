@@ -10,6 +10,7 @@ wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
   * Specify sf.net project page as homepage.
   * Always rebuild the .gmo files, and handle the absence of
     config.status.
+  * Use canonical VCS URIs.
 
  -- Stephen Kitt <skitt@debian.org>  Thu, 10 Oct 2013 23:25:56 +0200
 
