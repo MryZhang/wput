@@ -115,6 +115,7 @@ int main(int argc, char *argv[]){
 	opt.retry_interval = 10;
 	opt.time_deviation = 10;
 	opt.binary    = TYPE_UNDEFINED;
+	opt.chmod     = 0;
 	opt.output    = stdout;
 	
 	opt.verbose   = vNORMAL;
@@ -333,21 +334,13 @@ int set_option(char * com, char * val) {
         } else return -1;
       }
       else if(!strncasecmp(com, "chmod", 6)) {
-          int invalid = 0;
-	  if(opt.wdel) return 0; /* disabled for wdel */
-          if(strlen(val) == 3) {
-              int modecounter;
-              for (modecounter = 0; modecounter < 3; modecounter++) {
-                  if (val[modecounter] < '0' || val[modecounter] > '7') {
-                      invalid = 1;
-                      break;
-                  }
-              }
-          } else {
-              invalid = 1;
-          }
-          if (!invalid)
-              opt.chmod = val;
+          if(opt.wdel) return 0; /* disabled for wdel */
+
+          char *endptr;
+
+          mode_t m = (mode_t) strtoul(val, &endptr, 8);
+          if ((*endptr == '\0') && ((m & 0777777) == m)) /* is valid mode */
+              opt.chmod = m;
           else return -2;
       } else return -1;
       return 0;
@@ -423,7 +416,7 @@ int set_option(char * com, char * val) {
         opt.timestamping    = !strncasecmp(val, "on", 3); }
       else if(!strncasecmp(com, "timeoffset", 11))
         opt.time_offset     = atoi(val);
-      else if(!strncasecmp(com, "timeoffset", 11))
+      else if(!strncasecmp(com, "timedeviation", 14))
         opt.time_deviation  = atoi(val);
       else if(!strncasecmp(com, "transfer_type", 14)) {
 	if(opt.wdel) return 0; /* disabled for wdel */
@@ -558,6 +551,7 @@ void readwputrc(char * f) {
     
   while ((line = read_line (fp))) {
     char * tmp = line;
+    int itmp;
     char * com;
     char * val;
     /* skip leading spaces */
@@ -582,10 +576,9 @@ void readwputrc(char * f) {
     if(*(tmp-1) == '\r') *(tmp-1) = 0;
     else                 * tmp    = 0;
 
-    /* we mis-use tmp to store the ret_val, and print a message if something was not parse-able */
-    tmp = (char *) set_option(com, val);
-    if(tmp == (char *) -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
-    if(tmp == (char *) -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
+    itmp = set_option(com, val);
+    if(itmp == -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
+    if(itmp == -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
     free(line);
     ln++;
   }
@@ -640,13 +633,13 @@ void commandlineoptions(int argc, char * argv[]){
 		{"version", 0, 0, 'V'},          //35
 		{"wait", 1, 0, 'w'},            
 		{"waitretry", 1, 0, 0},         
-		{"chmod", 1, 0, 'm'},
+		{"chmod", 2, 0, 'm'},
 		{"disable-tls", 0, 0, 0},
 		{0, 0, 0, 0}                    //40
       };
     while (1)
     {
-        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um:",
+        c = getopt_long (argc, argv, "Y:Vhbo:a:dqvn:i:I:t:NT:w:Rl:pABsS:um::",
                            long_options, &option_index);
                 
         if (c == -1)
@@ -677,7 +670,7 @@ void commandlineoptions(int argc, char * argv[]){
 #ifdef HAVE_SSL
                 fprintf(opt.output, "HAVE_SSL\n");
 #endif
-                fprintf(opt.output, "\nUsing %d-Bytes for off_t\n", sizeof(off_t));
+                fprintf(opt.output, "\nUsing %d-Bytes for off_t\n", (int) sizeof(off_t));
                 exit(0);
             case 27: //skip-larger
                 opt.resume_table.small_large = RESUME_TABLE_SKIP;   break;
@@ -757,7 +750,12 @@ void commandlineoptions(int argc, char * argv[]){
                   opt.input_pipe = optarg;      break;
         case 'R': opt.unlink = 1;               break;
         case 'Y': set_option("proxy", optarg);  break;
-        case 'm': set_option("chmod", optarg);  break;
+        case 'm':
+                  if (optarg)
+                    set_option("chmod", optarg);
+                  else
+                    set_option("chmod", "1"); // use local mode
+                  break;
         case 'V':
             fprintf(opt.output, _("wput version: %s\n"), version);
             exit(0);
@@ -818,7 +816,7 @@ void commandlineoptions(int argc, char * argv[]){
 
 #ifdef HAVE_SSL
 			fprintf(stderr, _(
-"       --force-tls             force the useage of TLS\n"
+"       --force-tls             force the usage of TLS\n"
 "       --disable-tls           disable the usage of TLS\n"));
 #endif
 /*"  -f,  --peace                 force wput not to be aggressive\n"*/
