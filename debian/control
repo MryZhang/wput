@@ -3,7 +3,7 @@ Section: web
 Priority: optional
 Maintainer: Stephen Kitt <skitt@debian.org>
 Build-Depends: debhelper (>= 9), libgnutls-dev, autotools-dev
-Standards-Version: 3.9.3.1
+Standards-Version: 3.9.4
 Vcs-Browser: http://anonscm.debian.org/gitweb/?p=collab-maint/wput.git
 Vcs-Git: git://anonscm.debian.org/collab-maint/wput.git
 Homepage: http://wput.sourceforge.net/
