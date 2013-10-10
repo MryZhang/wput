@@ -125,7 +125,7 @@ struct global_options {
   short int wait;
   short int retry;
 
-  char * chmod;
+  mode_t chmod;
 
   unsigned char wdel;
 

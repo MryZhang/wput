@@ -1,0 +1,910 @@
+# Ukrainian translation for wput
+# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# This file is distributed under the same license as the wput package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: wput\n"
+"Report-Msgid-Bugs-To: http://sourceforge.net/tracker/?group_id=141519\n"
+"POT-Creation-Date: 2009-12-06 17:26+0100\n"
+"PO-Revision-Date: 2009-01-29 23:16+0000\n"
+"Last-Translator: Vasylenko Serhiy <opendx@gmail.com>\n"
+"Language-Team: Ukrainian <uk@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Launchpad-Export-Date: 2009-12-06 15:52+0000\n"
+"X-Generator: Launchpad (build Unknown)\n"
+
+#: src/wput.c:156
+msgid "Resuming in background. Logging output to 'wput-log'.\n"
+msgstr ""
+"Поновлюю завантаження в фоновому режимі. Інформація виводиться в 'wput-"
+"log'.\n"
+
+#: src/wput.c:158 src/wput.c:701
+msgid "Unable to open logfile"
+msgstr "Неможливо відкрити файл логів"
+
+#: src/wput.c:166 src/wput.c:176 src/wput.c:186 src/wput.c:371 src/wput.c:745
+#: src/ftp.c:877 src/ftp.c:917 src/ftplib.c:270 src/ftplib.c:974
+#: src/ftplib.c:985 src/utils.c:284 src/utils.c:311 src/queue.c:337
+#: src/queue.c:344 src/queue.c:385 src/queue.c:462 src/queue.c:498
+#: src/queue.c:533
+msgid "Warning: "
+msgstr "Попередження: "
+
+#: src/wput.c:167
+msgid ""
+"background-mode might not work correctly, if the input-pipe needs to read "
+"from stdin (like cat -).\n"
+msgstr ""
+"фоновий режим може працювати невірно, якшо канал введення повинен читати "
+"дані зі стандарної консолі введення (типу cat -).\n"
+
+#: src/wput.c:177
+msgid ""
+"reading urls from stdin, while running in background-mode is not reliable.\n"
+msgstr ""
+"читання url'ів зі стандартної консолі введення, в фоновому режимі, не є "
+"надійним.\n"
+
+#: src/wput.c:187
+msgid ""
+"Ignoring request to turn proxy-usage on, since no proxy is configured.\n"
+msgstr ""
+"Ігнорую запит на увімкнення проксі, оскільки проксі не зконфігуровано.\n"
+
+#: src/wput.c:220
+#, fuzzy, c-format
+msgid "Nothing done. Try `%s --help'.\n"
+msgstr "Ніщо не зроблено. Спробуйте `wput --help'.\n"
+
+#: src/wput.c:222
+#, c-format
+msgid "FINISHED --%s--\n"
+msgstr "ЗАВЕРШЕНО --%s--\n"
+
+#: src/wput.c:227
+#, c-format
+msgid "Transfered %s bytes in %d file at %s\n"
+msgstr "Передано %s байт в %d файлі на швидкості %s\n"
+
+#: src/wput.c:228
+#, c-format
+msgid "Transfered %s bytes in %d files at %s\n"
+msgstr "Передано %s байт в %d файлах на швидкості %s\n"
+
+#: src/wput.c:238
+#, fuzzy, c-format
+msgid "Deleted %d file\n"
+msgstr "Пропущено %d файл.\n"
+
+#: src/wput.c:239
+#, fuzzy, c-format
+msgid "Deleted %d files\n"
+msgstr "Пропущено %d файлів.\n"
+
+#: src/wput.c:245
+#, c-format
+msgid "Skipped %d file.\n"
+msgstr "Пропущено %d файл.\n"
+
+#: src/wput.c:245
+#, c-format
+msgid "Skipped %d files.\n"
+msgstr "Пропущено %d файлів.\n"
+
+#: src/wput.c:248
+#, c-format
+msgid "Transmission of %d file failed.\n"
+msgstr "Передача %d файлу невдала.\n"
+
+#: src/wput.c:248
+#, c-format
+msgid "Transmission of %d files failed.\n"
+msgstr "Передача %d файлів невдала.\n"
+
+#: src/wput.c:249
+#, fuzzy, c-format
+msgid "Deletion of %d file failed.\n"
+msgstr "Передача %d файлу невдала.\n"
+
+#: src/wput.c:249
+#, fuzzy, c-format
+msgid "Deletion of %d files failed.\n"
+msgstr "Передача %d файлів невдала.\n"
+
+#: src/wput.c:321 src/ftp.c:219 src/ftp.c:240 src/ftp.c:347 src/ftp.c:385
+#: src/ftp.c:405 src/ftp.c:881 src/socketlib.c:124 src/socketlib.c:264
+#: src/socketlib.c:430 src/socketlib.c:451 src/socketlib.c:476
+#: src/socketlib.c:495 src/socketlib.c:515 src/socketlib.c:568
+#: src/socketlib.c:623 src/ftplib.c:279 src/ftplib.c:285 src/ftplib.c:668
+#: src/ftplib.c:713 src/queue.c:441 src/queue.c:543
+msgid "Error: "
+msgstr "Помилка: "
+
+#: src/wput.c:322 src/wput.c:372 src/ftp.c:878 src/ftp.c:882
+#, c-format
+msgid "`%s' could not be resolved. "
+msgstr "`%s' не може бути визначено. "
+
+#: src/wput.c:323
+msgid "Exiting.\n"
+msgstr "Виходжу.\n"
+
+#: src/wput.c:373
+msgid "Disabling proxy support.\n"
+msgstr "Забороняю підтримку proxy.\n"
+
+#: src/wput.c:470
+#, c-format
+msgid "netrc file '%s' cannot be read. skipping\n"
+msgstr "netrc файл '%s' не може бути прочитаний. пропускаю\n"
+
+#: src/wput.c:500
+#, c-format
+msgid "password_file '%s' cannot be read. skipping\n"
+msgstr "файл паролів '%s' не вдалося прочитати. пропускаю\n"
+
+#: src/wput.c:503
+msgid ""
+"Warning: You are using a wput password file. This is deprecated!\n"
+"         Please consider switch to the widely used netrc-files.\n"
+msgstr ""
+"Увага: Ви використовуєте файл паролів для wput. Не радимо цього робити!\n"
+"         Розгляньте можливість переходу на широко вживані netrc-файли.\n"
+
+#: src/wput.c:547
+#, c-format
+msgid "Fatal error while opening '%s': %s\n"
+msgstr "Невиправна помилка при відкритті '%s': %s\n"
+
+#: src/wput.c:580
+#, c-format
+msgid "%s#%d: Option '%s' not recognized\n"
+msgstr "%s#%d: Опція '%s' невідома\n"
+
+#: src/wput.c:581
+#, c-format
+msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgstr "%s#%d: Невідоме значення '%s' для '%s'\n"
+
+#: src/wput.c:696
+#, c-format
+msgid "Option %s should not appear here :|\n"
+msgstr "Опція %s не повинна бути тут :|\n"
+
+#: src/wput.c:746
+msgid ""
+"You supplied an input-pipe. This is only to be used as fallback, if no "
+"filename can be found from the URL. This might not be the desired behavour. "
+"TODO\n"
+msgstr ""
+"Ви вказали канал введення. Проте, він буде використаний лише у випадку, якщо "
+"ім\"я файлу не зможе бути визначене з URL. Це може бути не та поведінка, яку "
+"ви очікуєте. ДОРОБИТИ\n"
+
+#: src/wput.c:760
+#, c-format
+msgid "wput version: %s\n"
+msgstr "wput версія: %s\n"
+
+#: src/wput.c:764
+#, c-format
+msgid ""
+"Usage: wput [options] [file]... [url]...\n"
+"  url        ftp://[username[:password]@]hostname[:port][/[path/][file]]\n"
+"\n"
+"Startup:\n"
+"  -V, --version         Display the version of wput and exit.\n"
+"  -h, --help            Print this help-screen\n"
+msgstr ""
+"Використання: wput [опції] [файл]... [url]...\n"
+"  url        ftp://[username[:password]@]hostname[:port][/[path/][file]]\n"
+"\n"
+"Запуск:\n"
+"  -V, --version         Відображує версію wput та завершує роботу.\n"
+"  -h, --help            Друкує цю допоміжну інформацію\n"
+
+#: src/wput.c:771
+#, c-format
+msgid "  -b, --background      go to background after startup\n"
+msgstr "  -b, --background      переходити у фоновий режим після запуску\n"
+
+#: src/wput.c:776
+#, c-format
+msgid ""
+"Logging and input file:\n"
+"  -o,  --output-file=FILE      log messages to FILE\n"
+"  -a,  --append-output=FILE    append log messages to FILE\n"
+"  -q,  --quiet                 quiet (no output)\n"
+"  -v,  --verbose               be verbose\n"
+"  -d,  --debug                 debug output\n"
+"  -nv, --less-verbose          be less verbose\n"
+"  -i,  --input-file=FILE       read the URLs from FILE\n"
+"  -s,  --sort                  sorts all input URLs by server-ip and path\n"
+"       --basename=PATH         snip PATH off each file when appendig to an "
+"URL\n"
+"  -I,  --input-pipe=COMMAND    take the output of COMMAND as data-source\n"
+"  -R,  --remove-source-files   unlink files upon successful upload\n"
+"\n"
+msgstr ""
+"Логування і файл введення:\n"
+"  -o,  --output-file=ФАЙЛ      логувати повідомлення в ФАЙЛ\n"
+"  -a,  --append-output=ФАЙЛ    додавати логи в ФАЙЛ\n"
+"  -q,  --quiet                 тихо (не виводити інформацію)\n"
+"  -v,  --verbose               виводити багато інформації\n"
+"  -d,  --debug                 виводити відлагоджувальну інформацію\n"
+"  -nv, --less-verbose          виводити небагато інформації\n"
+"  -i,  --input-file=ФАЙЛ       читати URLи з ФАЙЛ\n"
+"  -s,  --sort                  сортувати всі вхідні URLи за адресою сервера "
+"і за шляхом\n"
+"       --basename=ШЛЯХ         відкидати ШЛФХ від кожного файлу, коли "
+"приєднуємо до URL\n"
+"  -I,  --input-pipe=COMMAND    брати вивід COMMAND за джерело данних\n"
+"  -R,  --remove-source-files   видалити файли в разі вдалого завантаження\n"
+"\n"
+
+#: src/wput.c:792
+#, fuzzy, c-format
+msgid ""
+"Connection:\n"
+"       --bind-address=ADDR     bind to ADDR (hostname or IP) on local host\n"
+"  -t,  --tries=NUMBER          set retry count to NUMBER (-1 means "
+"infinite)\n"
+"  -nc, --dont-continue         do not resume partially-uploaded files\n"
+"  -u,  --reupload              do not skip already completed files\n"
+"       --skip-larger           do not upload files if remote size is larger\n"
+"       --skip-existing         do not upload files that exist remotely\n"
+"  -N,  --timestamping          don't re-upload files unless newer than "
+"remote\n"
+"  -T,  --timeout=10th-SECONDS  set various timeouts to 10th-SECONDS\n"
+"  -w,  --wait=10th-SECONDS     wait 10th-SECONDS between uploads. (default: "
+"0)\n"
+"       --random-wait           wait from 0...2*WAIT secs between uploads.\n"
+"       --waitretry=SECONDS     wait SECONDS between retries of an upload\n"
+"  -l,  --limit-rate=RATE       limit upload rate to RATE\n"
+"  -nd, --no-directories        do not create any directories\n"
+"  -Y,  --proxy=http/socks/off  set proxy type or turn off\n"
+"       --proxy-user=NAME       set the proxy-username to NAME\n"
+"       --proxy-pass=PASS       set the proxy-password to PASS\n"
+"\n"
+msgstr ""
+"Завантаження:\n"
+"       --bind-address=ADDR     bind to ADDR (hostname or IP) on local host\n"
+"  -t,  --tries=NUMBER          встановити кількість спроб в NUMBER (-1 "
+"означає необмежену кількість)\n"
+"  -nc, --dont-continue         не поновлювати завантаження частково "
+"завантажених файлів\n"
+"  -u,  --reupload              не пропускати вже завантажені файли\n"
+"       --skip-larger           не завантажувати файл, якщо розмір "
+"віддаленого файлу більший\n"
+"       --skip-existing         не завантажувати файли, які вже існують "
+"віддалено\n"
+"  -N,  --timestamping          не перезавнтажувати файли, крім вирадків, "
+"якщо файл новіший ніж віддалений\n"
+"  -T,  --timeout=10ті долі секунди встановити різні таймаути в десятих долях "
+"секунди\n"
+"  -w,  --wait=10ті долі секунди     чекати стільки 10тих секунди між "
+"завантаженнями. (за замовчуванням: 0)\n"
+"       --random-wait           чекати від 0 до 2*WAIT секунд між "
+"завантаженнями.\n"
+"       --waitretry=СЕКУНД    чекати СЕКУНД між спробами завантаження\n"
+"  -l,  --limit-rate=ШВИДКІСТЬ       обмежити швидкість завантаження до "
+"значення ШВИДКІСТЬ\n"
+"  -nd, --no-directories        не створювати жодних тек\n"
+"  -Y,  --proxy=http/socks/off  встановити тип проксі, чи вимкнути\n"
+"       --proxy-user=ІМ\"Я       встановити ім\"я користувача проксі в ІМ\"Я\n"
+"       --proxy-pass=ПАР       встановити пароль проксі в ПАР\n"
+"\n"
+
+#: src/wput.c:811
+#, c-format
+msgid ""
+"FTP-Options:\n"
+"  -p,  --port-mode             no-passive, turn on port mode ftp (def. "
+"pasv)\n"
+"  -A,  --ascii                 force ASCII  mode-transfer\n"
+"  -B,  --binary                force BINARY mode-transfer\n"
+"  -m,  --chmod                 change mode of transferred files ([0-7]{3})\n"
+msgstr ""
+"FTP-Опції:\n"
+"  -p,  --port-mode             не пасивний режим, увімкнути режим порту для "
+"ftp (по замовчуванні - пасивний режим)\n"
+"  -A,  --ascii                 використовувати виключно СИМВОЛЬНИЙ режим "
+"передачі данних\n"
+"  -B,  --binary                використовувати виключно ДВІЙКОВИЙ режим "
+"передачі данних\n"
+"  -m,  --chmod                 змінювати режим переданих файлів ([0-7]{3})\n"
+
+#: src/wput.c:819
+#, fuzzy, c-format
+msgid ""
+"       --force-tls             force the useage of TLS\n"
+"       --disable-tls           disable the usage of TLS\n"
+msgstr "       --force-tls             примусово використовувати TLS\n"
+
+#: src/wput.c:825
+#, c-format
+msgid ""
+"\n"
+"See wput(1) for more detailed descriptions of the options.\n"
+"Report bugs and suggestions via SourceForge at\n"
+"http://sourceforge.net/tracker/?group_id=141519\n"
+msgstr ""
+"\n"
+"Дивись wput(1) для більш детальної інформації про параметри.\n"
+"Надсилайте інформацію про помилки та побажання через SourceForge за адресою\n"
+"http://sourceforge.net/tracker/?group_id=141519\n"
+
+#: src/ftp.c:170
+msgid "Remote file size is bigger than local size. Restarting at 0\n"
+msgstr ""
+"Розмір віддаленого файлу більший за розмір локального. Починаю з початку.\n"
+
+#: src/ftp.c:174
+msgid "Remote file size is equal to local size. Restarting at 0\n"
+msgstr ""
+"Розмір віддаленого файлу дорівнює розміру локального. Починаю з початку\n"
+
+#: src/ftp.c:178
+msgid "Remote file size is smaller than local size. Restarting at 0.\n"
+msgstr ""
+"Розмір віддаленого файлу менший за розмір локального. Починаю з початку.\n"
+
+#: src/ftp.c:220
+msgid "Cannot open local source file to read\n"
+msgstr "Не вдалося відкрити локальний файл-джерело для читання\n"
+
+#: src/ftp.c:241
+#, c-format
+msgid "opening the input-pipe failed: %s\n"
+msgstr "помилка відкриття каналу введення: %s\n"
+
+#: src/ftp.c:284
+msgid "Disabling resuming due to ascii-mode transfer\n"
+msgstr "Заборона режиму продовження через текстовий режим передачі\n"
+
+#: src/ftp.c:348
+#, c-format
+msgid "local file could not be read: %s\n"
+msgstr "не вдається прочитати локальний файл: %s\n"
+
+#: src/ftp.c:386
+msgid "Error encountered during uploading data\n"
+msgstr "Сталася помилка при завантаженні данних\n"
+
+#: src/ftp.c:406
+#, c-format
+msgid "Error encountered during uploading data (%s)\n"
+msgstr "Сталася помилка при завантаженні данних (%s)\n"
+
+#: src/ftp.c:462
+#, c-format
+msgid "Removing source file `%s'\n"
+msgstr "Видалення вихідного файлу `%s'\n"
+
+#: src/ftp.c:482
+#, c-format
+msgid "No such file or directory: %s\n"
+msgstr "Не знайдено такий файл чи теку: %s\n"
+
+#: src/ftp.c:492
+#, c-format
+msgid "RMD of directory %s failed, probably not empty; deleting recursively\n"
+msgstr "RMD теки %s не вдалося, можливо не порожня; видаляємо рекурсивно\n"
+
+#: src/ftp.c:505 src/ftp.c:686
+msgid "Failed to change to target directory. Skipping this file/dir.\n"
+msgstr "Не вдалося перейти у вказану теку. Прорускаю цей файл/теку.\n"
+
+#: src/ftp.c:522
+msgid "Directory empty, deletion failed.\n"
+msgstr "Тека порожня, помилка видалення.\n"
+
+#: src/ftp.c:537
+msgid "Failed to change to parent directory. Skipping this file/dir.\n"
+msgstr "Не вдалося перейти в батьківську теку. Пропускаю ці файл/теку.\n"
+
+#: src/ftp.c:563
+#, c-format
+msgid ""
+"\n"
+"%s deleted.\n"
+"\n"
+msgstr ""
+"\n"
+"%s видалений.\n"
+"\n"
+
+#: src/ftp.c:591
+#, c-format
+msgid "-- Skipping file: `%s'\n"
+msgstr "-- Пропускаю файл: `%s'\n"
+
+#: src/ftp.c:609
+#, c-format
+msgid "--%s-- Deleting file/dir: ftp://%s:xxxxx@%s:%d/%s%s%s\n"
+msgstr "--%s-- Видаляю файл/теку: ftp://%s:xxxxx@%s:%d/%s%s%s\n"
+
+#: src/ftp.c:653
+msgid "Skipping all files from this account...\n"
+msgstr "Пропускаю всі файли цього облікового запису...\n"
+
+#: src/ftp.c:721 src/ftp.c:765
+msgid "Unable to set transfer mode. Assuming binary\n"
+msgstr "Не вдається встановити режим передачі. Припускаю, що бінарний\n"
+
+#: src/ftp.c:745
+msgid "Skipping this file due to resume/upload/skip rules.\n"
+msgstr ""
+"Пропускаю цей файл через відповідне правило поновлення, завантаження чи "
+"пропуску.\n"
+
+#: src/ftp.c:746
+#, c-format
+msgid "-- Skipping file: %s\n"
+msgstr "-- Пропускаю файл: %s\n"
+
+#: src/ftp.c:792
+#, c-format
+msgid "Send Failed (%s) "
+msgstr "Помилка відправки (%s) "
+
+#: src/ftp.c:794
+msgid "Delete Failed. "
+msgstr "Помилка видалення. "
+
+#: src/ftp.c:796
+msgid "Skipping this file\n"
+msgstr "Пропускаю цей файл\n"
+
+#: src/ftp.c:879
+msgid "Assuming the proxy to do the task.\n"
+msgstr "Сподіваюсь на проксі для виконання завдання.\n"
+
+#: src/ftp.c:883
+msgid "Skipping this URL.\n"
+msgstr "Пропускаю цей URL.\n"
+
+#: src/ftp.c:918
+msgid ""
+"URL: # or ? functions unimplemented. Assuming they are part of the "
+"filename.\n"
+msgstr ""
+"URL: опції # чи ? не підтримуються. Розглядаємо знаки як частину імені "
+"файла.\n"
+
+#: src/socketlib.c:94
+msgid "client: can't open stream socket"
+msgstr "клієнт: не вдалося відкрити потоковий сокет"
+
+#: src/socketlib.c:114
+msgid "server: can't open new socket"
+msgstr "сервер: не вдалося відкрити новий сокет"
+
+#: src/socketlib.c:125
+msgid "server: can't bind local address\n"
+msgstr "сервер: неможливо прив'язатись до локальної адреси\n"
+
+#: src/socketlib.c:163
+msgid "error accepting the incoming connection"
+msgstr "помилка прийняття з'єднання ззовні"
+
+#: src/socketlib.c:181
+msgid "TLS handshake failed\n"
+msgstr "TLS \"рукостискання\" не вдалося\n"
+
+#: src/socketlib.c:240
+#, c-format
+msgid "Receive-Warning: read() timed out. Read '%s' so far.\n"
+msgstr ""
+"Проблема прийому: виник таймаут функції read(). Покищо прочитано '%s'.\n"
+
+#: src/socketlib.c:245
+#, c-format
+msgid "Receive-Error: read() failed. Read '%s' so far. (errno: %s (%d))\n"
+msgstr ""
+"Попилка прийому: помилка функції read(). Покищо прочитано '%s'. (помилка: %s "
+"(%d))\n"
+
+#: src/socketlib.c:265
+msgid "recv() timed out. No data received\n"
+msgstr "recv() таймаут. Дані не отримано\n"
+
+#: src/socketlib.c:429 src/socketlib.c:450 src/socketlib.c:475
+#: src/ftplib.c:350 src/ftplib.c:381 src/ftplib.c:452 src/ftplib.c:485
+#: src/ftplib.c:535 src/ftplib.c:594 src/ftplib.c:799 src/ftplib.c:937
+#: src/ftplib.c:1007
+msgid "failed.\n"
+msgstr "не вдало.\n"
+
+#: src/socketlib.c:431
+msgid "Connection to proxy cannot be established.\n"
+msgstr "З'єднання з проксі не може бути виконано.\n"
+
+#: src/socketlib.c:445
+#, c-format
+msgid "read() failed: %d (%d: %s)\n"
+msgstr "помилка функції read(): %d (%d: %s)\n"
+
+#: src/socketlib.c:452
+#, c-format
+msgid "Proxy version mismatch (%d)\n"
+msgstr "Версії проксі не співпадають (%d)\n"
+
+#: src/socketlib.c:470
+msgid "Proxy authentication failure\n"
+msgstr "Не вдається виконати авторизацію проксі\n"
+
+#: src/socketlib.c:477
+#, c-format
+msgid "Proxy method mismatch (%d)\n"
+msgstr "Методи проксі не співпадають (%d)\n"
+
+#: src/socketlib.c:496
+#, c-format
+msgid "Proxy discarded listen-request. Error-Code: %d\n"
+msgstr "Проксі відкидає запит на прослуховування. Код помилки: %d\n"
+
+#: src/socketlib.c:497
+msgid "Disabling listen-tries for proxy\n"
+msgstr "Забороняю спроби прослуховування для проксі\n"
+
+#: src/socketlib.c:503
+#, c-format
+msgid "Proxy is listening on %s:%d for incoming connections\n"
+msgstr "Проксі прослуховує %s:%d на предмет вхідних з'єднань\n"
+
+#: src/socketlib.c:516
+#, c-format
+msgid "Proxy encountered an error while accepting. Error-Code: %d\n"
+msgstr ""
+"Помилка проксі виникла під час підтвердження з'єднання. Код помилки: %d\n"
+
+#: src/socketlib.c:534
+#, c-format
+msgid "Using SOCKS5-Proxy %s:%d... "
+msgstr "Використовую SOCKS5-Проксі %s:%d... "
+
+#: src/socketlib.c:566
+msgid "Proxy connection established.\n"
+msgstr "Встановлено з'єднання з проксі.\n"
+
+#: src/socketlib.c:569
+#, c-format
+msgid "Connection through proxy failed. Error-code: %d\n"
+msgstr "Невдача з'єднання через проксі. Код помилки: %d\n"
+
+#: src/socketlib.c:624
+#, c-format
+msgid ""
+"Connection could not be established.\n"
+"Proxy states '%s'"
+msgstr ""
+"Неможливо встановити з'єднання.\n"
+"Стан проксі '%s'"
+
+#: src/ftplib.c:94
+msgid "Receive-Error: Connection broke down.\n"
+msgstr "Помилка прийому: З'єднання розірване.\n"
+
+#: src/ftplib.c:105
+#, c-format
+msgid "Receive-Error: Invalid FTP-answer (%d bytes): %s\n"
+msgstr "Помилка прийому: Невірна відповідь FTP (%d байтів): %s\n"
+
+#: src/ftplib.c:107
+msgid "Reconnecting to be sure, nothing went wrong\n"
+msgstr "Повторне з'єднання для впевненості, що все гаразд\n"
+
+#: src/ftplib.c:191
+#, c-format
+msgid "Connecting to %s:%d... "
+msgstr "Приєднуємось до %s:%d... "
+
+#: src/ftplib.c:201
+msgid "failed!\n"
+msgstr "помилка!\n"
+
+#: src/ftplib.c:204
+msgid "connected"
+msgstr "з'єднано"
+
+#: src/ftplib.c:216
+#, c-format
+msgid "Connection failed (%s)\n"
+msgstr "Помилка з'єднання (%s)\n"
+
+#: src/ftplib.c:237
+msgid "TLS encryption is explicitly required, but could not be established.\n"
+msgstr "TLS кодування явно вимагається, але не може бути забезпечено.\n"
+
+#: src/ftplib.c:254
+#, c-format
+msgid "Logging in as %s ... "
+msgstr "Реєструюсь як %s ... "
+
+#: src/ftplib.c:271
+msgid "remote server requires a password, but none set. Using an empty one.\n"
+msgstr ""
+"віддалений сервер вимагає пароль, але він не вказаний. Використовуємо "
+"порожній пароль.\n"
+
+#: src/ftplib.c:280
+msgid "Server requires account login, which is not supported.\n"
+msgstr ""
+"Сервер вимагає реєстрацію облікового запису, така можливість не "
+"підтримується.\n"
+
+#: src/ftplib.c:286
+#, c-format
+msgid "Login-Sequence failed (%s)\n"
+msgstr "Невдала реєстрація (%s)\n"
+
+#: src/ftplib.c:290
+msgid "Logged in!\n"
+msgstr "Реєстрація вдалась!\n"
+
+#: src/ftplib.c:308
+#, c-format
+msgid "failed (%s).\n"
+msgstr "помилка (%s).\n"
+
+#: src/ftplib.c:309
+msgid "encrypted!"
+msgstr "закодовано!"
+
+#: src/ftplib.c:316
+msgid "Setting data protection level to private ... "
+msgstr "Втановлюю приватний рівень захисту данних ... "
+
+#: src/ftplib.c:332 src/ftplib.c:384 src/ftplib.c:531 src/ftplib.c:597
+#: src/ftplib.c:746 src/ftplib.c:791 src/ftplib.c:825 src/ftplib.c:848
+#: src/ftplib.c:940 src/ftplib.c:982 src/ftplib.c:1010
+msgid "done.\n"
+msgstr "завершено.\n"
+
+#: src/ftplib.c:367
+#, c-format
+msgid "done (%s).\n"
+msgstr "завершено (%s).\n"
+
+#: src/ftplib.c:386
+#, c-format
+msgid "Connection cancelled (%s)\n"
+msgstr "З'єднання відмінено (%s)\n"
+
+#: src/ftplib.c:447
+#, c-format
+msgid "done (modified on %d.%d.%d at %d:%d:%d)\n"
+msgstr "завершено (змінено %d.%d.%d at %d:%d:%d)\n"
+
+#: src/ftplib.c:481
+#, c-format
+msgid "done (%s bytes)\n"
+msgstr "завершено (%s байтів)\n"
+
+#: src/ftplib.c:552 src/ftplib.c:569 src/ftplib.c:641
+#, c-format
+msgid " failed (%s).\n"
+msgstr " помилка (%s).\n"
+
+#: src/ftplib.c:619
+msgid "Error accessing local file for getting mode"
+msgstr ""
+
+#: src/ftplib.c:644
+msgid " done.\n"
+msgstr " завершено.\n"
+
+#: src/ftplib.c:646
+msgid "\n"
+msgstr "\n"
+
+#: src/ftplib.c:669
+#, c-format
+msgid "Cannot initiate data-connection (%s)\n"
+msgstr "Не можу встановити зв'язок для передачі данних (%s)\n"
+
+#: src/ftplib.c:714
+#, c-format
+msgid "listing directory failed (%s)\n"
+msgstr "помилка перегляду теки (%s)\n"
+
+#: src/ftplib.c:743
+msgid ""
+"failed.\n"
+"Server seems not to support resuming. Restarting at 0\n"
+msgstr ""
+"невдача.\n"
+"Схоже що сервер не підтримує поновлення завантаження. Рестартую з 0\n"
+
+#: src/ftplib.c:763
+msgid "[not done, but should be allright]\n"
+msgstr "[не виконано, але все має бути гаразд]\n"
+
+#: src/ftplib.c:795
+#, c-format
+msgid "failed (%s). (disabling resuming)\n"
+msgstr "невдача (%s). (забороняю докачування)\n"
+
+#: src/ftplib.c:802
+msgid "Trying to switch PORT/PASV mode\n"
+msgstr "Пробую перемкнути PORT/PASV режим\n"
+
+#: src/ftplib.c:806 src/ftplib.c:828 src/ftplib.c:851
+#, c-format
+msgid "failed (%d %s). (skipping)\n"
+msgstr "невдача (%d %s). (пропускаю)\n"
+
+#: src/ftplib.c:820 src/ftplib.c:842 src/ftplib.c:845
+#, c-format
+msgid "failed (%s)\n"
+msgstr "невдача (%s)\n"
+
+#: src/ftplib.c:952
+msgid "connection failed.\n"
+msgstr "з'єднання не вдалося.\n"
+
+#: src/ftplib.c:970
+msgid "Trying to listen on proxy server... "
+msgstr "Намагаюсь прослуховувати через проксі сервер... "
+
+#: src/ftplib.c:973
+msgid "failed. Falling back to listen locally\n"
+msgstr "невдача. Повертаюсь до локального прослуховування\n"
+
+#: src/ftplib.c:976
+msgid ""
+"Unless FXP is enabled remotely, your control-connection should be from the "
+"same IP-address, as your PORT bind-request. So you should consider PASV-mode "
+"or reconnect without a proxy.\n"
+msgstr ""
+"Крім випадків, коли FXP дозволений на віддаленому сервері, ваше керуюче "
+"з'єднання повинне бути з тієї ж IP адреси, що і PORT запит. Тож розгляньте "
+"можливість використовувати PASV режим або перепід'єднайтесь без проксі.\n"
+
+#: src/ftplib.c:986
+msgid "Using port-mode. Unable to use the http-proxy for this connection\n"
+msgstr ""
+"Використувую port-режим. Неможливо застосувати http-проксі для цього "
+"з'єднання\n"
+
+#: src/ftplib.c:998
+msgid "Cannot determine local IP address"
+msgstr "Не вдалося визначити локальну IP адресу"
+
+#: src/utils.c:247
+#, c-format
+msgid "parse-error in escaped character: %c is not a hexadecimal character\n"
+msgstr ""
+"помилка розпізнавання спеціального символа: %c це не шіснадцятковий символ\n"
+
+#: src/utils.c:271
+#, c-format
+msgid "Waiting %d seconds... "
+msgstr "Чекаю %d секунд... "
+
+#: src/utils.c:285
+#, c-format
+msgid "No http-header found. Assuming socks-proxy $host:$port for `%s'\n"
+msgstr ""
+"Не знайдено http-заголовок. Очевидно це socks-proxy $host:$port для `%s'\n"
+
+#: src/utils.c:312
+#, c-format
+msgid "No port specified. Assuming default port %d.\n"
+msgstr "Не вказано порт. Використовую значення %d.\n"
+
+#: src/queue.c:130
+msgid "Error: Please specify a url first.\n"
+msgstr "Помилка: Будь ласка, вкажіть спочатку url.\n"
+
+#: src/queue.c:338
+#, c-format
+msgid "Error encountered but ignored during stat of `%s'.\n"
+msgstr "Виявлена помилка (але знехтую нею) під час команди stat для `%s'.\n"
+
+#: src/queue.c:345
+#, c-format
+msgid "Error encountered but ignored during opendir of `%s'.\n"
+msgstr "Виявлена помилка (але знехтую нею) під час команди opendir для `%s'.\n"
+
+#: src/queue.c:386
+msgid "Seems as though there are two equivalent entries to upload.\n"
+msgstr "Схоже я маю два однакові вхідні файли для завантаження.\n"
+
+#: src/queue.c:442
+#, c-format
+msgid "the url `%s' could not be parsed\n"
+msgstr "url `%s' не вдалось розібрати\n"
+
+#: src/queue.c:463
+msgid ""
+"Neither a remote location nor a local filename has been specified. Assuming "
+"you want to upload the current working directory to the remote server.\n"
+msgstr ""
+"Не було вказано ні віддалену адресу ні ім'я локального файлу. Припускаю, що "
+"ви хочете заватнажити поточну теку на віддалений сервер.\n"
+
+#: src/queue.c:499
+msgid ""
+"No local file specified and no file found from URL.\n"
+"Assuming the current working directory is to be uploaded to the remote "
+"server.\n"
+msgstr ""
+"Локальний файл не заданий і не вдалось виділити файл з URLу.\n"
+"Припускаю, що всю робочу теку треба завантажити на віддалений сервер.\n"
+
+#: src/queue.c:534
+#, c-format
+msgid ""
+"File `%s' does not exist. Assuming you supply its input using the -I flag.\n"
+msgstr ""
+"Файл `%s' не існує. Припустаю ви вказали його вхідні дані використовуючи "
+"параметр -I.\n"
+
+#: src/queue.c:544
+#, c-format
+msgid "File `%s' does not exist. Don't know what to do about this URL.\n"
+msgstr "Файл `%s' не існує. Не знаю що робити із отриманим URLом.\n"
+
+#: src/progress.c:337
+#, c-format
+msgid "Length: %s"
+msgstr "Довжина: %s"
+
+#: src/progress.c:341
+#, c-format
+msgid " [%s to go]\n"
+msgstr " [%s залишилось]\n"
+
+#: src/progress.c:348
+msgid ""
+"%* [ skipped %dK ]\n"
+"%* %dK "
+msgstr ""
+"%* [ пропущено %dK ]\n"
+"%* %dK "
+
+#: src/ftp-ls.c:961
+msgid "Unsupported listing type, trying Unix listing parser.\n"
+msgstr "Тип лістінгу невідомий, спроба розібрати в стилі лістингу Unix.\n"
+
+#: src/ftp-ls.c:1007 src/ftp-ls.c:1009
+#, c-format
+msgid "Index of /%s on %s:%d"
+msgstr "Лістинг каталогу /%s на %s:%d"
+
+#: src/ftp-ls.c:1032
+#, c-format
+msgid "time unknown       "
+msgstr "час невідомий       "
+
+#: src/ftp-ls.c:1036
+#, c-format
+msgid "File        "
+msgstr "Файл        "
+
+#: src/ftp-ls.c:1039
+#, c-format
+msgid "Directory   "
+msgstr "Тека   "
+
+#: src/ftp-ls.c:1042
+#, c-format
+msgid "Link        "
+msgstr "Посилання        "
+
+#: src/ftp-ls.c:1045
+#, c-format
+msgid "Not sure    "
+msgstr "Не впевнений    "
+
+#: src/ftp-ls.c:1063
+#, c-format
+msgid " (%s bytes)"
+msgstr " (%s байт)"

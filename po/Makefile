@@ -40,10 +40,10 @@ MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
-POFILES =  da.po de.po el.po es.po fi.po fr.po it.po nl.po pl.po ru.po sv.po tr.po zh.po
-GMOFILES =  da.gmo de.gmo el.gmo es.gmo fi.gmo fr.gmo it.gmo nl.gmo pl.gmo ru.gmo sv.gmo tr.gmo zh.gmo
-UPDATEPOFILES =  da.po-update de.po-update el.po-update es.po-update fi.po-update fr.po-update it.po-update nl.po-update pl.po-update ru.po-update sv.po-update tr.po-update zh.po-update
-DUMMYPOFILES =  da.nop de.nop el.nop es.nop fi.nop fr.nop it.nop nl.nop pl.nop ru.nop sv.nop tr.nop zh.nop
+POFILES =  cs.po da.po de.po el.po en_GB.po es.po fi.po fr.po gl.po it.po ja.po nl.po pl.po pt_BR.po ru.po sv.po tr.po uk.po zh_CN.po zh_HK.po
+GMOFILES =  cs.gmo da.gmo de.gmo el.gmo en_GB.gmo es.gmo fi.gmo fr.gmo gl.gmo it.gmo ja.gmo nl.gmo pl.gmo pt_BR.gmo ru.gmo sv.gmo tr.gmo uk.gmo zh_CN.gmo zh_HK.gmo
+UPDATEPOFILES =  cs.po-update da.po-update de.po-update el.po-update en_GB.po-update es.po-update fi.po-update fr.po-update gl.po-update it.po-update ja.po-update nl.po-update pl.po-update pt_BR.po-update ru.po-update sv.po-update tr.po-update uk.po-update zh_CN.po-update zh_HK.po-update
+DUMMYPOFILES =  cs.nop da.nop de.nop el.nop en_GB.nop es.nop fi.nop fr.nop gl.nop it.nop ja.nop nl.nop pl.nop pt_BR.nop ru.nop sv.nop tr.nop uk.nop zh_CN.nop zh_HK.nop
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
 $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) $(DISTFILES.common.extra3)
 DISTFILES = $(DISTFILES.common) Makevars POTFILES.in $(DOMAIN).pot stamp-po \
@@ -61,7 +61,7 @@ POTFILES = \
      ../src/progress.c \
      ../src/ftp-ls.c
 
-CATALOGS =  da.gmo de.gmo el.gmo es.gmo fi.gmo fr.gmo it.gmo nl.gmo pl.gmo ru.gmo sv.gmo tr.gmo zh.gmo
+CATALOGS =  cs.gmo da.gmo de.gmo el.gmo en_GB.gmo es.gmo fi.gmo fr.gmo gl.gmo it.gmo ja.gmo nl.gmo pl.gmo pt_BR.gmo ru.gmo sv.gmo tr.gmo uk.gmo zh_CN.gmo zh_HK.gmo
 
 # Makevars gets inserted here. (Don't remove this line!)
 # Makefile variables for PO directory in any package using GNU gettext.

@@ -89,7 +89,7 @@ int long_do_cwd(_fsession * fsession){
  * path and change there again */
 /* error-levels: ERR_RECONNECT, ERR_FAILED, ERR_SKIP (failed for '/'), 1 */
 int try_do_cwd(ftp_con * ftp, char * path, int mkd) {
-	int res;
+	int res = 0;
 	if(!strcmp(path, "."))
 		return mkd;
 	if(!strcmp(path, ".."))
@@ -187,7 +187,7 @@ int check_timestamp(_fsession * fsession) {
 	 * usually issue. add the time-deviation to permit little clock-skews 
 	 * add time_offset in case ftp-server does not issue UTC-time */
 	/* TODO USS time_deviation? + or - ? */
-	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 24 * 3600;
+	fsession->local_ftime = mktime(gmtime(&fsession->local_ftime)) - opt.time_deviation + opt.time_offset * 3600;
 	printout(vDEBUG, "timestamping: local: %d seconds\n"
 	                 "             remote: %d seconds; diff: %d\n",
 		(int) fsession->local_ftime, (int) fsession->target_ftime,
@@ -203,7 +203,7 @@ int check_timestamp(_fsession * fsession) {
 }
 
 int open_input_file(_fsession * fsession) {
-	int fd;
+	int fd = 0;
 	int oflags = O_RDONLY;
 	char * cmd;
 	FILE * pipe;
@@ -251,6 +251,8 @@ int open_input_file(_fsession * fsession) {
 		fsession->local_fsize = 2047 * 1024 * 1024;
 		opt.barstyle = 0;
 	}
+	/* TODO USS can this be reached without fd being initialised?
+	*  TODO USS i.e.: can local_fname not be set while opt.input_pipe is also not set? */
 	return fd;
 }
 /* finally this is about actually transmitting the file.
@@ -805,7 +807,7 @@ int fsession_process_file(_fsession * fsession, ftp_con * ftp) {
     } 
 
 	if(res == ERR_OK && opt.chmod) {
-		ftp_do_chmod(fsession->ftp, fsession->target_fname);
+		ftp_do_chmod(fsession->ftp, fsession->local_fname, fsession->target_fname);
 	}
 
 	/* TODO USS is there any case when do_send fails, that the whole directory 
@@ -878,8 +880,8 @@ int parse_url(_fsession * fsession, char *url) {
 			printout(vMORE, _("`%s' could not be resolved. "), host);
 			printout(vMORE, _("Assuming the proxy to do the task.\n"));
 		} else {
-			printout(vMORE, _("Error: "));
-			printout(vMORE, _("`%s' could not be resolved. "), host);
+			printout(vNORMAL, _("Error: "));
+			printout(vNORMAL, _("`%s' could not be resolved. "), host);
 			printout(vLESS, _("Skipping this URL.\n"));
 			free(url);
 			return ERR_FAILED;

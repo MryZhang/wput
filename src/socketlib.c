@@ -366,15 +366,18 @@ int socket_set_blocking(int sock, unsigned char block) {
 int socket_is_data_writeable(int s, int timeout) {
 	struct timeval t;
 	int res = 0;
+	int errno_saved;
 	fd_set inSet;
 	FD_ZERO(&inSet);
 	t.tv_sec = timeout / 10;
 	t.tv_usec= (timeout % 10) * 100;
 	FD_SET(s, &inSet);
 	printout(vDEBUG, "Checking whether %d is writable... ", s);
+	errno = 0;
 	res = select(s+1, NULL, &inSet, NULL, &t);
+	errno_saved = errno;
 	printout(vDEBUG, "%d (%d:%s)\n", res, errno, strerror(errno));
-	if(errno > 0 && errno != EINPROGRESS)
+	if(errno_saved > 0 && errno_saved != EINPROGRESS)
 		return 0;
 	return res;
 }
@@ -392,16 +395,9 @@ int socket_is_data_readable(int s, int timeout) {
 wput_socket * socket_timeout_connect(wput_socket * sock, struct sockaddr *remote_addr, size_t size, int timeout) {
   int c = 0;
   printout(vDEBUG, "initiating timeout connect (%d)\n", timeout);
-#ifdef WIN32
-  /* reset errno before connecting. otherwise connection might "fail" for:
-   * no such file or directory ;) */
-  errno = 0;
-#endif
   socket_set_blocking(sock->fd, 0);
   c = connect(sock->fd,remote_addr,size);
-  /* here was a check also for errno != 36 (FILENAMETOOLONG)
-   * maybe this was EINPROGRESS on another system? */
-  if(errno > 0 && errno != EINPROGRESS) {
+  if(c < 0 && errno > 0 && errno != EINPROGRESS) {
 	printout(vMORE, "[%s]", strerror(errno));
 	return NULL;
   }
@@ -425,13 +421,13 @@ wput_socket * proxy_init(proxy_settings * ps) {
 	char t[4] = {5, 1, 0};
 	wput_socket * sock = socket_connect(ps->ip, ps->port);
 	int res;
-    printout(vDEBUG, "proxy-sock: %d\n", sock->fd);
 	if(!sock) {
 		printout(vNORMAL, _("failed.\n"));
 		printout(vLESS, _("Error: "));
 		printout(vLESS, _("Connection to proxy cannot be established.\n"));
 		return NULL;
 	}
+	printout(vDEBUG, "proxy-sock: %d\n", sock->fd);
     
     if(ps->user && ps->pass) {
         t[1] = 2;
