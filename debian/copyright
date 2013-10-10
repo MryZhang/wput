@@ -25,9 +25,10 @@ License: LGPL-2+
 
 Files: debian/*
 Copyright:
-   2009-2012 Jari Aalto <jari.aalto@cante.net>
-   2008      Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
    2004-2006 Khalid El Fathi <invent@edena-fr.org>
+   2008      Cyril Brulebois <cyril.brulebois@enst-bretagne.fr>
+   2009-2012 Jari Aalto <jari.aalto@cante.net>
+   2013      Stephen Kitt <skitt@debian.org>
 License: GPL-2+
 
 Files: src/msvcpp/strptime.c
