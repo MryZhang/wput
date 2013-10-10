@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 9), libgnutls-dev, autotools-dev
 Standards-Version: 3.9.3.1
 Vcs-Browser: http://git.debian.org/?p=collab-maint/wput.git
 Vcs-Git: git://git.debian.org/git/collab-maint/wput.git
-Homepage: http://freshmeat.net/projects/wput
+Homepage: http://wput.sourceforge.net/
 
 Package: wput
 Architecture: any

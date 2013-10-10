@@ -2,12 +2,9 @@ Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0
 Upstream-Name: wput
 Upstream-Contact: Hagen Fritsch <hagen@itooktheredpill.dyndns.org>,
  <rumpeltux@users.sf.net>
-Source: http://freshmeat.net/projects/wput
+Source: http://wput.sourceforge.net
 X-Upstream-Vcs: git://wput.git.sourceforge.net/gitroot/wput/wput
 X-Upstream-Bugs: https://sourceforge.net/tracker/?group_id=141519&atid=749613
-X-Source:
- http://www.sourceforge.net/projects/wput
- http://wput.sourceforge.net
 X-Upstream-Comment:
  Unresponsive upstream. Forwarded bugs to sourceforge are automatically
  closed and no actions are being taken to fix or improve the software.
