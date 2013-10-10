@@ -12,6 +12,7 @@ wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
     config.status.
   * Use canonical VCS URIs.
   * Standards-Version 3.9.4, no change required.
+  * Drop -Wl,--as-needed, it prevents configure finding gnutls.
 
  -- Stephen Kitt <skitt@debian.org>  Thu, 10 Oct 2013 23:25:56 +0200
 
