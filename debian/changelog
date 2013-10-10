@@ -1,4 +1,4 @@
-wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
+wput (0.6.2+git20130413-1) unstable; urgency=low
 
   * New maintainer, thanks Jari for all your work on this package!
     (Closes: #701867.)
@@ -15,7 +15,7 @@ wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
   * Drop -Wl,--as-needed, it prevents configure finding gnutls.
   * Test gnutls without gcrypt. (Closes: #638663.)
 
- -- Stephen Kitt <skitt@debian.org>  Thu, 10 Oct 2013 23:25:56 +0200
+ -- Stephen Kitt <skitt@debian.org>  Fri, 11 Oct 2013 01:10:08 +0200
 
 wput (0.6.2-3) unstable; urgency=low
 
