@@ -1,0 +1,14 @@
+Description: Drop -lgcrypt when testing for gnutls
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/configure.in
++++ b/configure.in
+@@ -129,7 +129,7 @@
+ 
+ 		AC_CACHE_CHECK([for GNUTLS libraries], ac_cv_gnutls_libs,
+ 		[
+-			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgcrypt -lgnutls-openssl"
++			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgnutls-openssl"
+ 			AC_TRY_LINK_FUNC(gnutls_init, gnutls_libs="yes", gnutls_libs="no")
+ 			LDFLAGS="$LDFLAGS_save"
+ 		])
