@@ -4,6 +4,8 @@ wput (0.6.2+git20130413-1) UNRELEASED; urgency=low
     (Closes: #701867.)
   * New upstream snapshot.
   * Drop patches 10 and 12, fixed upstream.
+  * Refresh patch 11, and move _XOPEN_SOURCE declaration from debian/rules
+    to the patch.
 
  -- Stephen Kitt <skitt@debian.org>  Thu, 10 Oct 2013 23:25:56 +0200
 
