@@ -1,14 +1,6 @@
-From 14ecf6a51daf7c886c7eb327f3d31aeab4f05cdf Mon Sep 17 00:00:00 2001
 From: Jari Aalto <jari.aalto@cante.net>
 Date: Tue, 15 Dec 2009 23:35:33 +0200
 Subject: [PATCH] src/Makefile.in: add CFLAGS_EXTRA
-
-
-Signed-off-by: Jari Aalto <jari.aalto@cante.net>
----
- Makefile.in     |   18 +++++++++---------
- src/Makefile.in |    2 +-
- 2 files changed, 10 insertions(+), 10 deletions(-)
 
 --- a/src/Makefile.in
 +++ b/src/Makefile.in
@@ -23,33 +15,24 @@ Signed-off-by: Jari Aalto <jari.aalto@cante.net>
  GETOPT=@GETOPT@
 --- a/Makefile.in
 +++ b/Makefile.in
-@@ -1,7 +1,7 @@
- #wput makefile
--PACKAGE     = @PACKAGE@
--prefix      = @prefix@
--datadir     = $(prefix)/share
-+PACKAGE	    = @PACKAGE@
-+prefix	    = @prefix@
-+datadir	    = $(prefix)/share
- mandir	    = $(datadir)/man/man1
- exec_prefix = @exec_prefix@
- bindir=@bindir@
-@@ -16,12 +16,12 @@
+@@ -17,11 +17,11 @@
  
  install: all
  	cd po && $(MAKE) $(MAKEDEFS) $@
--	mkdir -p $(bindir) 
--	mkdir -p $(mandir) 
--	install -m0755 wput $(bindir)
--	install -m0644 doc/wput.1.gz $(mandir)
--	ln -s $(bindir)/wput $(bindir)/wdel
--	install -m0644 doc/wdel.1.gz $(mandir)
-+	install -m 755 -d  $(DESTDIR)$(bindir)
-+	install -m 755 -d  $(DESTDIR)$(mandir)
-+	install -m0755 wput $(DESTDIR)$(bindir)
-+	install -m0644 doc/wput.1.gz $(DESTDIR)$(mandir)
-+	cd $(DESTDIR)$(bindir) && ln -s wput wdel
-+	install -m0644 doc/wdel.1.gz $(DESTDIR)$(mandir)
+-	mkdir -p $(destdir)$(bindir) 
+-	mkdir -p $(destdir)$(mandir) 
++	install -m0755 -d $(destdir)$(bindir)
++	install -m0755 -d $(destdir)$(mandir)
+ 	install -m0755 wput $(destdir)$(bindir)
+ 	install -m0644 doc/wput.1.gz $(destdir)$(mandir)
+-	ln -fs $(destdir)$(bindir)/wput $(destdir)$(bindir)/wdel
++	cd $(destdir)$(bindir) && ln -s wput wdel
+ 	install -m0644 doc/wdel.1.gz $(destdir)$(mandir)
  	@echo "----------------"
  	@echo "Wput and Wdel installed. See 'wput/wdel -h' or 'man wput/wdel' for"
- 	@echo "usage information."
+@@ -36,4 +36,4 @@
+ 	rm -f $(destdir)$(bindir)/wdel
+ 	rm -f $(destdir)$(mandir)/wput.1.gz
+ 	rm -f $(destdir)$(mandir)/wdel.1.gz
+-	
++

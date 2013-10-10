@@ -1,8 +1,5 @@
 From: Jari Aalto <jari.aalto@cante.net>
 Subject: Order alphabetically, use GNU -o, --option format
----
- doc/wput.1 |  381 ++++++++++++++++++++++++-------------------------------------
- 1 file changed, 150 insertions(+), 231 deletions(-)
 
 --- a/doc/wput.1
 +++ b/doc/wput.1
@@ -79,7 +76,7 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.PD
 +.SS "Logging and Input File Options"
 +.TP
-+.BR -a " " LOGFILE ", " --append-output=LOGFILE
++.BR \-a " \fIlogfile\fP, " \-\-append-output =\fIlogfile\fP
  Append all logged messages to \fIlogfile\fR.
 -.IP "\fB\-q\fR" 4
 -.IX Item "-q"
@@ -102,7 +99,7 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IP "\fB\-\-less\-verbose\fR" 4
 -.IX Item "--less-verbose"
 -.PD
--Be less verbose. That means reducing Wput's output to a minimun. Specifiing
+-Be less verbose. That means reducing Wput's output to a minimum. Specifiing
 -this flag more often is equal to the \-\-quiet flag.
 -Some people also like combining the \-v and \-nv flags, being quite senseless.
 -.IP "\fB\-i\fR \fIfile\fR" 4
@@ -112,13 +109,13 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--input-file=file"
 -.PD
 +.TP
-+.BR --basename=PATH
++.BR \-\-basename =\fIpath\fP
 +This option causes Wput to snip \fIpath\fR from all input\-files when they are
 +connected to the URL. wput /usr/share/doc.tgz ftp://host/ would create
 +ftp://host//usr/share/doc.tgz, whereas specifying /usr/share/ as basename will
 +result in ftp://host/doc.tgz being created.
 +.TP
-+.BR -i " " FILE ", " --input-file=FILE
++.BR \-i " \fIfile\fP, " \-\-input-file =\fIfile\fP
  Reads URLs and filenames from \fIfile\fR. If there are URLs on the command-line
  too, these will be retrieved first, unless sorting is enabled.
  See also the URL-Input-Handling section.
@@ -135,7 +132,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  Do \fBnot\fR do things like \fIfind | wput ftp://host/ \-i \-\fR!
  Wput would upload all files from the current directory (since the first output
  of find will be '.') and afterwards each file again (since find postes its name to Wput. And further problematic is that Wput will upload each directory that
-@@ -137,187 +83,157 @@
+@@ -137,188 +83,157 @@
  Use \fIwput ftp://host/\fR to upload everything from the local directory.
  Or use \fIfind ! \-type d | wput ftp://host/ \-i \-\fR to tell find, not to
  output directories.
@@ -164,7 +161,7 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--input-pipe=command"
 -.PD
 +.TP
-+.BR -I " " COMMAND ", " --input-pipe=COMMAND
++.BR \-I " \fIcommand\fP, " \-\-input\-pipe= \fIcommand\fP
  If no file/directory can be "guessed" (see "Guessing Local File") from the URL,
  the output of \fIcommand\fB is taken as file-input. command is invoked as follows:
 -.PP
@@ -186,29 +183,29 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--remove-source-files"
 -.PD
 +.TP
-+.BR -nv ", " --less-verbose
-+Be less verbose. That means reducing Wput's output to a minimun. Specifiing
++.BR \-nv ", " \-\-less\-verbose
++Be less verbose. That means reducing Wput's output to a minimum. Specifying
 +this flag more often is equal to the \-\-quiet flag.
 +Some people also like combining the \-v and \-nv flags, being quite senseless.
 +.TP
-+.BR -o " " LOGFILE ", " --output-file=LOGFILE
-+Log all messages to \fIlogfile\fR.
++.BR \-o " \fIlogfile\fP, " \-\-output\-file =\fIlogfile\fP
++Log all messages to \fIlogfile\fP.
 +.TP
-+.BR -q ", " --quiet
++.BR \-q ", " \-\-quiet
 +Turn off Wput's output.
 +.TP
-+.BR -R ", " --remove-source-files
++.BR \-R ", " \-\-remove\-source\-files
  Unlinks/deletes files that have been successfully transmitted.
 -.SH "Upload Options"
 +.TP
-+.BR -s ", " --sort
++.BR \-s ", " \-\-sort
 +If sorting is enabled Wput first reads all URLs from any input-devices available
 +and will sort them before transmitting each file.
 +
 +The sorting order is: ip/hostname, port, username, password, directory, filename.
-+Sorting requires a bit more memory since all data needs to be hold there.
++Sorting requires a bit more memory since all data needs to be held there.
 +.TP
-+.BR -v ", " --verbose
++.BR \-v ", " \-\-verbose
 +Turn on verbose output. This gives some more information about what Wput
 +does. If you specify this flag twice, you get debug output.
 +
@@ -220,23 +217,23 @@ Subject: Order alphabetically, use GNU -o, --option format
 -the local machine.  \fI\s-1ADDRESS\s0\fR may be specified as a hostname or \s-1IP\s0
 -address.  This option can be useful if your machine is bound to multiple
 +.TP
-+.BR -A ", " --ascii
++.BR \-A ", " \-\-ascii
 +Wput automatically determines which transfer\-format to use, by looking at
 +the file-extensions. Certain files are recognized as ASCII. These are:
-+txt, c, java, cpp, sh, f, f90, f77, f95, bas, pro, csh, ksh, conf, htm, html, php, pl, cgi, inf, js, asp, bat, cfm, css, dhtml, diz, h, hpp, ini, mak, nfo, shtml, shtm, tcl, pas
++txt, c, java, cpp, sh, f, f90, f77, f95, bas, pro, csh, ksh, conf, htm, html, php, pl, cgi, ing, js, asp, bat, cfm, css, dhtml, diz, h, hpp, ini, mak, nfo, shtml, shtm, tcl, pas
 +
 +Specifying this flag forces Wput to use ASCII mode file transfers.
 +.TP
-+.BR -b ", " --background
++.BR \-b ", " \-\-background
 +Go to background immediately after startup.  If no output file is given,
 +wput will redirect its output to "./wputlog"
 +.TP
-+.BR -B ", " --binary
++.BR \-B ", " \-\-binary
 +Specifying this flag forces Wput to use BINARY mode file transfers.
 +.TP
-+.BR --bind-address=ADDRESS
-+When making client TCP/IP connections, bind() to ADDRESS to
-+\fI\s-1ADDRESS\s0\fR on the local machine. \fI\s-1ADDRESS\s0\fR may be
++.BR \-\-bind\-address =\fIaddress\fP
++When making client TCP/IP connections, bind() to \fIaddress\fP to
++\fI\s-1address\s0\fP on the local machine. \fI\s-1address\s0\fP may br
 +specified as a hostname or \s-1IP\s0 address. This option can be
 +useful if your machine is bound to multiple
  IPs.
@@ -254,15 +251,15 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IP "\fB\-\-dont\-continue\fR" 4
 -.IX Item "--dont-continue"
 -.PD
-+.BR --force-tls
++.BR \-\-force\-tls
 +If this flag is specified and Wput is linked with the OpenSSL-library, the flag
 +enforces the usage of TLS: If no TLS\-connection can be established the process
 +will cancel and not try to go on with an unencrypted connection.
 +.SS "Basic Startup Options"
 +.TP
-+.BR -l " " RATE ", " --limit-rate=RATE
++.BR \-l " \fIrate\fP, " \-\-limit\-rate =\fIrate\fP
 +If you don't want Wput to eat up all available bandwidth, specify this flag.
-+\fIRATE\fR is a numeric value. The units 'K' (for KiB) and 'M' (for MiB) are
++\fIrate\fP is a numeric value. The units 'K' (for KiB) and 'M' (for MiB) are
 +understood.
 +
 +The upload rate is limited on average, meaning that if you limit the rate to
@@ -270,11 +267,11 @@ Subject: Order alphabetically, use GNU -o, --option format
 +send (if possible) afterwards more than 10K until the average rate of 10K is
 +fulfilled.
 +.TP
-+.BR -m ", " --chmod
++.BR \-m ", " \-\-chmod
 +This will change the access mode of the transferred files. The format is the
 +three-digit octal unix mode, e.g. 644 means rw-r--r--.
 +.TP
-+.BR -nc ", " --dont-continue
++.BR \-nc ", " \-\-dont\-continue
  If this flag is specified, resuming will be turned off, meaning that a remote
  file being smaller than the local one will be overwritten. To skip this file,
  you have to enable \-\-skip\-existing.
@@ -306,7 +303,7 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--timestamping"
 -.PD
 +.TP
-+.BR -N ", " --timestamping
++.BR \-N ", " \-\-timestamping
  If timestamping is enabled, Wput will retrieve a directory list and parse it to
  determine the remote file\-date. If the local file is newer than the remote one
  (there is a default allowed timevariance of 5 seconds, which can be adjusted in
@@ -349,26 +346,26 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IP "\fB\-\-proxy-user=\fR\fINAME\fR" 4
 -.IX Item "--proxy-user=NAME"
 +.TP
-+.BR -p ", " --port-mode
++.BR \-p ", " \-\-port\-mode
 +Per default, Wput uses passive mode ftp, which works well for most
 +configurations. If passive mode fails, Wput automatically falls back to
 +port mode.
 +
 +If you want Wput to start using port mode ftp, specify this flag.
 +.TP
-+.BR --proxy=MODE
-+Alias is option \-Y. The MODE can be either \fIhttp\fR for http-based
-+proxies (such as SQUID), \fIsocks\fR for SOCKSv5 proxies or \fIoff\fR
++.BR \-\-proxy =\fImode\fP
++Alias is option \-Y. The \fImode\fP can be either \fIhttp\fR for http-based
++proxies (such as SQUID), \fIsocks\fP for SOCKSv5 proxies or \fIoff\fP
 +to disable the proxy.
 +.TP
-+.BR --proxy-user=NAME
++.BR \-\-proxy-user =\fIname\fP
  If the proxy\-server requires authentication, use \fINAME\fR as user-name.
  You need to specify \-\-proxy-pass too. These information can also be
  stored in the wputrc\-file.
 -.IP "\fB\-\-proxy-pass=\fR\fIPASS\fR" 4
 -.IX Item "--proxy-pass=PASS"
 +.TP
-+.BR --proxy-pass=PASSWORD
++.BR \-\-proxy\-pass =\fIpassword\fP
  Specifies the password to use for the proxy.
 -.SH "FTP Options"
 +.SS "FTP Options"
@@ -400,52 +397,53 @@ Subject: Order alphabetically, use GNU -o, --option format
 -.IX Item "--binary"
 -.PD
 -Specifying this flag forces Wput to use BINARY mode file transfers.
--.IP "\fB\-m\fR" 4
+-.IP "\fB\-m\fR\fIMODE\fR" 4
 -.IX Item "-m"
 -.PD 0
--.IP "\fB\-\-chmod\fR" 4
--.IX Item "--chmod"
+-.IP "\fB\-\-chmod=\fR\fIMODE\fR" 4
+-.IX Item "--chmod="
 -.PD
 -This will change the access mode of the transferred files. The format is the
--three-digit octal unix mode, e.g. 644 means rw-r--r--.
+-normal octal unix mode, e.g. 644 means rw-r--r--.
+-If \fIMODE\fR is omitted, the mode of the local file will be used.
 -.IP "\fB\-\-force-tls\fR" 4
 -.IX Item "--force-tls"
 -If this flag is specified and Wput is linked with the OpenSSL-library, the flag
 -enforces the usage of TLS: If no TLS\-connection can be established the process
 -will cancel and not try to go on with an unencrypted connection.
 +.TP
-+.BR --no-directories
++.BR \-\-no\-directories
 +If Wput is unable to CWD into a directory, it will try to create it. If this
 +is not the desired behaviour specify this flag to force Wput not to create
 +any directories.
 +.TP
-+.BR -t " " NUMBER ", " --tries=NUMBER
-+Set number of retries to \fInumber\fR. Specify \-1 for infinite retrying,
++.BR \-t " \fInumber\fP, " \-\-tries =\fInumber\fP
++Set number of retries to \fInumber\fP. Specify \-1 for infinite retrying,
 +which is default, too.
 +.TP
-+.BR -u ", " --reupload
++.BR \-u ", " \-\-reupload
 +If this flag is specified, a remote file having the same size as the local one
 +is to be uploaded. Skipping is default.
 +.TP
-+.BR --skip-larger
++.BR \-\-skip\-larger
 +If this flag is specified, a remote file being larger than the local one will
 +be skipped. Default is reuploading it.
 +.TP
-+.BR --skip-existing
++.BR \-\-skip\-existing
 +If this flag is specified, the upload of a file will be skipped if the remote
 +file already exists.
 +.SS General options
 +.TP
-+.BR -V ", " --version
++.BR \-V ", " \-\-version
 +Display the version of wput.
 +.TP
-+.BR -h ", " --help
++.BR \-h ", " \-\-help
 +Print a help screen, with a short description of wput's command-line options.
 +
  .SH DIAGNOSTICS
  Normally, the exit status is 0 if either everything went fine or there was nothing
  to do.
-@@ -326,6 +242,7 @@
+@@ -327,6 +242,7 @@
  remote error, exit status is 2. If some files failed and some others were skipped,
  exit status is 3. For general problems like failure of some system-functions the
  exit status is 4.
@@ -453,7 +451,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH BUGS
  .IX Header "BUGS"
  .PD
-@@ -338,11 +255,12 @@
+@@ -339,11 +255,12 @@
  analysing the problem. If you use a wputrc file, it might also be useful
  to provide the relevant parts of it.
  .PP 0
@@ -471,7 +469,7 @@ Subject: Order alphabetically, use GNU -o, --option format
  .SH "SEE ALSO"
  .IX Header "SEE ALSO"
  Many options can be set in a wputrc file. For its documentation consult the
-@@ -350,6 +268,7 @@
+@@ -351,6 +268,7 @@
  .PD 0
  There are some USAGE.* files in the doc/ directory of Wput. These contain
  further information and samples on how to use Wput.
