@@ -7,6 +7,7 @@ wput (0.6.2+git20130413-3) UNRELEASED; urgency=medium
   * Correct debian/copyright.
   * Simplify the build.
   * Fix spelling of "Transferred".
+  * Standards-Version 3.9.6, no change required.
 
  -- Stephen Kitt <skitt@debian.org>  Fri, 16 Oct 2015 17:50:10 +0200
 
