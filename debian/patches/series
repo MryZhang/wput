@@ -1,3 +1,4 @@
+spelling-fixes.patch
 11-src--ftp-ls.c-compiling-fixes.patch
 13-configure.in--gcrypt-link.patch
 30-man-doc--wput.1-hyphens.patch

@@ -1,0 +1,373 @@
+Description: Spelling fixes
+Author: Stephen Kitt <skitt@debian.org>
+
+--- a/po/cs.po
++++ b/po/cs.po
+@@ -66,12 +66,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Přeneseno %s bytů ze souboru %d ze %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Přeneseno %s bytů ze souborů %d ze %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/da.po
++++ b/po/da.po
+@@ -63,12 +63,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Overførte %s bytes i %d fil på %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Overførte %s bytes i %d filer på %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/de.po
++++ b/po/de.po
+@@ -68,12 +68,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Es wurden %s Bytes in %d Datei bei durchschnittlich %s übertragen.\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Es wurden %s Bytes in %d Dateien bei durchschnittlich %s übertragen.\n"
+ 
+ #: src/wput.c:238
+--- a/po/el.po
++++ b/po/el.po
+@@ -67,12 +67,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Μεταφέρθηκαν %s bytes σε %d αρχεία με %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Μεταφέρθηκαν %s bytes από %d αρχεία σε %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/en_GB.po
++++ b/po/en_GB.po
+@@ -65,12 +65,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Transferred %s bytes in %d file at %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Transferred %s bytes in %d files at %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/es.po
++++ b/po/es.po
+@@ -67,12 +67,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "%s bytes transferidos en archivo %d a %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "%s bytes transferidos en %d archivos a %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/fi.po
++++ b/po/fi.po
+@@ -68,12 +68,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Siirretty %s tavua %d tiedostossa nopeudella %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Siirretty %s tavua %d tiedostossa nopeudella %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/fr.po
++++ b/po/fr.po
+@@ -66,12 +66,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "%s octets transférés dans %d fichier à %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "%s octets transférés dans %d fichiers à %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/gl.po
++++ b/po/gl.po
+@@ -66,12 +66,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Transferidos %s bytes a %d ficheiro en %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Transferidos %s bytes a %d ficheiros en %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/it.po
++++ b/po/it.po
+@@ -69,12 +69,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Trasferiti %s bytes in %d file a %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Trasferiti %s bytes in %d files a %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/ja.po
++++ b/po/ja.po
+@@ -61,12 +61,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:238
+--- a/po/nl.po
++++ b/po/nl.po
+@@ -68,12 +68,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "%s bytes getransporteerd naar %d bestand op %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "%s bytes getransporteerd naar %d bestanden op %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/pl.po
++++ b/po/pl.po
+@@ -66,12 +66,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Przetransferowano %s bajtów w pliku %d z prędkością %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/pt_BR.po
++++ b/po/pt_BR.po
+@@ -65,12 +65,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Transferido %s bytes no arquivo %d até %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Transferido %s bytes no %d arquivo até %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/ru.po
++++ b/po/ru.po
+@@ -64,12 +64,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Передано %s байт (файлов: %d) за %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Передано %s байт (файлов: %d) за %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/sv.po
++++ b/po/sv.po
+@@ -61,12 +61,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:238
+--- a/po/tr.po
++++ b/po/tr.po
+@@ -66,12 +66,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Transfer edildi %s byte %d dosyada %s 'de\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Transfer edildi %s byte %d dosyalarda %s 'de\n"
+ 
+ #: src/wput.c:238
+--- a/po/uk.po
++++ b/po/uk.po
+@@ -68,12 +68,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "Передано %s байт в %d файлі на швидкості %s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "Передано %s байт в %d файлах на швидкості %s\n"
+ 
+ #: src/wput.c:238
+--- a/po/wput.pot
++++ b/po/wput.pot
+@@ -60,12 +60,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:238
+--- a/po/zh_CN.po
++++ b/po/zh_CN.po
+@@ -63,12 +63,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr "已传输 %s 字节、%d 文件在%s\n"
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr "已传输 %s 字节、%d 文件在%s\n"
+ 
+ #: src/wput.c:238
+--- a/po/zh_HK.po
++++ b/po/zh_HK.po
+@@ -61,12 +61,12 @@
+ 
+ #: src/wput.c:227
+ #, c-format
+-msgid "Transfered %s bytes in %d file at %s\n"
++msgid "Transferred %s bytes in %d file at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:228
+ #, c-format
+-msgid "Transfered %s bytes in %d files at %s\n"
++msgid "Transferred %s bytes in %d files at %s\n"
+ msgstr ""
+ 
+ #: src/wput.c:238
+--- a/src/wput.c
++++ b/src/wput.c
+@@ -224,8 +224,8 @@
+ 	if(opt.transfered > 0) {
+ 		if(!opt.wdel) {
+ 			printout(vNORMAL, opt.transfered == 1 ?
+-			_("Transfered %s bytes in %d file at %s\n") : 
+-			_("Transfered %s bytes in %d files at %s\n"), 
++			_("Transferred %s bytes in %d file at %s\n") : 
++			_("Transferred %s bytes in %d files at %s\n"), 
+ 				legible(opt.transfered_bytes),
+ 				opt.transfered,
+ 				calculate_transfer_rate(
