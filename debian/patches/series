@@ -3,3 +3,4 @@
 30-man-doc--wput.1-hyphens.patch
 31-wput.1--option-order.patch
 40-src--Makefile.in.patch
+handle-ascii-conversions.patch

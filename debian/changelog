@@ -1,3 +1,10 @@
+wput (0.6.2+git20130413-3) UNRELEASED; urgency=medium
+
+  * Account for ASCII conversions when calculating buffer limits; thanks
+    to 左刚 for the patch! (Closes: #492950, #801949.)
+
+ -- Stephen Kitt <skitt@debian.org>  Fri, 16 Oct 2015 17:50:10 +0200
+
 wput (0.6.2+git20130413-2) unstable; urgency=low
 
   * Build-depend on libgnutls-openssl-dev, thanks Andreas Metzler for the
