@@ -1,51 +1,12 @@
 #!/usr/bin/make -f
 
-PACKAGE = wput
-
-include debian/debian-vars.mk
-include debian/debian-autotools.mk
-include debian/debian-save-restore.mk
-
-# Original sources modified by build process
-FILE_LIST_PRESERVE = \
- Makefile \
- po/Makefile \
- po/Makefile.in \
- src/Makefile \
- src/config.h
-
 export DEB_BUILD_MAINT_OPTIONS	= hardening=+all
 export DEB_CFLAGS_MAINT_APPEND	= -Wall -pedantic
 
-DEBFLAGS = $(CFLAGS) $(CPPFLAGS) $(LDFLAGS)
-
-override_dh_auto_configure:
-	$(config-save)
-	$(config-patch)
-	dh_auto_configure
-	$(config-restore)
-
-override_dh_auto_build:
-	$(MAKE) -C src CC="$(CC) $(DEBFLAGS)"
-	# Copy this compiling result. The dh_auto_install step causes
-	# recompilation (without our flags).
-	cp --archive wput wput.hardened
-	$(MAKE) -C po
-
-override_dh_install:
-	dh_install
-	# Replace binary with one compiled with our flags
-	install -m 755 wput.hardened $(CURDIR)/debian/$(PACKAGE)/usr/bin/wput
-	$(file-state-restore-copy)
-
 override_dh_auto_clean:
-	rm -f po/stamp-po
-	$(file-state-save)
 	touch config.status
 	dh_auto_clean
-	rm -f config.status config.status.lineno po/*.gmo
+	rm -f config.status
 
 %:
-	dh $@
-
-# End of file
+	dh $@ --with autotools-dev

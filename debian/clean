@@ -1,8 +1,14 @@
 config.cache
 config.log
+config.status
+config.status.lineno
 doc/*.1.gz
+Makefile
 po/Makefile
 po/Makefile.in
+po/*.gmo
+po/stamp-po
+src/Makefile
 src/*.o
 wput
 wput.hardened
