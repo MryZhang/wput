@@ -1,7 +1,8 @@
 config.cache
 config.log
+doc/*.1.gz
+po/Makefile
+po/Makefile.in
+src/*.o
 wput
 wput.hardened
-src/*.o
-.pc/.version
-doc/*.1.gz
