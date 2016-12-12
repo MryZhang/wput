@@ -1,4 +1,4 @@
-wput (0.6.2+git20130413-4) UNRELEASED; urgency=medium
+wput (0.6.2+git20130413-4) unstable; urgency=medium
 
   * Switch to https: VCS URIs (see #810378).
   * Add patch to avoid overrunning buffers, thanks to Oldřich Jedlička.
@@ -7,7 +7,7 @@ wput (0.6.2+git20130413-4) UNRELEASED; urgency=medium
   * Standards-Version 3.9.8, no change required.
   * Add more spelling fixes.
 
- -- Stephen Kitt <skitt@debian.org>  Fri, 22 Jan 2016 18:51:39 +0100
+ -- Stephen Kitt <skitt@debian.org>  Mon, 12 Dec 2016 21:57:19 +0100
 
 wput (0.6.2+git20130413-3) unstable; urgency=medium
 
