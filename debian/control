@@ -1,16 +1,19 @@
 Source: wput
+Maintainer: Stephen Kitt <skitt@debian.org>
 Section: web
 Priority: optional
-Maintainer: Stephen Kitt <skitt@debian.org>
-Build-Depends: debhelper (>= 9), libgnutls-openssl-dev, autotools-dev
-Standards-Version: 3.9.6
+Build-Depends: debhelper (>= 9),
+               libgnutls-openssl-dev,
+               autotools-dev
+Standards-Version: 3.9.8
 Vcs-Browser: https://anonscm.debian.org/cgit/collab-maint/wput.git
 Vcs-Git: https://anonscm.debian.org/git/collab-maint/wput.git
 Homepage: http://wput.sourceforge.net/
 
 Package: wput
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
+Depends: ${misc:Depends},
+         ${shlibs:Depends}
 Description: tiny wget-like ftp-client for uploading files
  Wput is a tiny ftp-client, that uploads files or directories to a
  remote ftp-server.
