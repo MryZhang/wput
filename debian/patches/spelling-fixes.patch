@@ -18,6 +18,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Přeneseno %s bytů ze souborů %d ze %s\n"
  
  #: src/wput.c:238
+@@ -164,7 +164,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr ""
+ 
+ #: src/wput.c:696
 --- a/po/da.po
 +++ b/po/da.po
 @@ -63,12 +63,12 @@
@@ -35,6 +44,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Overførte %s bytes i %d filer på %s\n"
  
  #: src/wput.c:238
+@@ -161,7 +161,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Ukendt værdi '%s' for '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/de.po
 +++ b/po/de.po
 @@ -68,12 +68,12 @@
@@ -52,6 +70,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Es wurden %s Bytes in %d Dateien bei durchschnittlich %s übertragen.\n"
  
  #: src/wput.c:238
+@@ -171,7 +171,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Unbekannter Wert »%s« für »%s«.\n"
+ 
+ #: src/wput.c:696
 --- a/po/el.po
 +++ b/po/el.po
 @@ -67,12 +67,12 @@
@@ -69,6 +96,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Μεταφέρθηκαν %s bytes από %d αρχεία σε %s\n"
  
  #: src/wput.c:238
+@@ -169,7 +169,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Άγνωστη τιμή '%s' για '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/en_GB.po
 +++ b/po/en_GB.po
 @@ -65,12 +65,12 @@
@@ -86,6 +122,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Transferred %s bytes in %d files at %s\n"
  
  #: src/wput.c:238
+@@ -165,7 +165,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Unknown value '%s' for '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/es.po
 +++ b/po/es.po
 @@ -67,12 +67,12 @@
@@ -103,6 +148,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "%s bytes transferidos en %d archivos a %s\n"
  
  #: src/wput.c:238
+@@ -169,7 +169,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Valor desconocido '%s' de '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/fi.po
 +++ b/po/fi.po
 @@ -68,12 +68,12 @@
@@ -120,6 +174,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Siirretty %s tavua %d tiedostossa nopeudella %s\n"
  
  #: src/wput.c:238
+@@ -168,7 +168,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Arvoa \"%s\" ei voida antaa valitsimelle \"%s\"\n"
+ 
+ #: src/wput.c:696
 --- a/po/fr.po
 +++ b/po/fr.po
 @@ -66,12 +66,12 @@
@@ -137,6 +200,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "%s octets transférés dans %d fichiers à %s\n"
  
  #: src/wput.c:238
+@@ -167,7 +167,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Valeur '%s'  inconnue pour '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/gl.po
 +++ b/po/gl.po
 @@ -66,12 +66,12 @@
@@ -154,6 +226,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Transferidos %s bytes a %d ficheiros en %s\n"
  
  #: src/wput.c:238
+@@ -168,7 +168,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Valor descoñecido '%s' para '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/it.po
 +++ b/po/it.po
 @@ -69,12 +69,12 @@
@@ -171,6 +252,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Trasferiti %s bytes in %d files a %s\n"
  
  #: src/wput.c:238
+@@ -169,7 +169,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Valore sconosciuto '%s' per '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/ja.po
 +++ b/po/ja.po
 @@ -61,12 +61,12 @@
@@ -188,6 +278,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr ""
  
  #: src/wput.c:238
+@@ -159,7 +159,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr ""
+ 
+ #: src/wput.c:696
 --- a/po/nl.po
 +++ b/po/nl.po
 @@ -68,12 +68,12 @@
@@ -205,6 +304,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "%s bytes getransporteerd naar %d bestanden op %s\n"
  
  #: src/wput.c:238
+@@ -166,7 +166,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Onbkende waarde '%s' voor '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/pl.po
 +++ b/po/pl.po
 @@ -66,12 +66,12 @@
@@ -222,6 +330,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Przetransferowano %s bajtów w pliku %d z prędkością %s\n"
  
  #: src/wput.c:238
+@@ -167,7 +167,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Nieznana wartość '%s' dla '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/pt_BR.po
 +++ b/po/pt_BR.po
 @@ -65,12 +65,12 @@
@@ -239,6 +356,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Transferido %s bytes no %d arquivo até %s\n"
  
  #: src/wput.c:238
+@@ -166,7 +166,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Valor desconhecido '%s' para '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/ru.po
 +++ b/po/ru.po
 @@ -64,12 +64,12 @@
@@ -256,6 +382,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Передано %s байт (файлов: %d) за %s\n"
  
  #: src/wput.c:238
+@@ -165,7 +165,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Неизвестное значение '%s' для '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/sv.po
 +++ b/po/sv.po
 @@ -61,12 +61,12 @@
@@ -273,6 +408,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr ""
  
  #: src/wput.c:238
+@@ -159,7 +159,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Okänt värde \"%s\" för \"%s\"\n"
+ 
+ #: src/wput.c:696
 --- a/po/tr.po
 +++ b/po/tr.po
 @@ -66,12 +66,12 @@
@@ -290,6 +434,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Transfer edildi %s byte %d dosyalarda %s 'de\n"
  
  #: src/wput.c:238
+@@ -167,7 +167,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Bilinmeyen '%s' değeri '%s' için\n"
+ 
+ #: src/wput.c:696
 --- a/po/uk.po
 +++ b/po/uk.po
 @@ -68,12 +68,12 @@
@@ -307,6 +460,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "Передано %s байт в %d файлах на швидкості %s\n"
  
  #: src/wput.c:238
+@@ -168,7 +168,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d: Невідоме значення '%s' для '%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/wput.pot
 +++ b/po/wput.pot
 @@ -60,12 +60,12 @@
@@ -324,6 +486,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr ""
  
  #: src/wput.c:238
+@@ -158,7 +158,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr ""
+ 
+ #: src/wput.c:696
 --- a/po/zh_CN.po
 +++ b/po/zh_CN.po
 @@ -63,12 +63,12 @@
@@ -341,6 +512,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr "已传输 %s 字节、%d 文件在%s\n"
  
  #: src/wput.c:238
+@@ -163,7 +163,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr "%s#%d：未知值'%s'对于'%s'\n"
+ 
+ #: src/wput.c:696
 --- a/po/zh_HK.po
 +++ b/po/zh_HK.po
 @@ -61,12 +61,12 @@
@@ -358,6 +538,15 @@ Author: Stephen Kitt <skitt@debian.org>
  msgstr ""
  
  #: src/wput.c:238
+@@ -159,7 +159,7 @@
+ 
+ #: src/wput.c:581
+ #, c-format
+-msgid "%s#%d: Unknow value '%s' for '%s'\n"
++msgid "%s#%d: Unknown value '%s' for '%s'\n"
+ msgstr ""
+ 
+ #: src/wput.c:696
 --- a/src/wput.c
 +++ b/src/wput.c
 @@ -224,8 +224,8 @@
@@ -371,3 +560,23 @@ Author: Stephen Kitt <skitt@debian.org>
  				legible(opt.transfered_bytes),
  				opt.transfered,
  				calculate_transfer_rate(
+@@ -578,7 +578,7 @@
+ 
+     itmp = set_option(com, val);
+     if(itmp == -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
+-    if(itmp == -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
++    if(itmp == -2) printout(vLESS, _("%s#%d: Unknown value '%s' for '%s'\n"), file, ln, val, com);
+     free(line);
+     ln++;
+   }
+--- a/src/ftplib.c
++++ b/src/ftplib.c
+@@ -993,7 +993,7 @@
+ 	
+ 	printout(vMORE, "==> PORT ... ");
+ 	if(!(self->ps->type == PROXY_SOCKS && self->ps->bind)) {
+-		printout(vDEBUG, "determing local ip_addr\n");
++		printout(vDEBUG, "determining local ip_addr\n");
+ 		res = get_local_ip(self->sock->fd, (char *) &sip);
+ 		/* TODO NRV is this so serious that it allows us to cancel the whole process? */
+ 		if(res == ERR_FAILED) Abort(_("Cannot determine local IP address"));
