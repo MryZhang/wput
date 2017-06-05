@@ -3,6 +3,7 @@ Maintainer: Stephen Kitt <skitt@debian.org>
 Section: web
 Priority: optional
 Build-Depends: debhelper (>= 9),
+               libgcrypt20-dev,
                libgnutls-openssl-dev,
                autotools-dev
 Standards-Version: 3.9.8

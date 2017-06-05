@@ -1,3 +1,9 @@
+wput (0.6.2+git20130413-5) unstable; urgency=medium
+
+  * Actually build with TLS support (LP: #1678463).
+
+ -- Stephen Kitt <skitt@debian.org>  Mon, 05 Jun 2017 16:39:05 +0200
+
 wput (0.6.2+git20130413-4) unstable; urgency=medium
 
   * Switch to https: VCS URIs (see #810378).
