@@ -1,3 +1,16 @@
+Wed Jun  7 16:25:17 BRT 2017 Marcos Diez
+  * applied all the patches Debian and Ubuntu have been applying:
+		- spelling-fixes.patch
+		- 11-src--ftp-ls.c-compiling-fixes.patch
+		- 13-configure.in--gcrypt-link.patch
+		- 30-man-doc--wput.1-hyphens.patch
+		- 31-wput.1--option-order.patch
+		- 40-src--Makefile.in.patch
+		- handle-ascii-conversions.patch
+		- use-ldflags.patch
+		- buffer-overruns.patch
+	* fixed configure.in so that LibTLS is properly detected on Ubuntu
+
 Fri Jan 15 12:37:45 CET 2010 Hagen Fritsch
 	* applying a patch by mfmain fixing connection errors because
 	  of uninitialised errno (#2931215)
@@ -235,7 +248,7 @@ Sun Nov 3 08:35:29 CET 2004
 	* members of current-connection are initialised in do_connect.
 	  those who have to be free()d are disallocated in do_quit.
 	* added a clear_path function that removes ./ and dir/.. from paths so
-	  that get_relative_dir, which has been change to work with directories 
+	  that get_relative_dir, which has been change to work with directories
 	  that do not start and end with a slash, will work better
 
 Sun Oct 24 10:48:14 CEST 2004
@@ -293,7 +306,7 @@ connections without trouble
 .minor bugfix for passwords with @
 .adopted a patch from Mitry Matyushkov fixing some troubles for
  multiline-responses
-.minor bugfix in recursive directory search (segfault for ftp://host) 
+.minor bugfix in recursive directory search (segfault for ftp://host)
 04/17/06 wput-0.4b
 .minor bugfix for commandline-parameters (--dont-continue, --proxy*, -u)
 04/26/04 wput-0.4a
@@ -387,7 +400,7 @@ connections without trouble
  if connection by PASV fails).
 .Added support for gettimeofday() for a better speed-guess.
 .Hundreds of litte bug-fixes.
-03/19/03 
+03/19/03
 .Added simple URL-parsing, removed option-based URLs
 .Added wget-like status information
 .Added support of resuming
