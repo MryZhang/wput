@@ -5669,7 +5669,8 @@ if ${ac_cv_gnutls_libs+:} false; then :
   $as_echo_n "(cached) " >&6
 else
 
-			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgnutls-openssl"
+			LIBS_save="$LIBS"
+			LIBS="$LIBS $with_gnutls_libs -lgnutls -lgnutls-openssl"
 			cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
@@ -5695,6 +5696,7 @@ else
 fi
 rm -f core conftest.err conftest.$ac_objext \
     conftest$ac_exeext conftest.$ac_ext
+			LIBS="$LIBS_save"
 			LDFLAGS="$LDFLAGS_save"
 
 fi

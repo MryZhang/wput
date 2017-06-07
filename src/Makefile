@@ -5,8 +5,8 @@ prefix=/usr/local
 bindir=${exec_prefix}/bin
 localedir=$(prefix)/share/locale
 CC=gcc
-CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\"
-LIBS=  
+CFLAGS=  -Wall  -g -DLOCALEDIR=\"$(localedir)\" -INONE/include $(CFLAGS_EXTRA)
+LIBS=   -lgnutls-openssl
 EXE=../wput
 GETOPT=
 MEMDBG=
@@ -23,7 +23,7 @@ ftplib.o: socketlib.h ftplib.h
 ftp-ls.o: ftp.h wget.h url.h
 
 wput:   $(OBJ)
-	$(CC) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(LDFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 clean:
 	rm -f *.o *~ *.bak ../wput ../wdel getopt/*.o
 win-clean: clean
