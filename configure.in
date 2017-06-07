@@ -12,7 +12,7 @@ AC_ARG_ENABLE(memdbg,
  [  --enable-memdbg  enables memory debugging support [default=no]])
 if test "$enable_memdbg" = "yes"; then
  CFLAGS="$CFLAGS -DMEMDBG"
- MEMDBG="memdbg.o" 
+ MEMDBG="memdbg.o"
  echo "------------------------"
  echo "Memory debugging enabled. Do not forget to 'make clean',"
  echo "before you recompile Wput."
@@ -129,8 +129,10 @@ if test "x$with_ssl" != "xno"; then
 
 		AC_CACHE_CHECK([for GNUTLS libraries], ac_cv_gnutls_libs,
 		[
-			LDFLAGS="$LDFLAGS $with_gnutls_libs -lgnutls -lgnutls-openssl"
+			LIBS_save="$LIBS"
+			LIBS="$LIBS $with_gnutls_libs -lgnutls -lgnutls-openssl"
 			AC_TRY_LINK_FUNC(gnutls_init, gnutls_libs="yes", gnutls_libs="no")
+			LIBS="$LIBS_save"
 			LDFLAGS="$LDFLAGS_save"
 		])
 
