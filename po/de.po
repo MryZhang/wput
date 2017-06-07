@@ -68,12 +68,12 @@ msgstr "FERTIG --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "Es wurden %s Bytes in %d Datei bei durchschnittlich %s übertragen.\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "Es wurden %s Bytes in %d Dateien bei durchschnittlich %s übertragen.\n"
 
 #: src/wput.c:238
@@ -171,7 +171,7 @@ msgstr "%s#%d: Option »%s« wurde nicht erkannt.\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr "%s#%d: Unbekannter Wert »%s« für »%s«.\n"
 
 #: src/wput.c:696

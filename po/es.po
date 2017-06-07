@@ -67,12 +67,12 @@ msgstr "FINALIZADO --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "%s bytes transferidos en archivo %d a %s\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "%s bytes transferidos en %d archivos a %s\n"
 
 #: src/wput.c:238
@@ -169,7 +169,7 @@ msgstr "%s#%d: Opción '%s' no es reconocida\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr "%s#%d: Valor desconocido '%s' de '%s'\n"
 
 #: src/wput.c:696

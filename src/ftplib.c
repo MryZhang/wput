@@ -993,7 +993,7 @@ int ftp_do_port(ftp_con * self){
 	
 	printout(vMORE, "==> PORT ... ");
 	if(!(self->ps->type == PROXY_SOCKS && self->ps->bind)) {
-		printout(vDEBUG, "determing local ip_addr\n");
+		printout(vDEBUG, "determining local ip_addr\n");
 		res = get_local_ip(self->sock->fd, (char *) &sip);
 		/* TODO NRV is this so serious that it allows us to cancel the whole process? */
 		if(res == ERR_FAILED) Abort(_("Cannot determine local IP address"));

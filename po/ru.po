@@ -64,12 +64,12 @@ msgstr "ГОТОВО --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "Передано %s байт (файлов: %d) за %s\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "Передано %s байт (файлов: %d) за %s\n"
 
 #: src/wput.c:238
@@ -165,7 +165,7 @@ msgstr "%s#%d: Опция '%s' неизвестна\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr "%s#%d: Неизвестное значение '%s' для '%s'\n"
 
 #: src/wput.c:696

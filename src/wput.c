@@ -224,8 +224,8 @@ int main(int argc, char *argv[]){
 	if(opt.transfered > 0) {
 		if(!opt.wdel) {
 			printout(vNORMAL, opt.transfered == 1 ?
-			_("Transfered %s bytes in %d file at %s\n") : 
-			_("Transfered %s bytes in %d files at %s\n"), 
+			_("Transferred %s bytes in %d file at %s\n") : 
+			_("Transferred %s bytes in %d files at %s\n"), 
 				legible(opt.transfered_bytes),
 				opt.transfered,
 				calculate_transfer_rate(
@@ -578,7 +578,7 @@ void readwputrc(char * f) {
 
     itmp = set_option(com, val);
     if(itmp == -1) printout(vLESS, _("%s#%d: Option '%s' not recognized\n"), file, ln, com);
-    if(itmp == -2) printout(vLESS, _("%s#%d: Unknow value '%s' for '%s'\n"), file, ln, val, com);
+    if(itmp == -2) printout(vLESS, _("%s#%d: Unknown value '%s' for '%s'\n"), file, ln, val, com);
     free(line);
     ln++;
   }

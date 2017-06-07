@@ -5,7 +5,7 @@ prefix=@prefix@
 bindir=@bindir@
 localedir=$(prefix)/share/locale
 CC=@CC@
-CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" @GNUTLS_CFLAGS@
+CFLAGS= @CFLAGS@ -DLOCALEDIR=\"$(localedir)\" @GNUTLS_CFLAGS@ $(CFLAGS_EXTRA)
 LIBS=@LIBINTL@ @LIBS@ @GNUTLS_LIBS@
 EXE=../wput
 GETOPT=@GETOPT@
@@ -23,7 +23,7 @@ ftplib.o: socketlib.h ftplib.h
 ftp-ls.o: ftp.h wget.h url.h
 
 wput:   $(OBJ)
-	$(CC) -o $(EXE) $(OBJ) $(LIBS)
+	$(CC) $(LDFLAGS) -o $(EXE) $(OBJ) $(LIBS)
 clean:
 	rm -f *.o *~ *.bak ../wput ../wdel getopt/*.o
 win-clean: clean

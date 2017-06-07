@@ -66,12 +66,12 @@ msgstr "Hotovo --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "Přeneseno %s bytů ze souboru %d ze %s\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "Přeneseno %s bytů ze souborů %d ze %s\n"
 
 #: src/wput.c:238
@@ -164,7 +164,7 @@ msgstr "%s#%d: Neznámý přepínač '%s'\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr ""
 
 #: src/wput.c:696

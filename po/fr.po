@@ -66,12 +66,12 @@ msgstr "FINI --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "%s octets transférés dans %d fichier à %s\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "%s octets transférés dans %d fichiers à %s\n"
 
 #: src/wput.c:238
@@ -167,7 +167,7 @@ msgstr "%s#%d: L'option '%s' n'est pas reconnue\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr "%s#%d: Valeur '%s'  inconnue pour '%s'\n"
 
 #: src/wput.c:696

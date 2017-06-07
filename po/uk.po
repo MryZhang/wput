@@ -68,12 +68,12 @@ msgstr "ЗАВЕРШЕНО --%s--\n"
 
 #: src/wput.c:227
 #, c-format
-msgid "Transfered %s bytes in %d file at %s\n"
+msgid "Transferred %s bytes in %d file at %s\n"
 msgstr "Передано %s байт в %d файлі на швидкості %s\n"
 
 #: src/wput.c:228
 #, c-format
-msgid "Transfered %s bytes in %d files at %s\n"
+msgid "Transferred %s bytes in %d files at %s\n"
 msgstr "Передано %s байт в %d файлах на швидкості %s\n"
 
 #: src/wput.c:238
@@ -168,7 +168,7 @@ msgstr "%s#%d: Опція '%s' невідома\n"
 
 #: src/wput.c:581
 #, c-format
-msgid "%s#%d: Unknow value '%s' for '%s'\n"
+msgid "%s#%d: Unknown value '%s' for '%s'\n"
 msgstr "%s#%d: Невідоме значення '%s' для '%s'\n"
 
 #: src/wput.c:696

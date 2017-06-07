@@ -17,11 +17,11 @@ win-clean:
 
 install: all
 	cd po && $(MAKE) $(MAKEDEFS) $@
-	mkdir -p $(destdir)$(bindir) 
-	mkdir -p $(destdir)$(mandir) 
+	install -m0755 -d $(destdir)$(bindir)
+	install -m0755 -d $(destdir)$(mandir)
 	install -m0755 wput $(destdir)$(bindir)
 	install -m0644 doc/wput.1.gz $(destdir)$(mandir)
-	ln -fs $(destdir)$(bindir)/wput $(destdir)$(bindir)/wdel
+	cd $(destdir)$(bindir) && ln -s wput wdel
 	install -m0644 doc/wdel.1.gz $(destdir)$(mandir)
 	@echo "----------------"
 	@echo "Wput and Wdel installed. See 'wput/wdel -h' or 'man wput/wdel' for"
@@ -36,4 +36,4 @@ uninstall:
 	rm -f $(destdir)$(bindir)/wdel
 	rm -f $(destdir)$(mandir)/wput.1.gz
 	rm -f $(destdir)$(mandir)/wdel.1.gz
-	
+

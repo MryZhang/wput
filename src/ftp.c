@@ -372,10 +372,12 @@ int do_send(_fsession * fsession){
 			 * TODO NRV is enough, but maybe someone has time to play around... */
 			/* simply replace all \n by \r\n unless there is already an \n */
 			while( d < databuf + readbytes){
-				while ((p < convertbuf + DBUFSIZE) && (d < databuf + readbytes)){
-					if (*d == '\n' && *(d-1) != '\r'){
+				while ((p < convertbuf + sizeof(convertbuf)) && (d < databuf + readbytes)){
+					if (*d == '\n' && d != databuf && *(d-1) != '\r'){
 						*p++ = '\r';
 						crcount++;
+						if (p == convertbuf + sizeof(convertbuf))
+							break;
 					}
 					*p++ = *d++;
 				}
