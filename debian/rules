@@ -8,5 +8,9 @@ override_dh_auto_clean:
 	dh_auto_clean
 	rm -f config.status
 
+build:
+	autoconf
+	dh $@ --with autotools-dev
+
 %:
 	dh $@ --with autotools-dev
