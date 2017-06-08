@@ -7,3 +7,4 @@ spelling-fixes.patch
 handle-ascii-conversions.patch
 use-ldflags.patch
 buffer-overruns.patch
+libtls-detection.patch
